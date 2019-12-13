@@ -1,0 +1,6 @@
+* DONE create page for each post
+  CLOSED: [2019-12-11 Wed 20:31]
+* TODO create category listing based on directories
+  1. Loop over all blog post paths
+  2. Grab each directory from each path excluding the '/paths' prefix
+  3. Create a dropdown for each directory and a link for each file
