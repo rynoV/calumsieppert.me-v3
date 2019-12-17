@@ -1,5 +1,5 @@
 import React from 'react'
-import { useStaticQuery, graphql } from 'gatsby'
+import { Link, useStaticQuery, graphql } from 'gatsby'
 import path from 'path'
 
 import { postsPathPrefix } from '../utils/globals'
@@ -33,7 +33,11 @@ function Directory({ name, children }) {
 }
 
 function File({ title, slug }) {
-  return <p>{title}</p>
+  return (
+    <div>
+      <Link to={slug}>{title}</Link>
+    </div>
+  )
 }
 
 function getBlogListingJSX(blogStructure) {
