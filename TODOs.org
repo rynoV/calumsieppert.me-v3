@@ -1,10 +1,12 @@
-* DONE create page for each post
-  CLOSED: [2019-12-11 Wed 20:31]
-* TODO create category listing based on directories
+* Create category listing based on directories
 ** TODO do the html and styling
-* TODO create landing page
-* TODO fonts
-* DONE stop loading emotion unneccarily through gatsby-theme-tailwind
-  CLOSED: [2019-12-16 Mon 19:52]
-* DONE setup purgecss
+* Create landing page
+* Setup
+** DONE create page for each post
+***  CLOSED: [2019-12-11 Wed 20:31]
+** DONE fonts
+***  CLOSED: [2019-12-17 Tue 15:18]
+** DONE stop loading emotion unneccarily through gatsby-theme-tailwind
+***  CLOSED: [2019-12-16 Mon 19:52]
+** DONE setup purgecss
   CLOSED: [2019-12-16 Mon 19:52]
