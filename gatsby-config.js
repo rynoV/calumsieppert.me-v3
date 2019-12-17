@@ -1,3 +1,4 @@
+const path = require('path')
 module.exports = {
   siteMetadata: {
     title: `calumsieppert.me`,
@@ -28,12 +29,24 @@ module.exports = {
       },
     },
     `gatsby-plugin-offline`,
+    `gatsby-transformer-orga`,
     {
-      resolve: `gatsby-theme-tailwindcss`,
+      resolve: `gatsby-plugin-postcss`,
       options: {
-        postCssPlugins: [require(`autoprefixer`)],
+        postCssPlugins: [
+          require('tailwindcss')(path.resolve('./tailwind.config.js')),
+        ],
       },
     },
-    `gatsby-transformer-orga`,
+    {
+      resolve: `gatsby-plugin-purgecss`,
+      options: {
+        printRejected: false,
+        develop: false,
+        tailwind: true,
+      },
+    },
+      },
+    },
   ],
 }
