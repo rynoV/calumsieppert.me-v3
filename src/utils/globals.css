@@ -5,6 +5,14 @@ html {
     @apply font-sans
 }
 
+a {
+    @apply text-blue-600 underline;
+}
+
+a:visited {
+    @apply text-purple-600 underline;
+}
+
 @tailwind  components;
 /* purgecss end ignore */
 

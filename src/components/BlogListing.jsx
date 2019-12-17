@@ -25,16 +25,16 @@ export function BlogListing() {
 
 function Directory({ name, children }) {
   return (
-    <div>
-      <h1>{name}</h1>
+    <details className='pl-6 my-6 border-l capitalize' key={name}>
+      <summary className='font-sans text-xl'>{name}</summary>
       {children}
-    </div>
+    </details>
   )
 }
 
 function File({ title, slug }) {
   return (
-    <div>
+    <div className='ml-6 my-2' key={slug}>
       <Link to={slug}>{title}</Link>
     </div>
   )

@@ -8,7 +8,6 @@ export default function IndexPage() {
   return (
     <Layout>
       <SEO title='Home' />
-      <h1>Home</h1>
       <BlogListing />
     </Layout>
   )
