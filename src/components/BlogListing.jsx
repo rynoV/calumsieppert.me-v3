@@ -61,7 +61,7 @@ function getBlogListingJSX(blogStructure) {
           })
         })
       : []
-  return files.concat(dirs)
+  return dirs.concat(files)
 }
 
 /**
