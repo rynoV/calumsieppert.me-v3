@@ -1,6 +1,10 @@
 * DONE create page for each post
   CLOSED: [2019-12-11 Wed 20:31]
 * TODO create category listing based on directories
-  1. Loop over all blog post paths
-  2. Grab each directory from each path excluding the '/paths' prefix
-  3. Create a dropdown for each directory and a link for each file
+** TODO do the html and styling
+* TODO create landing page
+* TODO fonts
+* DONE stop loading emotion unneccarily through gatsby-theme-tailwind
+  CLOSED: [2019-12-16 Mon 19:52]
+* DONE setup purgecss
+  CLOSED: [2019-12-16 Mon 19:52]
