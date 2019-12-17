@@ -1,6 +1,9 @@
 /* purgecss start ignore */
 @tailwind  base;
 
+html {
+    @apply font-sans
+}
 
 @tailwind  components;
 /* purgecss end ignore */

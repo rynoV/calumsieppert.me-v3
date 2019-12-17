@@ -1,4 +1,7 @@
 const path = require('path')
+const config = require('./my-config')
+// const isProd = process.env.NODE_ENV === 'production'
+
 module.exports = {
   siteMetadata: {
     title: `calumsieppert.me`,
@@ -46,6 +49,11 @@ module.exports = {
         tailwind: true,
       },
     },
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [...config.fonts],
+        display: 'swap',
       },
     },
   ],
