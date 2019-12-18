@@ -1,5 +1,5 @@
 /* purgecss start ignore */
-@tailwind  base;
+@tailwind base;
 
 html {
     @apply font-sans
@@ -10,10 +10,10 @@ a {
 }
 
 a:visited {
-    @apply text-purple-600 underline;
+    @apply text-purple-600;
 }
 
-@tailwind  components;
+@tailwind components;
 /* purgecss end ignore */
 
 @tailwind utilities;

@@ -1,7 +1,18 @@
-* Create category listing based on directories
-** TODO do the html and styling
-* Create landing page
-* Setup
+* Category listing
+** DONE do the html and styling
+   CLOSED: [2019-12-17 Tue 20:14]
+** DONE Make into a page
+   CLOSED: [2019-12-17 Tue 20:14]
+
+
+* Landing page
+** TODO Links to social
+** DONE simple text
+   CLOSED: [2019-12-17 Tue 20:14]
+** TODO maybe a graphic
+
+
+* General
 ** DONE create page for each post
 ***  CLOSED: [2019-12-11 Wed 20:31]
 ** DONE fonts
@@ -10,3 +21,11 @@
 ***  CLOSED: [2019-12-16 Mon 19:52]
 ** DONE setup purgecss
   CLOSED: [2019-12-16 Mon 19:52]
+** DONE Create a layout
+   CLOSED: [2019-12-17 Tue 20:14]
+
+** TODO Dark mode
+
+* Posts
+** TODO Add dates
+** TODO Add syntax highlighting

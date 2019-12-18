@@ -1,14 +1,16 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 
-export default function Blog({ data }) {
+import { Layout } from '../components/Layout'
+
+export default function Blog({ data, location }) {
   const { orgContent } = data
   const { id, html, metadata } = orgContent
   return (
-    <>
-      <h1 className='uppercase'>{metadata.title}</h1>
+    <Layout title={metadata.title} currentPath={location.pathname}>
+      <header className='uppercase'>{metadata.title}</header>
       <div key={id} dangerouslySetInnerHTML={{ __html: html }}></div>
-    </>
+    </Layout>
   )
 }
 

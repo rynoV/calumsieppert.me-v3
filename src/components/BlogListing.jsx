@@ -26,7 +26,7 @@ export function BlogListing() {
 function Directory({ name, children }) {
   return (
     <details className='pl-6 my-6 border-l capitalize' key={name}>
-      <summary className='font-sans text-xl'>{name}</summary>
+      <summary className='text-xl'>{name}</summary>
       {children}
     </details>
   )
