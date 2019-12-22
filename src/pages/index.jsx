@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Layout } from '../components/Layout'
+import { CabinScene } from '../components/CabinScene'
 
 export default function IndexPage({ location }) {
   return (
