@@ -2,16 +2,18 @@
 @tailwind base;
 
 html {
-    @apply font-sans
+    @apply font-sans text-primary bg-primary;
 }
 
 a {
-    @apply text-blue-600 underline;
+    @apply text-gray-100 underline;
 }
 
 a:visited {
-    @apply text-purple-600;
+    @apply text-gray-200;
 }
+
+@import 'code.css'
 
 @tailwind components;
 /* purgecss end ignore */

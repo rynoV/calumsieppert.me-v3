@@ -47,6 +47,29 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
       name: `slug`,
       value: `/${postsPathPrefix}${slug}`,
     })
+
+    const { date, authorName, authorLink, title } = node.metadata
+    createNodeField({
+      node,
+      name: `date`,
+      value: date ? date : new Date().toDateString(),
+    })
+    createNodeField({
+      node,
+      name: `title`,
+      value:
+        title.toLowerCase() !== 'untitled'
+          ? title
+          : node.metadata.export_file_name,
+    })
+    createNodeField({
+      node,
+      name: `author`,
+      value: {
+        name: authorName ? authorName : 'Calum Sieppert',
+        link: authorLink ? authorLink : 'https://calumsieppert.me',
+      },
+    })
   }
 }
 

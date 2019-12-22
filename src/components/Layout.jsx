@@ -8,7 +8,7 @@ export function Layout({ children, title, currentPath }) {
   return (
     <div className='relative max-w-3xl m-auto'>
       <SEO title={title} />
-      <nav className='flex justify-end mb-4 bg-white opacity-75 sticky top-0'>
+      <nav className='flex justify-end mb-4 opacity-75 sticky top-0'>
         <NavLink currentPath={currentPath} to='/'>
           Home
         </NavLink>
@@ -16,7 +16,7 @@ export function Layout({ children, title, currentPath }) {
           Posts
         </NavLink>
       </nav>
-      <main className='px-4'>{children}</main>
+      <main className='px-4 min-h-full'>{children}</main>
     </div>
   )
 }
@@ -25,7 +25,7 @@ function NavLink({ to, children, currentPath }) {
   return (
     <Link
       to={to}
-      className={`px-6 py-4 no-underline text-gray-600 border-gray-400 focus:bg-gray-200 hover:bg-gray-200 ${
+      className={`px-6 py-4 no-underline text-gray-300 border-gray-400 focus:bg-gray-200 hover:bg-gray-200 ${
         currentPath === to ? 'border-b-2' : ''
       }`}
     >
