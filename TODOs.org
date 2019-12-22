@@ -3,15 +3,21 @@
    CLOSED: [2019-12-17 Tue 20:14]
 ** DONE Make into a page
    CLOSED: [2019-12-17 Tue 20:14]
-
-
+** TODO Fuzzy search
+** TODO Create a listing page for each category
+** TODO Add links to each listing page on the category lists above each post
 * Landing page
 ** TODO Links to social
 ** DONE simple text
    CLOSED: [2019-12-17 Tue 20:14]
-** TODO maybe a graphic
-
-
+** TODO cabin scene
+*** TODO snowflakes
+**** TODO create snowflakes of varying size
+**** TODO larger ones should move slightly faster
+**** TODO should fill the screen
+**** TODO divide the vw by the max snowflake size and create that many snowflakes
+**** TODO use css to animate the snowflake falling from just above the top of the screen to just below and put the animation in a loop
+*** TODO
 * General
 ** DONE create page for each post
 ***  CLOSED: [2019-12-11 Wed 20:31]
@@ -23,9 +29,9 @@
   CLOSED: [2019-12-16 Mon 19:52]
 ** DONE Create a layout
    CLOSED: [2019-12-17 Tue 20:14]
-
 ** TODO Dark mode
-
 * Posts
-** TODO Add dates
+** TODO Add dates and authors
 ** TODO Add syntax highlighting
+*** TODO Modify theme colors in tailwind config
+*** TODO Add css to color code blocks

@@ -1,0 +1,28 @@
+.cabin {
+    --cabin-width: 75%;
+    --smoke-width: calc(var(--cabin-width) / 4);
+    width: var(--cabin-width);
+    @apply absolute bottom-0 right-0
+}
+
+.cabin::before {
+    z-index: -30;
+    content: url('../../images/smoke.svg');
+    position: absolute;
+    top: calc(var(--smoke-width) / 4);
+    left: calc(var(--smoke-width) - calc(var(--smoke-width) / 4));
+    width: var(--smoke-width);
+    height: auto;
+    animation: 15s smoke infinite linear;
+}
+
+@keyframes smoke {
+    from {
+        opacity: 0.5;
+        transform: scale(0.1) translateY(calc(var(--smoke-width) * 4));
+    }
+    to {
+        opacity: 0;
+        transform: scale(1) translateY(calc(-20 * var(--smoke-width)));
+    }
+}

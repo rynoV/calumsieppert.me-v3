@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.009 17.801">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #e8ebef;
+        stroke-linecap: round;
+        stroke-width: 0.5px;
+      }
+    </style>
+  </defs>
+  <g id="smoke" transform="translate(0.415 0.438)">
+    <path id="Path_168" data-name="Path 168" class="cls-1" d="M837.445,607.288c-2.2.6-7.667-2.345-2.233-6.737" transform="translate(-832.111 -592.882)"/>
+    <path id="Path_169" data-name="Path 169" class="cls-1" d="M837.445,607.288c-2.2.6-7.667-2.345-2.233-6.737" transform="translate(198.469 -1007.081) rotate(65)"/>
+    <path id="Path_170" data-name="Path 170" class="cls-1" d="M837.445,607.288c-2.2.6-7.667-2.345-2.233-6.737" transform="translate(1038.041 -70.097) rotate(140)"/>
+    <path id="Path_171" data-name="Path 171" class="cls-1" d="M837,607.562c-2.2.6-6.773-1.472-1.339-5.863" transform="translate(138.924 1032.775) rotate(-133)"/>
+    <path id="Path_172" data-name="Path 172" class="cls-1" d="M833.471,606.731c-3.733-.773-2.908-7.772,2.174-5.082" transform="translate(134.924 1034.775) rotate(-133)"/>
+  </g>
+</svg>

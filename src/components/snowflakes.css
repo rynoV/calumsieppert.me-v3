@@ -1,0 +1,20 @@
+.snowflake {
+    position: absolute;
+}
+
+.falling {
+    animation-name: fall;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+}
+
+@keyframes fall {
+    from {
+        transform: translateY(-10vh);
+    }
+
+    to {
+        transform: translateY(110vh);
+    }
+}

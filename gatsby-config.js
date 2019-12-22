@@ -17,6 +17,21 @@ module.exports = {
         path: `${__dirname}/posts`,
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/images`,
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-react-svg',
+      options: {
+        rule: {
+          include: /\.inline\.svg$/,
+        },
+      },
+    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
@@ -38,6 +53,7 @@ module.exports = {
       options: {
         postCssPlugins: [
           require('tailwindcss')(path.resolve('./tailwind.config.js')),
+          require('autoprefixer'),
         ],
       },
     },

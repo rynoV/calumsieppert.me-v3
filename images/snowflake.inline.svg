@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="53.138" height="49.924" viewBox="0 0 53.138 49.924">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+        stroke: #e8ebef;
+      }
+
+      .cls-1 {
+        stroke-linecap: round;
+      }
+    </style>
+  </defs>
+  <g id="snowflake" transform="translate(0 0.5)">
+    <g id="Component_5_4" data-name="Component 5 – 4" transform="translate(16.426)">
+      <path id="Path_51" data-name="Path 51" class="cls-1" d="M0,0V48.924" transform="translate(10.239)"/>
+      <path id="Path_52" data-name="Path 52" class="cls-2" d="M857.261,364.277l10.239,7.6,10.672-7.6" transform="translate(-857.261 -361.5)"/>
+      <path id="Path_53" data-name="Path 53" class="cls-2" d="M857.275,369.43l10.225-7.371,10.489,7.371" transform="translate(-857.261 -323.5)"/>
+    </g>
+    <g id="Component_5_2" data-name="Component 5 – 2" transform="translate(0.313 22.015) rotate(-60)">
+      <path id="Path_51-2" data-name="Path 51" class="cls-1" d="M0,0V48.924" transform="translate(10.239)"/>
+      <path id="Path_52-2" data-name="Path 52" class="cls-2" d="M857.261,364.277l10.239,7.6,10.672-7.6" transform="translate(-857.261 -361.5)"/>
+      <path id="Path_53-2" data-name="Path 53" class="cls-2" d="M857.275,369.43l10.225-7.371,10.489,7.371" transform="translate(-857.261 -323.5)"/>
+    </g>
+    <g id="Component_5_3" data-name="Component 5 – 3" transform="translate(10.456 46.477) rotate(-120)">
+      <path id="Path_51-3" data-name="Path 51" class="cls-1" d="M0,0V48.924" transform="translate(10.239)"/>
+      <path id="Path_52-3" data-name="Path 52" class="cls-2" d="M857.261,364.277l10.239,7.6,10.672-7.6" transform="translate(-857.261 -361.5)"/>
+      <path id="Path_53-3" data-name="Path 53" class="cls-2" d="M857.275,369.43l10.225-7.371,10.489,7.371" transform="translate(-857.261 -323.5)"/>
+    </g>
+  </g>
+</svg>
