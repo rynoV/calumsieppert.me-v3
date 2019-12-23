@@ -2,6 +2,7 @@ import React from 'react'
 import { createPortal } from 'react-dom'
 
 import { Snowflakes } from './Snowflakes'
+import { documentGlobal } from '../utils/globals'
 
 import CabinSVG from '../../images/cabin.inline.svg'
 
@@ -15,7 +16,7 @@ export function CabinScene() {
           <CabinSVG />
         </div>
       </div>
-      {document.body && createPortal(<Snowflakes />, document.body)}
+      {documentGlobal && createPortal(<Snowflakes />, documentGlobal.body)}
     </>
   )
 }
