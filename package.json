@@ -6,7 +6,8 @@
   "author": "Calum Sieppert",
   "scripts": {
     "build": "yarn clean && gatsby build",
-    "develop": "gatsby develop",
+    "develop": "yarn clean && gatsby develop",
+    "develop-mobile": "yarn clean && gatsby develop -H 0.0.0.0 -p 8000",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "yarn develop",
     "serve": "yarn build && gatsby serve",
