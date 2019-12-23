@@ -15,19 +15,19 @@ export default function Blog({ data, location }) {
   return (
     <Layout title={fields.title} currentPath={location.pathname}>
       <header className='mb-6'>
-        <span className='text-xs text-gray-600'>{categoryPath}</span>
+        <span className='text-xs text-gray-400'>{categoryPath}</span>
         <h1 className='capitalize text-3xl'>{fields.title}</h1>
-        <address className='text-gray-700 not-italic'>
+        <address className='text-gray-300 not-italic'>
           By{' '}
           <a
-            className='capitalize no-underline hover:underline focus:underline'
+            className='capitalize hover:underline focus:underline'
             rel='author'
             href={fields.author.link}
           >
             {fields.author.name}
           </a>
         </address>
-        <time className='text-gray-600 text-xs' dateTime={fields.date}>
+        <time className='text-gray-400 text-xs' dateTime={fields.date}>
           {fields.date}
         </time>
       </header>

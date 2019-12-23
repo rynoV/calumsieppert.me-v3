@@ -2,9 +2,11 @@
 #+DATE: Actual Date
 this is a test2
 #+begin_src java
+  // test
   class main {
-      public static void main(String[] args) {
-         System.out.println("text");
+      public static void Main(String[] args) {
+          final int test = "text"
+          System.out.println(test, args);
       }
   }
 #+end_src

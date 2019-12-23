@@ -6,7 +6,7 @@ import { BlogListing } from '../components/BlogListing'
 export default function IndexPage({ location }) {
   return (
     <Layout title='Posts' currentPath={location.pathname}>
-      <header className='uppercase text-gray-600'>All posts:</header>
+      <header className='uppercase text-gray-400'>All posts:</header>
       <BlogListing />
     </Layout>
   )

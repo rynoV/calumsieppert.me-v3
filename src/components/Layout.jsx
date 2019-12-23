@@ -25,7 +25,7 @@ function NavLink({ to, children, currentPath }) {
   return (
     <Link
       to={to}
-      className={`px-6 py-4 no-underline text-gray-300 border-gray-400 focus:bg-gray-200 hover:bg-gray-200 ${
+      className={`px-6 py-4 no-underline text-gray-300 visited:text-gray-300  border-primary focus:bg-gray-800 hover:bg-gray-800 ${
         currentPath === to ? 'border-b-2' : ''
       }`}
     >

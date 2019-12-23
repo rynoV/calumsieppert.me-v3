@@ -6,11 +6,11 @@ html {
 }
 
 a {
-    @apply text-gray-100 underline;
+    @apply text-primary underline;
 }
 
 a:visited {
-    @apply text-gray-200;
+    @apply text-magenta;
 }
 
 @import 'code.css'

@@ -6,18 +6,25 @@
 ** TODO Fuzzy search
 ** TODO Create a listing page for each category
 ** TODO Add links to each listing page on the category lists above each post
+** TODO Option to sort by recent
+** TODO Show most recent post at top
+** TODO Show dates in each post link
 * Landing page
 ** TODO Links to social
 ** DONE simple text
    CLOSED: [2019-12-17 Tue 20:14]
 ** TODO cabin scene
 *** TODO snowflakes
-**** TODO create snowflakes of varying size
-**** TODO larger ones should move slightly faster
-**** TODO should fill the screen
-**** TODO divide the vw by the max snowflake size and create that many snowflakes
-**** TODO use css to animate the snowflake falling from just above the top of the screen to just below and put the animation in a loop
-*** TODO
+**** DONE create snowflakes of varying size
+     CLOSED: [2019-12-22 Sun 13:41]
+**** DONE larger ones should move slightly faster
+     CLOSED: [2019-12-22 Sun 13:41]
+**** DONE should fill the screen
+     CLOSED: [2019-12-22 Sun 13:41]
+**** DONE divide the vw by the max snowflake size and create that many snowflakes
+     CLOSED: [2019-12-22 Sun 13:41]
+**** DONE use css to animate the snowflake falling from just above the top of the screen to just below and put the animation in a loop
+     CLOSED: [2019-12-22 Sun 13:41]
 * General
 ** DONE create page for each post
 ***  CLOSED: [2019-12-11 Wed 20:31]

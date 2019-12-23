@@ -11,9 +11,8 @@ export function BlogListing() {
         nodes {
           fields {
             slug
-          }
-          metadata {
             title
+            date
           }
         }
       }
@@ -32,10 +31,13 @@ function Directory({ name, children }) {
   )
 }
 
-function File({ title, slug }) {
+function File({ title, slug, date }) {
   return (
     <div className='ml-6 my-2' key={slug}>
-      <Link to={slug}>{title}</Link>
+      <Link to={slug} className='block capitalize text-xl' key={slug}>
+        {title}
+      </Link>
+      <span className='text-gray-400 text-sm'>{date}</span>
     </div>
   )
 }
@@ -82,7 +84,8 @@ function createBlogStructure(fileNodes) {
 
     const file = {
       slug: fileNode.fields.slug,
-      title: fileNode.metadata.title,
+      title: fileNode.fields.title,
+      date: fileNode.fields.date,
     }
 
     return {
