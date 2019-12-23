@@ -37,6 +37,12 @@ module.exports = {
       backgroundColor: {
         primary: '#434C5E',
       },
+      maxWidth: {
+        screen: '100vw',
+      },
+      maxHeight: {
+        screen: '100vh',
+      },
     },
   },
   variants: {
