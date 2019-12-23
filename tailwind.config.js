@@ -40,6 +40,7 @@ module.exports = {
     },
   },
   variants: {
-    textColor: ['visited, hover'],
+    textColor: ['visited', 'hover'],
+    margin: ['responsive', 'first'],
   },
 }

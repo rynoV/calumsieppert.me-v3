@@ -2,15 +2,21 @@
     --cabin-width: 75%;
     --smoke-width: calc(var(--cabin-width) / 4);
     width: var(--cabin-width);
-    @apply absolute bottom-0 right-0
+    @apply absolute bottom-0 right-0;
+}
+
+@screen sm {
+    .cabin {
+        --cabin-width: 60%;
+    }
 }
 
 .cabin::before {
     z-index: -30;
     content: url('../../images/smoke.svg');
     position: absolute;
-    top: calc(var(--smoke-width) / 4);
-    left: calc(var(--smoke-width) - calc(var(--smoke-width) / 4));
+    top: calc(var(--smoke-width) / 5);
+    left: calc(17%);
     width: var(--smoke-width);
     height: auto;
     animation: 15s smoke infinite linear;
