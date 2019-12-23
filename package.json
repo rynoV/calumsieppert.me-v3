@@ -5,11 +5,12 @@
   "version": "0.1.0",
   "author": "Calum Sieppert",
   "scripts": {
-    "build": "gatsby build",
+    "build": "yarn clean && gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
+    "start": "yarn develop",
+    "serve": "yarn build && gatsby serve",
+    "qserve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
