@@ -1,6 +1,6 @@
 /* purgecss start ignore */
 @import 'code.css';
-@import 'tailwindcss/base';
+@tailwind base;
 
 html {
     @apply font-sans text-primary bg-primary;
@@ -14,9 +14,7 @@ a:visited {
     @apply text-magenta;
 }
 
-@import 'tailwindcss/components';
+@tailwind components;
 /* purgecss end ignore */
 
 @tailwind utilities;
-
-@import 'tailwindcss/utilities';
