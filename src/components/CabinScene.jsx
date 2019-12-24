@@ -11,7 +11,7 @@ import './cabinscene.css'
 export function CabinScene() {
   return (
     <>
-      <div className='absolute w-full h-screen inset-0 -z-10'>
+      <div className='absolute w-full h-full inset-0 -z-10'>
         <div className='cabin'>
           <CabinSVG />
         </div>
