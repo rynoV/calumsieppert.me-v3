@@ -31,7 +31,7 @@ export function Snowflakes() {
   )
 
   return (
-    <div className='w-screen h-screen inset-0 absolute -z-20 overflow-hidden'>
+    <div className='w-screen h-content inset-0 absolute -z-20 overflow-hidden'>
       {x_vals.map((x, i) => {
         const width = getRandom(widths)
         return (
