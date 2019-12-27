@@ -1,5 +1,6 @@
 /* purgecss start ignore */
 @import 'code.css';
+@import 'post.css';
 @tailwind base;
 
 html {
