@@ -3,6 +3,10 @@ const config = require('./my-config')
 
 const primary = '#A2BF8A'
 
+const navHeight = '60px'
+const contentHeight = 'calc(var(--vh, 1vh) * 100)'
+const bodyHeight = `calc(${contentHeight} - ${navHeight})`
+
 module.exports = {
   theme: {
     zIndex: {
@@ -37,11 +41,19 @@ module.exports = {
       backgroundColor: {
         primary: '#434C5E',
       },
+      height: {
+        nav: navHeight,
+        body: bodyHeight,
+        content: contentHeight,
+      },
       maxWidth: {
         screen: '100vw',
       },
       maxHeight: {
         screen: '100vh',
+      },
+      minHeight: {
+        body: bodyHeight,
       },
     },
   },
