@@ -8,7 +8,7 @@ export function Layout({ children, title, currentPath }) {
   return (
     <div className='relative max-w-3xl m-auto'>
       <SEO title={title} />
-      <nav className='flex items-center h-nav justify-end opacity-75 sticky top-0'>
+      <nav className='bg-primary flex items-center h-nav justify-end opacity-75 sticky top-0'>
         <NavLink currentPath={currentPath} to='/'>
           Home
         </NavLink>
