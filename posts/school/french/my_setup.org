@@ -1,0 +1,137 @@
+#+title: My Setup
+#+date: 2019:12:26
+
+* French 209
+
+Throughout French 209 I used OneNote (from the Microsoft Store) for study notes.
+I would create a page for each class and for each new vocabulary item I would
+write the English version then the French version indented beneath. This way I
+could use OneNote's folding feature while I studied as a kind of flashcard
+system.
+
+** Positives
+
+This system worked quite well. It's main advantages were:
+- Easy organization and searching of notes with OneNote's sections and pages and
+  configurable search.
+- Quick and accessible translation with OneNote's built-in translator.
+- Built-in spell-checking of multiple languages.
+- Folding of indented regions providing flashcard-like studying.
+- The ability to hand-write
+
+** Negatives
+
+The lack of any built-in Vim emulation in OneNote is a big negative for me. I
+have become accustomed to the navigation, editing, and tools provided by Vim,
+and moving from coding in Vim to writing anything longer than a few sentences is
+always painful. I tried to use external Vim emulation through an Auto Hot Key
+script, but I think that was probably doomed from the start as it created many
+conflicting keys, lacked many features, and was buggy in the features it did
+have.
+
+* French 213
+
+** Emacs with Spacemacs and Org-Mode
+
+*** Setting up
+
+I am starting French 213 in the winter term and I aim to improve on my setup by
+using Emacs instead of OneNote. Near the end of last term I switched over to
+Emacs (and more specifically Spacemacs) from Vim. Spacemacs provides
+excellent Vim emulation in Emacs (primarily through evil-mode), so that solves
+the main negative I had with OneNote. The difficult part would be keeping the
+positives.
+
+Right off the bat a few of the positives are provided for me:
+- Organization would be provided by the file system as I'm creating files
+  directly.
+- There are more options for searching in Emacs than I could ever need
+  so that won't be an issue.
+- Text folding in Org-Mode is built-in and excellent.
+
+So my main concerns will be translation and spell-checking of multiple
+languages.
+
+**** Translation
+
+OneNote's built-in translation was extremely useful as I could select some text,
+translate it, then insert the translated text directly into my notes from one
+application. OneNote's options for automation and keyboard shortcuts are lacking
+though so I did have to use the mouse quite a bit in this process.
+
+Thankfully, Spacemacs (at least on the develop branch) has Google translation
+built-in, so I should be able to do what I did in OneNote and automate any
+repetitive translation tasks I might have through Elisp and macros.
+
+**** Spell-checking
+
+In OneNote I could use multiple languages in the same document fairly
+effortlessly. In order to this, however, I would have to ensure that I had the
+correct language set on my computer (thankfully Windows provides the ~ALT-SHIFT~
+keyboard shortcut for this), and if I forgot to do this I would have to go
+through the slow process of selecting the text I just typed then selecting the
+menu item to change the language of that text.
+
+This wasn't awful, but Spacemacs' Spell-Checking layer seemed like it would be
+an improvement. However, it would prove the most difficult to set up: I started
+by adding ~spell-checking~ to ~dotspacemacs-configuration-layers~ in
+~~/.spacemacs~. This provided English spell-checking (thank you Spacemacs). Next
+I needed to set up spell-checking for multiple languages. The [[https://develop.spacemacs.org/layers/+checkers/spell-checking/README.html][spell-check layer documentation]]
+recommends using Hunspell by adding this snippet to ~user-config~:
+#+begin_src emacs-lisp
+(with-eval-after-load "ispell"
+    (setq ispell-program-name "hunspell")
+    ;; ispell-set-spellchecker-params has to be called
+    ;; before ispell-hunspell-add-multi-dic will work
+    (ispell-set-spellchecker-params)
+    (ispell-hunspell-add-multi-dic "pl_PL,en_GB")
+    (setq ispell-dictionary "pl_PL,en_GB"))
+#+end_src
+So I added the snippet and installed Hunspell with
+#+BEGIN_SRC shell
+sudo apt-get install hunspell
+#+END_SRC
+I then started receiving the error: "~Symbol’s function definition is void:
+ispell-hunspell-add-multi-dic~". So I googled it and learned that older versions
+of Emacs' ~ispell.el~ did not support the functionality I was trying to use with
+this function. However, I didn't think this could be the problem because I was
+using a very recent version of Emacs (26.3), and I had the function definition
+in my local ~/usr/share/emacs/26.3/lisp/textmodes/ispell.el~.
+
+After a while of being confused, I did what I should have done in the first
+place and I went to the ~ispell~ file that Emacs was actually using by calling
+~spacemacs/jump-to-definition~ while my cursor was on ~ispell-program-name~.
+This revealed that Emacs was using a file in ~/usr/share/emacs/site-lisp/~
+instead of the file I expected, and this file was an old version.
+
+At this point I tried to delete this old file, hoping that Emacs would then use
+the right file, but this broke Emacs and it wouldn't run. So, because I had no
+idea what I broke or how to fix it, I uninstalled Emacs, deleted
+~/usr/share/emacs~, called ~sudo-apt-autoremove~, reinstalled Emacs, and all was
+well.
+
+Once that error was fixed I had to figure out how to install and use
+dictionaries, and after a while of googling and not finding what I was looking
+for, I ran
+#+BEGIN_SRC shell
+sudo apt search hunspell
+#+END_SRC
+and found that I could install the dictionaries I wanted with
+#+BEGIN_SRC shell
+sudo apt-get install hunspell-en-ca
+#+END_SRC
+#+BEGIN_SRC shell
+sudo apt-get install hunspell-fr
+#+END_SRC
+I then updated my dictionaries to ~en_CA,fr_FR~, restarted Emacs because it
+wasn't recognizing the newly installed dictionaries, and I had spell-checking in
+multiple languages.
+
+**** Hand-writing
+
+I used OneNote's drawing feature to practice physically writing out the French
+words, as this helps me remember them. However, I will have to give up the
+ability to hand-write in the same application as my notes if I am to switch to
+Emacs. I'm okay with this because I believe typing out the words will have the
+same effect as writing them, but if I notice a drop in my grades I can always
+use OneNote to write as I study.
