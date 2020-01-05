@@ -1,13 +1,14 @@
 import React from 'react'
-import { Link, useStaticQuery, graphql } from 'gatsby'
+import { useStaticQuery, graphql } from 'gatsby'
 import path from 'path'
 
 import { postsPathPrefix } from '../utils/globals'
+import { File } from './File'
 
-export function BlogListing() {
+export function CategoryListing() {
   const data = useStaticQuery(graphql`
     {
-      allOrgContent {
+      allOrgContent(sort: { fields: metadata___date, order: DESC }) {
         nodes {
           fields {
             slug
@@ -19,7 +20,19 @@ export function BlogListing() {
     }
   `)
 
-  return getBlogListingJSX(createBlogStructure(data.allOrgContent.nodes))
+  const mostRecent = data.allOrgContent.nodes[0]
+
+  return (
+    <>
+      {getCategoryListingJSX(createBlogStructure(data.allOrgContent.nodes))}
+      <span>Most recent post: </span>
+      <File
+        slug={mostRecent.fields.slug}
+        title={mostRecent.fields.title}
+        date={mostRecent.fields.date}
+      />
+    </>
+  )
 }
 
 function Directory({ name, children }) {
@@ -31,23 +44,12 @@ function Directory({ name, children }) {
   )
 }
 
-function File({ title, slug, date }) {
-  return (
-    <div className='ml-6 my-2' key={slug}>
-      <Link to={slug} className='block capitalize text-xl' key={slug}>
-        {title}
-      </Link>
-      <span className='text-gray-400 text-sm'>{date}</span>
-    </div>
-  )
-}
-
-function getBlogListingJSX(blogStructure) {
+function getCategoryListingJSX(blogStructure) {
   // Return an array of jsx elements For each file in the current directory
   // level append a file link For each directory in the current directory level
-  // append a directory element and pass it children by means of getBlogListingJSX with the new
+  // append a directory element and pass it children by means of getCategoryListingJSX with the new
   // directory as an argument
-  // getBlogListingJSX always needs to return either jsx or an array of jsx elements
+  // getCategoryListingJSX always needs to return either jsx or an array of jsx elements
   const files = blogStructure.files
     ? blogStructure.files.map(file => {
         return File({ key: file.title, ...file })
@@ -59,7 +61,7 @@ function getBlogListingJSX(blogStructure) {
           return Directory({
             key: name,
             name,
-            children: getBlogListingJSX(dir),
+            children: getCategoryListingJSX(dir),
           })
         })
       : []
