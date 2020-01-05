@@ -26,6 +26,14 @@
     text-indent: 2rem;
 }
 
+.section ul, .section ol {
+    @apply my-2 pl-4;
+}
+
 .section ul {
-    @apply list-disc my-2 pl-4;
+    @apply list-disc;
+}
+
+.section ol {
+    @apply list-decimal;
 }
