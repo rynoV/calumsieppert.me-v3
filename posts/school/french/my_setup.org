@@ -1,5 +1,5 @@
 #+title: My Setup
-#+date: 2019:12:26
+#+date: <2019-12-26 Thu>
 
 * French 209
 
@@ -30,9 +30,7 @@ conflicting keys, lacked many features, and was buggy in the features it did
 have.
 
 * French 213
-
 ** Emacs with Spacemacs and Org-Mode
-
 *** Setting up
 
 I am starting French 213 in the winter term and I aim to improve on my setup by
@@ -59,9 +57,75 @@ translate it, then insert the translated text directly into my notes from one
 application. OneNote's options for automation and keyboard shortcuts are lacking
 though so I did have to use the mouse quite a bit in this process.
 
+_Update <2020-01-04 Sat>_
+
 Thankfully, Spacemacs (at least on the develop branch) has Google translation
-built-in, so I should be able to do what I did in OneNote and automate any
+built-in, so I am able to do what I did in OneNote as well as automate any
 repetitive translation tasks I might have through Elisp and macros.
+
+Spacemacs uses the [[https://github.com/atykhonov/google-translate/][google-translate]] plugin to do translation. In order to get
+that work, I had to change the ~google-translate-json-suggestion~ function to
+#+begin_src emacs-lisp
+(defun google-translate-json-suggestion (json)
+  "Retrieve from JSON (which returns by the
+`google-translate-request' function) suggestion. This function
+does matter when translating misspelled word. So instead of
+translation it is possible to get suggestion."
+  (let ((info (aref json 7)))
+    (if (and info (> (length info) 0))
+        (aref info 1)
+      nil)))
+#+end_src
+so that I could avoid an ~args out of range~ error.
+
+A frequent task I perform for French is to create flashcards based on slides
+used during lectures. Using google translate I created these functions:
+#+begin_src emacs-lisp
+  (defun my-insert-flashcards (subheading-p source-lang target-lang)
+    "Insert flashcard structure of text in kill-ring."
+    (interactive)
+    (let* ((source-text (current-kill 0))
+            (translated-text (google-translate-translate source-lang target-lang source-text "return"))
+            (source-lines (split-string source-text "\n"))
+            (translated-lines (split-string translated-text "\n")))
+      (if (= subheading-p 4)
+          (org-insert-heading 1)
+        (org-insert-subheading 1))
+      (insert (nth 0 translated-lines))
+      (evil-org-open-below 1)
+      (insert (nth 0 source-lines))
+      ;; Iterate through the indices of the lines
+      (loop for i from 1
+            while (< i (length source-lines))
+            do
+            ;; Insert translated text followed by original
+            (org-insert-heading 1)
+            (insert (nth i translated-lines))
+            (evil-org-open-below 1)
+            (insert (nth i source-lines)))))
+
+  (defun my-insert-english-flashcards (arg)
+    "Insert flashcard structure of text in the kill-ring.
+  One prefix arg inserts as same level headings, none inserts as subheadings."
+    (interactive "p")
+    (my-insert-flashcards arg "fr" "en"))
+#+end_src
+These allow me to copy some French text (right in Emacs using Spacemacs' PDF
+layer) then automatically create flashcards in my notes files by translating
+each line of the copied text into English, creating an Org header with the
+English text, then placing the corresponding French text beneath it.
+Additionally, prefix arguments are used to easily create headings or
+subheadings.
+
+I had to add the following code snippet to make the ~google-translate-translate~
+function return the translated string:
+#+begin_src emacs-lisp
+  ((equal output-destination "return")
+   (gtos-translation gtos))
+#+end_src
+I added this to the ~cond~ list in ~google-translate-translate~.
+
+_End update_
 
 **** Spell-checking
 
