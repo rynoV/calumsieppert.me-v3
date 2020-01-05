@@ -52,7 +52,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     createNodeField({
       node,
       name: `date`,
-      value: date ? date : new Date().toDateString(),
+      value: date ? new Date(date).toDateString() : new Date().toDateString(),
     })
     createNodeField({
       node,
