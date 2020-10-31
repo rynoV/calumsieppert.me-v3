@@ -1,3 +1,3 @@
 module.exports = {
-  fonts: ['Montserrat'],
+    fonts: ['Montserrat'],
 }
