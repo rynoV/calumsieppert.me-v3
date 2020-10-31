@@ -8,4 +8,4 @@ My personal website
 -   [ ] Move to TypeScript
 -   [ ] Tailwind Prose for blog posts
 -   [ ] Table of contents for blog posts
--   [ ] Switch to use Tailwind's built-in purgecss
+-   [ ] Start animation sooner on home page

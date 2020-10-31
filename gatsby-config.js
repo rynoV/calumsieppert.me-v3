@@ -61,14 +61,6 @@ module.exports = {
             },
         },
         {
-            resolve: `gatsby-plugin-purgecss`,
-            options: {
-                printRejected: false,
-                develop: false,
-                tailwind: true,
-            },
-        },
-        {
             resolve: `gatsby-plugin-google-fonts`,
             options: {
                 fonts: [...config.fonts],
