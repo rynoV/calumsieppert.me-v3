@@ -1,7 +1,7 @@
 import path from 'path'
 import { postsPathPrefix } from './src/utils/globals'
 import { createFilePath } from 'gatsby-source-filesystem'
-import convertMDLatex from './convertMDLatex'
+import convertOrgMD from './convertOrgMD'
 
 const MDFILE_TYPE = 'MDFile'
 
@@ -55,7 +55,7 @@ exports.onCreateNode = ({ node, getNode, actions, createNodeId }) => {
                 type: MDFILE_TYPE,
                 mediaType: node.internal.mediaType,
                 description: node.internal.description,
-                content: convertMDLatex(node.internal.content),
+                content: convertOrgMD(node.internal.content),
             },
         })
     }

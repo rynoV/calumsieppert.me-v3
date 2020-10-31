@@ -16,28 +16,46 @@ export default function Blog({ data, location }) {
         .join(' / ')
     return (
         <Layout title={frontmatter.title} currentPath={location.pathname}>
-            <header className='mb-6'>
-                <span className='text-xs text-gray-400'>{categoryPath}</span>
-                <h1 className='capitalize text-3xl'>{frontmatter.title}</h1>
-                <address className='text-gray-300 not-italic'>
-                    By{' '}
-                    <Link
-                        className='capitalize hover:underline focus:underline'
-                        rel='author'
-                        to='/'
-                    >
-                        Calum Sieppert
-                    </Link>
-                </address>
-                <time
-                    className='text-gray-400 text-xs'
-                    dateTime={frontmatter.date}
-                >
-                    {frontmatter.date}
-                </time>
-            </header>
-            <div dangerouslySetInnerHTML={{ __html: html }}></div>
+            <article className='prose'>
+                <header className=''>
+                    <span className=''>{categoryPath}</span>
+                    <h1 className=''>{frontmatter.title}</h1>
+                    <address className=''>
+                        By{' '}
+                        <Link className='' rel='author' to='/'>
+                            Calum Sieppert
+                        </Link>
+                    </address>
+                    <time className='' dateTime={frontmatter.date}>
+                        {frontmatter.date}
+                    </time>
+                </header>
+                <div dangerouslySetInnerHTML={{ __html: html }}></div>
+            </article>
         </Layout>
+        // <Layout title={frontmatter.title} currentPath={location.pathname}>
+        //     <header className='mb-6'>
+        //         <span className='text-xs text-gray-400'>{categoryPath}</span>
+        //         <h1 className='capitalize text-3xl'>{frontmatter.title}</h1>
+        //         <address className='text-gray-300 not-italic'>
+        //             By{' '}
+        //             <Link
+        //                 className='capitalize hover:underline focus:underline'
+        //                 rel='author'
+        //                 to='/'
+        //             >
+        //                 Calum Sieppert
+        //             </Link>
+        //         </address>
+        //         <time
+        //             className='text-gray-400 text-xs'
+        //             dateTime={frontmatter.date}
+        //         >
+        //             {frontmatter.date}
+        //         </time>
+        //     </header>
+        //     <div dangerouslySetInnerHTML={{ __html: html }}></div>
+        // </Layout>
     )
 }
 

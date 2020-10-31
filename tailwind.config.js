@@ -18,14 +18,14 @@ module.exports = {
         ],
     },
     theme: {
-        zIndex: {
-            '-10': '-10',
-            '-20': '-20',
-        },
         fontFamily: {
             sans: [...config.fonts, ...defaultTheme.fontFamily.sans],
         },
         extend: {
+            zIndex: {
+                '-10': '-10',
+                '-20': '-20',
+            },
             borderColor: {
                 primary,
             },
@@ -65,9 +65,29 @@ module.exports = {
                 body: bodyHeight,
             },
         },
+        typography: theme => {
+            const color = theme('colors.gray.100')
+            return {
+                default: {
+                    css: {
+                        color,
+                        'h1,h2,h3,h4,h5,h6': {
+                            color,
+                        },
+                        'ol > li::before': {
+                            color,
+                        },
+                        a: {
+                            color,
+                        },
+                    },
+                },
+            }
+        },
     },
     variants: {
         textColor: ['visited', 'hover'],
         margin: ['responsive', 'first'],
     },
+    plugins: [require('@tailwindcss/typography')],
 }
