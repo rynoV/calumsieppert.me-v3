@@ -1,9 +1,11 @@
-#+options: title:t toc:nil author:t date:t
-#+title: Diving Into Org Mode
-#+date: <2019-12-31 Tue>
-#+author: Calum Sieppert
-#+HUGO_BASE_DIR: ./
-#+HUGO_DRAFT: nil
+#+OPTIONS: toc:nil
+#+begin_src yaml :exports results :results value html
+---
+title: "Diving Into Org Mode"
+date: "<2019-12-31 Tue>"
+---
+#+end_src
+
 
 * Preface
   My goal is to gain an understanding of the fundamentals of Org-mode, then

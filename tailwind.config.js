@@ -8,6 +8,12 @@ const contentHeight = 'calc(var(--vh, 1vh) * 100)'
 const bodyHeight = `calc(${contentHeight} - ${navHeight})`
 
 module.exports = {
+    purge: [
+        './src/**/*.js',
+        './src/**/*.jsx',
+        './src/**/*.ts',
+        './src/**/*.tsx',
+    ],
     theme: {
         zIndex: {
             '-10': '-10',

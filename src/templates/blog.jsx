@@ -1,34 +1,39 @@
 import React from 'react'
-import { graphql } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 
 import { Layout } from '../components/Layout'
 import { postsPathPrefix } from '../utils/globals.js'
 
+import 'katex/dist/katex.min.css'
+
 export default function Blog({ data, location }) {
-    const { orgContent } = data
-    const { html, fields } = orgContent
+    const { markdownRemark } = data
+    const { html, frontmatter } = markdownRemark
     const categoryPath = location.pathname
         .split('/')
         .filter(dirName => dirName !== postsPathPrefix && dirName !== '')
         .slice(0, -1)
         .join(' / ')
     return (
-        <Layout title={fields.title} currentPath={location.pathname}>
+        <Layout title={frontmatter.title} currentPath={location.pathname}>
             <header className='mb-6'>
                 <span className='text-xs text-gray-400'>{categoryPath}</span>
-                <h1 className='capitalize text-3xl'>{fields.title}</h1>
+                <h1 className='capitalize text-3xl'>{frontmatter.title}</h1>
                 <address className='text-gray-300 not-italic'>
                     By{' '}
-                    <a
+                    <Link
                         className='capitalize hover:underline focus:underline'
                         rel='author'
-                        href={fields.author.link}
+                        to='/'
                     >
-                        {fields.author.name}
-                    </a>
+                        Calum Sieppert
+                    </Link>
                 </address>
-                <time className='text-gray-400 text-xs' dateTime={fields.date}>
-                    {fields.date}
+                <time
+                    className='text-gray-400 text-xs'
+                    dateTime={frontmatter.date}
+                >
+                    {frontmatter.date}
                 </time>
             </header>
             <div dangerouslySetInnerHTML={{ __html: html }}></div>
@@ -37,17 +42,12 @@ export default function Blog({ data, location }) {
 }
 
 export const query = graphql`
-    query blogPost($id: String!) {
-        orgContent(id: { eq: $id }) {
-            id
+    query mdblogPost($id: String!) {
+        markdownRemark(id: { eq: $id }) {
             html
-            fields {
+            frontmatter {
                 title
                 date
-                author {
-                    name
-                    link
-                }
             }
         }
     }

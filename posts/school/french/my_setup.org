@@ -1,5 +1,10 @@
-#+title: My Setup
-#+date: <2019-12-26 Thu>
+#+OPTIONS: toc:nil
+#+begin_src yaml :exports results :results value html
+---
+title: "My Setup"
+date: "<2019-12-26 Thu>"
+---
+#+end_src
 
 * French 209
 

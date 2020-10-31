@@ -8,30 +8,37 @@ import { File } from './File'
 export function CategoryListing() {
     const data = useStaticQuery(graphql`
         {
-            allOrgContent(sort: { fields: metadata___date, order: DESC }) {
-                nodes {
-                    fields {
-                        slug
-                        title
-                        date
+            allMarkdownRemark(
+                filter: { fields: { isBlogPost: { eq: true } } }
+                sort: { fields: frontmatter___date, order: DESC }
+            ) {
+                edges {
+                    node {
+                        fields {
+                            slug
+                        }
+                        frontmatter {
+                            title
+                            date
+                        }
                     }
                 }
             }
         }
     `)
 
-    const mostRecent = data.allOrgContent.nodes[0]
+    const mostRecent = data.allMarkdownRemark.edges[0].node
 
     return (
         <>
             {getCategoryListingJSX(
-                createBlogStructure(data.allOrgContent.nodes)
+                createBlogStructure(data.allMarkdownRemark.edges)
             )}
             <span>Most recent post: </span>
             <File
                 slug={mostRecent.fields.slug}
-                title={mostRecent.fields.title}
-                date={mostRecent.fields.date}
+                title={mostRecent.frontmatter.title}
+                date={mostRecent.frontmatter.date}
             />
         </>
     )
@@ -77,7 +84,7 @@ function getCategoryListingJSX(blogStructure) {
  */
 function createBlogStructure(fileNodes) {
     // Grab the files and their containing directories
-    const files = fileNodes.map(fileNode => {
+    const files = fileNodes.map(({ node: fileNode }) => {
         // Break up the slug at the path seperator and remove empty strings and the
         // posts slug prefix
         const dirs = fileNode.fields.slug
@@ -88,8 +95,8 @@ function createBlogStructure(fileNodes) {
 
         const file = {
             slug: fileNode.fields.slug,
-            title: fileNode.fields.title,
-            date: fileNode.fields.date,
+            title: fileNode.frontmatter.title,
+            date: fileNode.frontmatter.date,
         }
 
         return {

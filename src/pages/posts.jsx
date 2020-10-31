@@ -19,7 +19,8 @@ export default function IndexPage({ location }) {
             <header className='flex justify-between'>
                 <span className='uppercase text-gray-400'>All posts:</span>
                 <select
-                    value={displayType}
+                    defaultValue={displayType}
+                    onBlur={handleDisplayTypeChange}
                     onChange={handleDisplayTypeChange}
                     className='bg-primary border-b'
                 >

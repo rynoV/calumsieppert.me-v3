@@ -1,31 +1,33 @@
 import path from 'path'
 import { postsPathPrefix } from './src/utils/globals'
 import { createFilePath } from 'gatsby-source-filesystem'
+import convertMDLatex from './convertMDLatex'
 
-exports.createPages = async ({ actions, graphql, reporter }) => {
+const MDFILE_TYPE = 'MDFile'
+
+exports.createPages = async ({ actions, graphql }) => {
     const { createPage } = actions
 
     const blogPostTemplate = path.resolve(`src/templates/blog.jsx`)
 
     const result = await graphql(`
         {
-            allOrgContent {
-                nodes {
-                    id
-                    fields {
-                        slug
+            allMarkdownRemark(
+                filter: { fields: { isBlogPost: { eq: true } } }
+            ) {
+                edges {
+                    node {
+                        fields {
+                            slug
+                        }
+                        id
                     }
                 }
             }
         }
     `)
 
-    if (result.errors) {
-        reporter.panicOnBuild(`Error while running GraphQL query.`)
-        return
-    }
-
-    result.data.allOrgContent.nodes.forEach(node => {
+    result.data.allMarkdownRemark.edges.forEach(({ node }) => {
         createPage({
             path: node.fields.slug,
             component: blogPostTemplate,
@@ -36,41 +38,47 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     })
 }
 
-exports.onCreateNode = ({ node, getNode, actions }) => {
-    const { createNodeField } = actions
-    if (node.internal.type === 'OrgContent') {
-        // Generate a slug for each org file and make it accessible in Gatsby's
+exports.onCreateNode = ({ node, getNode, actions, createNodeId }) => {
+    const { createNode, createNodeField } = actions
+    // Create a new node for each markdown file with the latex blocks converted
+    // so remark processes them
+    if (
+        node.internal.type === 'File' &&
+        (node.internal.mediaType === 'text/markdown' ||
+            node.internal.mediaType === 'text/x-markdown')
+    ) {
+        createNode({
+            ...node,
+            id: createNodeId(node.id),
+            internal: {
+                contentDigest: node.internal.contentDigest,
+                type: MDFILE_TYPE,
+                mediaType: node.internal.mediaType,
+                description: node.internal.description,
+                content: convertMDLatex(node.internal.content),
+            },
+        })
+    }
+    if (
+        node.internal.type === 'MarkdownRemark' &&
+        getNode(node.parent).internal.type === MDFILE_TYPE
+    ) {
+        // Generate a slug for each mdfile file and make it accessible in Gatsby's
         // graphql api
-        const slug = createFilePath({ node, getNode, basePath: `posts` })
+        const slug = createFilePath({
+            node,
+            getNode,
+            basePath: postsPathPrefix,
+        })
         createNodeField({
             node,
             name: `slug`,
             value: `/${postsPathPrefix}${slug}`,
         })
-
-        const { date, authorName, authorLink, title } = node.metadata
         createNodeField({
             node,
-            name: `date`,
-            value: date
-                ? new Date(date).toDateString()
-                : new Date().toDateString(),
-        })
-        createNodeField({
-            node,
-            name: `title`,
-            value:
-                title.toLowerCase() !== 'untitled'
-                    ? title
-                    : node.metadata.export_file_name,
-        })
-        createNodeField({
-            node,
-            name: `author`,
-            value: {
-                name: authorName ? authorName : 'Calum Sieppert',
-                link: authorLink ? authorLink : 'https://calumsieppert.me',
-            },
+            name: `isBlogPost`,
+            value: true,
         })
     }
 }

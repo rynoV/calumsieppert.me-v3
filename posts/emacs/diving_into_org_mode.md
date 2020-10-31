@@ -1,0 +1,474 @@
+---
+title: "Diving Into Org Mode"
+date: "<2019-12-31 Tue>"
+---
+
+
+# Preface
+
+My goal is to gain an understanding of the fundamentals of Org-mode, then
+branch off into things like brain and org for math and eventually integrate it
+into:
+
+-   My comp sci notes using org's source code blocks
+-   Possibly my math notes using org's Latex fragments
+-   My french notes making heavy use of folding to make flash cards
+-   This blog (although it already uses org)
+
+I most likely won't be exploring things like agenda very much because I prefer
+to have my calendar on my phone as well as my computer.
+
+
+# The Manual
+
+Starting out with the fundamentals, here are the parts of the manual (opened
+with `org-info`) that caught my attention:
+
+
+## Intro
+
+Main features listed are:
+
+-   To-do lists
+-   Project planning
+-   Effective plain-text markup
+-   Literate programming
+-   Reproducible research
+-   Structure for large files
+-   Visibility toggling
+-   Structure editing
+-   Tables and a built-in editor
+-   Plain-text links that can link to websites, files, and more
+-   Exports to HTML, Latex, Markdown and more
+-   Source code blocks which can be evaluated in place and their results
+    captured in the file
+-   Strictly plain text
+
+
+## Document Structure
+
+Org is an outliner and it allows documents to be organized in a
+hierarchical structure. Folding of sections is a key component and is
+provided through `org-cycle`.
+
+
+### Headings and Visibility
+
+-   Headings use stars on the left margin and can be named anything except the
+    value of `org-footnote-section`.
+-   In order to put empty lines in a collapsed view, at least two empty lines
+    need to be used at the end of a subtree.
+-   `org-cycle` when called in a heading rotates through showing the folded
+    state, the children, and the entire subtree
+-   `org-global-cycle` rotates through an overview, contents, and
+    all. Overview is just the top level headlines, contents shows all headlines
+    (unless a numeric prefix argument is given, in which case only headlines up
+    to that level are shown), and all shows everything.
+-   To get a contents view for just one subtree, use `outline-show-branches`,
+    and to show just the children use `outline-show-children`.
+-   `org-tree-to-indirect-buffer` is useful for focusing in on the subtree you
+    are working in. This just creates a buffer so you can just kill the buffer
+    to get back.
+
+
+### Movement
+
+-   `org-next/previous-visible-heading` allow for navigation between all
+    headings.
+-   `org-forward/backward-heading-same-level` allow for navigation between
+    headings at the same level.
+-   `outline-up-heading` allows for navigation upwards.
+
+
+### Structure editing
+
+Org provides a bunch of super useful commands for quickly editing the
+hierarchy of your document:
+
+-   `org-meta-return` makes heavy use of context to try to insert a new item,
+    whether that be a list item, a header, or a row.
+    -   Use this at the beginning of a plain list item or header to create a new
+        item of the same type above the current line.
+    -   Use at the beginning of a regular line of text to turn it into a
+        heading.
+    -   The default behaviour of this function is to split the line at the
+        cursor and create a new item if it is used in the middle of a line. I
+        dislike this behaviour and thankfully the variable
+        `org-M-RET-may-split-line` can be set to `nil` to disable it.
+-   `org-insert-heading-respect-content` inserts a new heading at the end of
+    the current subtree.
+-   `org-insert-todo-heading` inserts a TODO entry with the same level as the
+    current heading. A cool example of how Org uses context here is that when
+    you are in a regular list Org inserts a checkbox item "- [ ]" instead of a
+    TODO heading.
+-   `org-insert-todo-heading-respect-content` is the same as
+    `org-insert-todo-heading` except the TODO entry is inserted after the
+    current subtree.
+-   `org-cycle` when called in a new entry with no text cycles through
+    promoting and demoting the entry.
+-   `org-do-promote/demote-(subtree)` promotes or demotes the current
+    heading/subtree.
+-   `org-move-subtree-up/down` magically swaps subtrees around.
+-   `org-mark-subtree` selects the current subtree.
+-   `org-refile` allows you to easily move entries or regions around in your
+    document.
+-   `org-sort` sorts same-level entries. Supports many different sorting options.
+-   `org-toggle-heading` does what it sounds like and works in regions as well
+    as single lines.
+
+
+### Sparse Trees
+
+Sparse trees are basically the result of a special kind of search that is
+built in to Org-mode and allows you to narrow down the document in many
+ways.
+
+-   `org-sparse-tree` allows you to choose a method to create a sparse tree:
+    -   `org-occur` Creates a sparse tree based on a regular expression. When
+        used with a `C-u` prefix argument previous searches are kept. Matches
+        are highlighted and the highlight can be removed via `C-c C-c`. Matches
+        can be jumped through using `next/previous-error`.
+    -   Other commands listed by this command select based on TODO keywords,
+        tags, or properties.
+    -   Frequently used sparse trees can be given a shortcut using
+        `org-agenda-custom-commands`.
+
+
+### Plain Lists
+
+Org supports creation and editing of three kinds of lists:
+
+1.  **Unordered** lists use '-', '+', or '\*' as bullets.
+2.  **Ordered** lists start with a number (or a letter if
+    `org-list-allow-alphabetical` is enabled) followed by either a period or a
+    right parenthesis. You can change the numbering by putting a string like
+    '[@1]' (where 1 is the new number) at the start of the text of the item.
+3.  **Description** lists are like unordered but use the separator '::' to
+    distinguish the term from the description.
+
+Additionally:
+
+-   To make sure items belong to the same lists ensure that their indentation
+    on the first line is the same.
+-   Many of the actions that can be applied to headings can be applied to list
+    items.
+-   `org-shift-up/down` can be used to jump between list items.
+-   On the first item of a list, `org-shiftmetaright/left` will
+    increase/decrease the indentation of the whole list.
+-   If the current item is a checkbox, `org-ctrl-c-ctrl-c` will toggle the
+    state of the checkbox.
+-   When in a list, `org-ctrl-c-minus` will cycle the type of the list.
+    Otherwise it will convert the current line or region into a list.
+-   `org-shiftleft` will also cycle the type of the list.
+
+
+## Tables
+
+There is a lot of information in the manual on tables, but I haven't really
+used them that much in my usual note taking so I will probably just learn the
+basics here.
+
+-   Automatically realigns and expands horizontal rules each time `TAB`,
+    `RET`, or `C-c C-c` are pressed.
+-   `TAB` moves to the next field.
+-   `RET` moves to the next row and creates new table rows at the end of the
+    table.
+-   Automatically clears fields when typing immediately after moving into them.
+-   `org-table-create-or-convert-from-region` can be used to create tables
+    from text.
+-   `org-table-blank-field` clears the current field.
+-   `org-table-beginning/end-of-field` allows you to move to the beginning/end
+    of the current field.
+-   `org-shiftleft/right/up/down` moves cells around.
+-   `org-metaleft/right/up/down` moves rows/columns around.
+-   `org-shiftmetaleft/right/up/down` deletes/creates columns/rows
+-   `org-ctrl-c-minus` inserts a h-line below the current row.
+-   `org-ctrl-c-ret` inserts a h-line below and move into the row below. This
+    is a good way to begin a table after typing out your headers between '|'s.
+
+
+## Hyperlinks
+
+Links can be made to locations in a file, websites, other files, and more.
+
+-   `org-link-escape` can be used to ensure that Org recognizes your link.
+-   To edit the invisible URL part of a link you can use `org-insert-link` with
+    the cursor on the link.
+-   Any link that does not start with a known scheme (like 'http') or a file
+    name refers to the current document. The link
+
+        [[#my-custom-id][section]]
+
+    specifically targets the entry with the `CUSTOM_ID` property set to
+    `my-custom-id`, and the link
+
+        [[*Some section][section]]
+
+    points to the
+    headline with the name `Some section`.
+-   Link targets can be created like `<<target>>` and then linked to with
+
+        [[target][target]]
+-   If none of the above cases apply, Org searches for something with a
+    matching `NAME` property, then the closest matching headline.
+-   `org-open-at-point` opens links.
+-   `org-mark-ring-goto` can be used to jump back to where you were before
+    following a link.
+-   A radio target can be created like `<<<My Target>>>` and will tell Org to
+    automatically link all occurrences of `my target` to there. This could be
+    useful for definitions.
+-   External links start with a short identifying string followed by a colon.
+    -   File links can be created using
+
+            [[file:filename][file]]
+
+        syntax. The `file` prefix can be omitted if the file name is complete.
+    -   With the `elisp` prefix an Elisp command can be executed. Same goes for
+        the `shell` prefix.
+-   `org-store-link` stores a link to the current location, and
+    `org-insert-link` can then be used to access it and insert it. Use a triple
+    `C-u` prefix argument before `org-insert-link` to keep the link in the list
+    of stored links, or configure the `org-link-keep-stored-after-insertion`
+    option.
+-   Call `org-insert-link` with a `C-u` prefix argument to quickly insert a
+    link to a file.
+-   `org-next/previous-link` can be used to jump between links.
+-   Links can be made and followed in any Emacs buffer using
+    `org-insert-link-global` and `org-open-at-point-global`.
+-   The `org-link-abbrev-list` variable can be used to create link abbreviations.
+
+
+## To-do Items
+
+The Org philosophy for to-dos is that you should be able to create them in
+the same document as notes files because that's where they usually come up.
+To-dos can be heavily customized for complex workflows, but I don't really
+need that right now so I won't go into it.
+
+-   `org-todo` and `org-shiftleft/right` cycle the state of a to-do item.
+-   `org-show-todo-tree` shows the to-do items of the current buffer in a
+    sparse tree.
+-   `org-insert-todo-heading` does what it sounds like.
+-   `org-log-done` determines if to-do items are given a timestamp or a note
+    when they are completed.
+-   `org-priority` can be used to quickly add priority cookies to items, which
+    can then be used in the agenda view to sort.
+-   `org-shiftup/down` can be used to quickly increase/decrease priority.
+-   When using sub-tasks insert either `[/]` or `[%]` in the headline to keep
+    an overview of the fraction of sub-tasks completed.
+-   In plain lists, check-boxes can be used as lighter-weight to-do items.
+
+
+## Dates and Times
+
+Org-mode allows for the creation of timestamps to assist in project planning.
+
+-   `org-time-stamp` Creates or modifies a timestamp. Can be used twice in
+    succession to create a time range.
+-   `org-date-from-calender` Can be used to insert a timestamp for the current date.
+-   `org-shiftup/down/left/right` are useful for quickly modifying timestamps.
+-   The date/time prompt created by `org-time-stamp` is smart and accepts many
+    different formats, like:
+    -   'Fri' finds the nearest Friday
+    -   '14' finds the nearest 14th.
+    -   '12:45' sets the date to 12:45 today.
+    -   '.' sets to today.
+    -   '+4d' sets four days from today.
+    -   '+4w' sets four weeks from today.
+    -   '++5' sets 5 days from the date shown in the prompt.
+    -   '+2tue' sets the second Tuesday from now.
+    -   '11am-1:15pm' and '11am+2:15' both set the same time range.
+    -   In general it seems pretty intuitive and you could just enter whatever
+        you want and it'll probably work.
+-   A calendar is shown along with the date/time prompt and can be controlled
+    with:
+    -   `RET` to select the current calendar date.
+    -   `org-shift(meta)up/down/left/right` to move around.
+-   The current interpretation of your input in the date/time prompt is shown
+    in the minibuffer. This is useful to make sure what you're typing is doing
+    what you want, and for testing faster ways to enter dates.
+-   Deadlines in Org say when an item should be completed, and schedules say
+    when work should begin on an item.
+-   `org-deadline/schedule` sets a deadline/schedule for the current item.
+
+
+## Capture and Attachments
+
+-   Org provides a process called capture to quickly tie down any ideas you might
+    have while working. Use `org-capture` to begin the process of capturing an
+    idea, and when you are done use `org-capture-finalize` to save and return to
+    previous window configuration.
+-   Org also provides attachements: a way to quickly associate reference
+    material to entries. Use `org-attach` to begin attaching, whether
+    that be a file, buffer, or something else, then use `org-attach-open` to
+    open the attachment.
+
+
+## Agenda Views
+
+Org's agenda views are a way of gathering org file entries together into one
+place where they can be viewed and acted upon. Entries are gathered from all
+files listed in `org-agenda-files`. `org-agenda-file-to-front` and
+`org-remove-file` can be used to maintain this variable.
+
+Once you have a list of files to be used by the agenda, `org-agenda` starts
+the dispatcher which can create agenda views to display to-do items, a
+calendar view, headlines, or just items matching a search.
+
+Now that an agenda view has been created, the following commands can used on
+the items:
+
+-   `org-agenda-goto` goes to the original location of the item.
+-   `org-agenda-open-link` offers a selection of links in the item for you to
+    follow.
+-   `org-agenda-day/week/month/year-view` switches the time span shown.
+-   `org-agenda-later/earlier` go forward/backward in time.
+-   `org-agenda-goto-today/date` goes to today/a date.
+-   `org-agenda-redo` recreates the agenda.
+-   `org-agenda-undo` undoes a change.
+-   `org-agenda-todo` changes the to-do state of the item.
+-   `org-agenda-kill` deletes the item.
+-   `org-agenda-(show-)priority[-up/down]` deal with priority.
+-   `org-attach` allows attachments to be made.
+-   `org-agenda-schedule/deadline` adds schedules/deadlines.
+-   `org-agenda-date-prompt` to edit timestamps.
+-   To do bulk editing:
+    -   `org-agenda-bulk-toggle(-all)` toggles marks on entries for bulk editing,
+        and `org-agenda-bulk-action` prompts for an action to be performed on all
+        the previously marked entries.
+-   `org-agenda-quit` quits agenda and removes the buffer, and
+    `org-agenda-exit` does the same and it removes all buffers loaded by Emacs
+    for the creation of the agenda.
+
+
+## Markup
+
+
+### Math
+
+Org supports Latex-like syntax to insert symbols and Latex fragments for more
+complex math.
+
+-   `org-toggle-pretty-entities` toggles the display of symbols as UTF-8
+    characters. This means that something like
+
+        \alpha
+
+    will be displayed as the actual symbol &alpha;.
+-   When creating inline math environments
+
+        \(\)
+
+    is probably better than dollar signs because Org has various rules to avoid
+    conflict with currency specifications.
+-   `org-inside-LaTeX-fragment-p` is function that tests if the point is inside
+    a Latex fragment, can probably be used with YASnippet for context sensitive
+    snippets.
+-   `org-latex-preview` produces a preview image of Latex fragments and
+    overlays it over the source code.
+    -   To process all fragments in the current entry (between two headlines),
+        call when not in a fragment.
+    -   To clear all fragments in the current entry, call with a prefix argument.
+    -   To create/clear previews for all fragments in the buffer, call with
+        two/three prefix arguments.
+-   `org-cdlatex-mode` is a minor mode that provides many useful functions for
+    working with Latex in Org:
+    -   `org-cdlatex-environment-indent` inserts an environment template.
+    -   `cdlatex-tab` expands various templates if the point is inside a Latex
+        fragment (snippets).
+    -   Inside a Latex fragment `_` and `^` trigger smart snippets for
+        sub/superscript where brackets are removed after calling `cdlatex-tab`
+        and the text inside the brackets is only one character.
+    -   `cdlatex-math-symbol` helps with the insertion of symbols and provides a
+        useful help buffer if you wait after calling it.
+    -   `org-cdlatex-math-modify` is useful for modifying symbols after you have
+        typed them.
+
+
+### Code
+
+-   The `EXAMPLE` block is used for text that should not be subjected to markup.
+-   The `SRC` block is used for code
+    -   A major mode can be placed after the beginning of the block to use your
+        current syntax highlighting (in the editor and the HTML export) and
+        other features.
+    -   The '-n' switch can also be added to use line numbering, and the '+n'
+        switch continues the numbering from the previous code block.
+    -   Strings of the format '`(ref:name)`' are interpreted as labels and can
+        be targeted by hyperlinks like:
+
+            [[(name)]]
+
+        In the exported HTML, hovering the mouse over one of these links
+        highlights the corresponding code line.
+    -   The command `org-edit-special` allows you to edit source code in a
+        temporary dedicated buffer.
+        -   `org-store-link` inside of one of these buffers helps to create a link
+            to a line that can be inserted later with `org-insert-link`.
+
+
+### Other
+
+-   Images can be created like:
+
+        #+CAPTION: This is the caption for the next figure link (or table)
+        #+NAME: fig:SED-HR4049
+        [[./img/a.jpg]]
+
+    and `org-toggle-inline-images` tells Org to display the images in the editor.
+-   A footnote is started by a footnote marker like
+
+        [fn:1]
+
+    in column 0, and can be referenced using the same marker. Inline footnote
+    definition can be created using two colons.
+-   `org-footnote-action` jumps between definition and usage, creates, sorts,
+    renames, renumbers, or deletes footnotes. `org-ctrl-c-ctrl-c` can be used
+    to quickly jump between definition and usage.
+
+
+## Exporting
+
+Org files can be exported to many other formats right from Emacs.
+
+-   `org-export` starts the export dispatcher, and from here many different
+    options will be shown. Calling this with a prefix argument repeats the last
+    export.
+-   Each export option has many configuration options.
+
+
+## Working with Source Code
+
+-   Source code blocks take the structure:
+
+        #+NAME: <name>
+        #+BEGIN_SRC <language> <switches> <header arguments>
+        <body>
+        #+END_SRC
+
+    or:
+
+        src_<language>[<header arguments>]{<body>}
+
+    for inline.
+-   The `:var NAME=ASSIGN` header argument can be used to pass values into code
+    blocks.
+-   `org-babel-execute-src-block` can be used to execute the code in a block
+    and insert the results into the buffer. This can be really great for notes
+    on programming because concepts can easily be demonstrated.
+-   `org-edit-special` opens a new major mode edit buffer to edit the current
+    code block.
+-   `org-babel-insert-header-arg` is useful.
+
+
+## Miscellaneous
+
+-   `completion-at-point` can offer completion for to-do keywords, Latex
+    symbols, headlines (for links), tags, property keys, link abbreviations,
+    special keywords, and dictionary words.
+-   `org-insert-structure-template` prompts for a type of block and inserts it
+    or wraps the active region with it.
+-   `org-lint` checks for common mistakes in the buffer.
+-   `org-info-find-node` tries to open a suitable section of the Org manual
+    depending on the syntax at point.
+-   `org-info` opens the Org manual this section refers to.

@@ -1,5 +1,10 @@
-#+title: Winter (term) is Coming
-#+date: <2020-01-04 Sat>
+#+OPTIONS: toc:nil
+#+begin_src yaml :exports results :results value html
+---
+title: "Winter (term) is Coming"
+date: "<2020-01-04 Sat>"
+---
+#+end_src
 
 With winter term approaching, I thought I'd write out some thoughts on the
 previous term and my plan going forward.
