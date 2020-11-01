@@ -11,7 +11,7 @@
 
 @keyframes fall {
     from {
-        transform: translateY(-10vh);
+        transform: translateY(-6vh);
     }
 
     to {
