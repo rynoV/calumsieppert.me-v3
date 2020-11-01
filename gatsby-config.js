@@ -67,10 +67,12 @@ module.exports = {
                 display: 'swap',
             },
         },
+        `gatsby-plugin-catch-links`,
         {
             resolve: `gatsby-transformer-remark`,
             options: {
                 plugins: [
+                    `gatsby-remark-rewrite-relative-links`,
                     {
                         resolve: 'gatsby-remark-external-links',
                         options: {

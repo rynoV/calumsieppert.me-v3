@@ -6349,6 +6349,14 @@ gatsby-page-utils@^0.2.29:
     lodash "^4.17.20"
     micromatch "^4.0.2"
 
+gatsby-plugin-catch-links@^2.3.15:
+  version "2.3.15"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-catch-links/-/gatsby-plugin-catch-links-2.3.15.tgz#d5e0a945d193aee2261e995e8c6f07d322bd42ab"
+  integrity sha512-U8ilBTFKxj5NMj2Cw4Xvawxpe+Rlxd+o11m3gF8fEboqdqcCS6Gh1zG45JkJ3Du6G27nF4DbTI1JRpwi96vFYA==
+  dependencies:
+    "@babel/runtime" "^7.11.2"
+    escape-string-regexp "^1.0.5"
+
 gatsby-plugin-google-fonts@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-google-fonts/-/gatsby-plugin-google-fonts-1.0.1.tgz#d71054f7bf207b9a8da227380369e18e6f4e0201"
@@ -6569,6 +6577,13 @@ gatsby-remark-prismjs@^3.5.16:
     "@babel/runtime" "^7.11.2"
     parse-numeric-range "^0.0.2"
     unist-util-visit "^1.4.1"
+
+gatsby-remark-rewrite-relative-links@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/gatsby-remark-rewrite-relative-links/-/gatsby-remark-rewrite-relative-links-1.0.8.tgz#b2a1190336fa0760518a4e318bc2c503a904f20a"
+  integrity sha512-7jCyMM+AWdp8mFLUWuJ5RGPQIKFzpLqf253QR6Aq8xrhlV0Bcz2k1+03MxPnGP0R5XetIoRm2W864KrbIZdk9Q==
+  dependencies:
+    unist-util-visit "^2.0.0"
 
 gatsby-remark-smartypants@^2.3.13:
   version "2.3.13"
