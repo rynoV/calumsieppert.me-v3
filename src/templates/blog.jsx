@@ -15,7 +15,13 @@ import { formatBlogDate } from '../utils/date'
 
 export default function Blog({ data, location }) {
     const { markdownRemark } = data
-    const { html, frontmatter, tableOfContents, timeToRead } = markdownRemark
+    const {
+        html,
+        frontmatter,
+        tableOfContents,
+        timeToRead,
+        excerpt,
+    } = markdownRemark
     const date = formatBlogDate(frontmatter.date)
     const categoryPath = location.pathname
         .split('/')
@@ -24,7 +30,14 @@ export default function Blog({ data, location }) {
         .join(' / ')
 
     return (
-        <Layout title={frontmatter.title} currentPath={location.pathname}>
+        <Layout
+            title={frontmatter.title}
+            description={excerpt}
+            currentPath={location.pathname}
+            isBlogPost={true}
+            postData={markdownRemark}
+            postImage={null}
+        >
             <article className='prose'>
                 <header className=''>
                     <span className='opacity-75'>{categoryPath}</span>
@@ -68,6 +81,7 @@ export const query = graphql`
                 date
             }
             timeToRead
+            excerpt
         }
     }
 `

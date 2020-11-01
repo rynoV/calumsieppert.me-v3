@@ -1,22 +1,66 @@
+/** Based on https://github.com/jlengstorf/gatsby-theme-jason-blog/blob/master/src/components/SEO/SEO.js */
 import React from 'react'
-import { Link } from 'gatsby'
+import { Link, graphql, useStaticQuery } from 'gatsby'
 
 import { SEO } from './SEO'
 import '../utils/globals.css'
+import Image from 'gatsby-image'
 
-export function Layout({ children, title, currentPath }) {
+export function Layout({
+    children,
+    currentPath,
+    title,
+    description = '',
+    postData = null,
+    postImage = null,
+    isBlogPost = false,
+}) {
+    const data = useStaticQuery(
+        graphql`
+            query layoutQuery {
+                file(relativePath: { eq: "logo.png" }) {
+                    childImageSharp {
+                        fluid {
+                            ...GatsbyImageSharpFluid
+                        }
+                    }
+                }
+            }
+        `
+    )
+
+    const xpad = 'px-4'
+
     return (
         <div className='relative max-w-3xl m-auto'>
-            <SEO title={title} />
-            <nav className='bg-primary flex items-center h-nav justify-end opacity-75 sticky top-0 z-10'>
-                <NavLink currentPath={currentPath} to='/'>
-                    Home
-                </NavLink>
-                <NavLink currentPath={currentPath} to='/posts'>
-                    Posts
-                </NavLink>
+            <SEO
+                {...{
+                    title,
+                    description,
+                    currentPath,
+                    isBlogPost,
+                    postData,
+                    postImage,
+                }}
+            />
+            <nav
+                className={`bg-primary flex items-center h-nav justify-between opacity-75 sticky top-0 z-10 ${xpad}`}
+            >
+                <Image
+                    className='w-40'
+                    fluid={data?.file?.childImageSharp?.fluid}
+                    alt='Logo'
+                />
+                <div>
+                    <NavLink currentPath={currentPath} to='/'>
+                        Home
+                    </NavLink>
+                    <NavLink currentPath={currentPath} to='/posts'>
+                        Posts
+                    </NavLink>
+                </div>
             </nav>
-            <main className='px-4 pt-4 min-h-body'>{children}</main>
+            <main className={`${xpad} pt-4 min-h-body`}>{children}</main>
         </div>
     )
 }

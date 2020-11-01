@@ -77,7 +77,7 @@ module.exports = {
                         'ol > li::before': {
                             color,
                         },
-                        a: {
+                        'a,strong,thead,blockquote': {
                             color,
                         },
                         pre: false,
@@ -85,9 +85,6 @@ module.exports = {
                         'pre code': false,
                         'code::before': false,
                         'code::after': false,
-                        strong: {
-                            color,
-                        },
                     },
                 },
             }

@@ -4,11 +4,21 @@ const config = require('./my-config')
 
 module.exports = {
     siteMetadata: {
-        title: `calumsieppert.me`,
-        description: `My personal site`,
+        title: `Calum Sieppert`,
+        description: `Personal website of Calum Sieppert.`,
         author: `Calum Sieppert`,
+        siteUrl: `https://calumsieppert.me/`,
+        authorEmail: `sieppertcalum@gmail.com`,
+        image: `/logo.jpg`,
+        organization: {
+            name: 'Calum Sieppert',
+            url: 'https://calumsieppert.me/',
+            logo: '/logo.jpg',
+        },
     },
     plugins: [
+        `gatsby-plugin-netlify`,
+        `gatsby-plugin-advanced-sitemap`,
         `gatsby-plugin-react-helmet`,
         {
             resolve: `gatsby-source-filesystem`,
@@ -38,13 +48,13 @@ module.exports = {
         {
             resolve: `gatsby-plugin-manifest`,
             options: {
-                name: `gatsby-starter-default`,
-                short_name: `starter`,
+                name: `calumsieppert.me`,
+                short_name: `calumsieppert`,
                 start_url: `/`,
                 background_color: `#663399`,
                 theme_color: `#663399`,
                 display: `minimal-ui`,
-                // icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+                icon: `images/favicon.png`, // This path is relative to the root of the site.
             },
         },
         `gatsby-plugin-offline`,
@@ -101,6 +111,15 @@ module.exports = {
                     },
                     `gatsby-remark-smartypants`,
                     `gatsby-remark-check-links`,
+                    {
+                        resolve: `gatsby-remark-images`,
+                        options: {
+                            // It's important to specify the maxWidth (in pixels) of
+                            // the content container as this plugin uses this as the
+                            // base for generating different widths of each image.
+                            maxWidth: 590,
+                        },
+                    },
                 ],
             },
         },
