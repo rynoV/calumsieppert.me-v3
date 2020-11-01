@@ -72,11 +72,24 @@ module.exports = {
             options: {
                 plugins: [
                     {
+                        resolve: `gatsby-remark-autolink-headers`,
+                        options: {
+                            isIconAfterHeader: true,
+                        },
+                    },
+                    {
                         resolve: `gatsby-remark-katex`,
                         options: {
                             // Add any KaTeX options from https://github.com/KaTeX/KaTeX/blob/master/docs/options.md here
                         },
                     },
+                    {
+                        resolve: `gatsby-remark-prismjs`,
+                        options: {
+                            showLineNumbers: false,
+                        },
+                    },
+                    `gatsby-remark-smartypants`,
                 ],
             },
         },

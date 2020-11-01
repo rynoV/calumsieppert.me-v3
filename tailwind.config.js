@@ -80,6 +80,14 @@ module.exports = {
                         a: {
                             color,
                         },
+                        pre: false,
+                        code: false,
+                        'pre code': false,
+                        'code::before': false,
+                        'code::after': false,
+                        strong: {
+                            color,
+                        },
                     },
                 },
             }

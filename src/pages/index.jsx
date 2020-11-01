@@ -14,7 +14,7 @@ export default function IndexPage({ location }) {
         <Layout title='Home' currentPath={location.pathname}>
             <h1 className='text-gray-100 text-3xl sm:text-4xl'>Hello!</h1>
             <p className='text-gray-300 sm:text-lg'>
-                My name is Calum and this is my personal website.
+                My name is Calum Sieppert and this is my personal website.
             </p>
             <div className='flex my-3'>
                 <a className={linkClasses} href='https://github.com/rynoV/'>

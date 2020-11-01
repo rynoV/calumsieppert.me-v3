@@ -3,137 +3,105 @@ title: "My Setup"
 date: "<2019-12-26 Thu>"
 ---
 
-
 # French 209
 
-Throughout French 209 I used OneNote (from the Microsoft Store) for study notes.
-I would create a page for each class and for each new vocabulary item I would
-write the English version then the French version indented beneath. This way I
-could use OneNote's folding feature while I studied as a kind of flashcard
-system.
-
+Throughout French 209 I used OneNote (from the Microsoft Store) for study notes. I would create a page for each class and for each new vocabulary item I would write the English version then the French version indented beneath. This way I could use OneNote's folding feature while I studied as a kind of flashcard system.
 
 ## Positives
 
 This system worked quite well. It's main advantages were:
 
--   Easy organization and searching of notes with OneNote's sections and pages and
-    configurable search.
+-   Easy organization and searching of notes with OneNote's sections and pages and configurable search.
 -   Quick and accessible translation with OneNote's built-in translator.
 -   Built-in spell-checking of multiple languages.
 -   Folding of indented regions providing flashcard-like studying.
 -   The ability to hand-write
 
-
 ## Negatives
 
-The lack of any built-in Vim emulation in OneNote is a big negative for me. I
-have become accustomed to the navigation, editing, and tools provided by Vim,
-and moving from coding in Vim to writing anything longer than a few sentences is
-always painful. I tried to use external Vim emulation through an Auto Hot Key
-script, but I think that was probably doomed from the start as it created many
-conflicting keys, lacked many features, and was buggy in the features it did
-have.
-
+The lack of any built-in Vim emulation in OneNote is a big negative for me. I have become accustomed to the navigation, editing, and tools provided by Vim, and moving from coding in Vim to writing anything longer than a few sentences is always painful. I tried to use external Vim emulation through an Auto Hot Key script, but I think that was probably doomed from the start as it created many conflicting keys, lacked many features, and was buggy in the features it did have.
 
 # French 213
 
-
 ## Emacs with Spacemacs and Org-Mode
-
 
 ### Setting up
 
-I am starting French 213 in the winter term and I aim to improve on my setup by
-using Emacs instead of OneNote. Near the end of last term I switched over to
-Emacs (and more specifically Spacemacs) from Vim. Spacemacs provides
-excellent Vim emulation in Emacs (primarily through evil-mode), so that solves
-the main negative I had with OneNote. The difficult part would be keeping the
-positives.
+I am starting French 213 in the winter term and I aim to improve on my setup by using Emacs instead of OneNote. Near the end of last term I switched over to Emacs (and more specifically Spacemacs) from Vim. Spacemacs provides excellent Vim emulation in Emacs (primarily through evil-mode), so that solves the main negative I had with OneNote. The difficult part would be keeping the positives.
 
 Right off the bat a few of the positives are provided for me:
 
--   Organization would be provided by the file system as I'm creating files
-    directly.
--   There are more options for searching in Emacs than I could ever need
-    so that won't be an issue.
+-   Organization would be provided by the file system as I'm creating files directly.
+-   There are more options for searching in Emacs than I could ever need so that won't be an issue.
 -   Text folding in Org-Mode is built-in and excellent.
 
-So my main concerns will be translation and spell-checking of multiple
-languages.
+So my main concerns will be translation and spell-checking of multiple languages.
 
 1.  Translation
 
-    OneNote's built-in translation was extremely useful as I could select some text,
-    translate it, then insert the translated text directly into my notes from one
-    application. OneNote's options for automation and keyboard shortcuts are lacking
-    though so I did have to use the mouse quite a bit in this process.
+    OneNote's built-in translation was extremely useful as I could select some text, translate it, then insert the translated text directly into my notes from one application. OneNote's options for automation and keyboard shortcuts are lacking though so I did have to use the mouse quite a bit in this process.
 
     <span class="underline">Update <span class="timestamp-wrapper"><span class="timestamp">&lt;2020-01-04 Sat&gt;</span></span></span>
 
-    Thankfully, Spacemacs (at least on the develop branch) has Google translation
-    built-in, so I am able to do what I did in OneNote as well as automate any
-    repetitive translation tasks I might have through Elisp and macros.
+    Thankfully, Spacemacs (at least on the develop branch) has Google translation built-in, so I am able to do what I did in OneNote as well as automate any repetitive translation tasks I might have through Elisp and macros.
 
-    Spacemacs uses the [google-translate](https://github.com/atykhonov/google-translate/) plugin to do translation. In order to get
-    that work, I had to change the `google-translate-json-suggestion` function to
+    Spacemacs uses the [google-translate](https://github.com/atykhonov/google-translate/) plugin to do translation. In order to get that work, I had to change the `google-translate-json-suggestion` function to
 
-        (defun google-translate-json-suggestion (json)
-          "Retrieve from JSON (which returns by the
-        `google-translate-request' function) suggestion. This function
-        does matter when translating misspelled word. So instead of
-        translation it is possible to get suggestion."
-          (let ((info (aref json 7)))
-            (if (and info (> (length info) 0))
-                (aref info 1)
-              nil)))
+    ```emacs-lisp
+    (defun google-translate-json-suggestion (json)
+      "Retrieve from JSON (which returns by the
+    `google-translate-request' function) suggestion. This function
+    does matter when translating misspelled word. So instead of
+    translation it is possible to get suggestion."
+      (let ((info (aref json 7)))
+        (if (and info (> (length info) 0))
+            (aref info 1)
+          nil)))
+    ```
 
     so that I could avoid an `args out of range` error.
 
-    A frequent task I perform for French is to create flashcards based on slides
-    used during lectures. Using google translate I created these functions:
+    A frequent task I perform for French is to create flashcards based on slides used during lectures. Using google translate I created these functions:
 
-        (defun my-insert-flashcards (subheading-p source-lang target-lang)
-          "Insert flashcard structure of text in kill-ring."
-          (interactive)
-          (let* ((source-text (current-kill 0))
-                  (translated-text (google-translate-translate source-lang target-lang source-text "return"))
-                  (source-lines (split-string source-text "\n"))
-                  (translated-lines (split-string translated-text "\n")))
-            (if (= subheading-p 4)
-                (org-insert-heading 1)
-              (org-insert-subheading 1))
-            (insert (nth 0 translated-lines))
-            (evil-org-open-below 1)
-            (insert (nth 0 source-lines))
-            ;; Iterate through the indices of the lines
-            (loop for i from 1
-                  while (< i (length source-lines))
-                  do
-                  ;; Insert translated text followed by original
-                  (org-insert-heading 1)
-                  (insert (nth i translated-lines))
-                  (evil-org-open-below 1)
-                  (insert (nth i source-lines)))))
+    ```emacs-lisp
+    (defun my-insert-flashcards (subheading-p source-lang target-lang)
+      "Insert flashcard structure of text in kill-ring."
+      (interactive)
+      (let* ((source-text (current-kill 0))
+              (translated-text (google-translate-translate source-lang target-lang source-text "return"))
+              (source-lines (split-string source-text "\n"))
+              (translated-lines (split-string translated-text "\n")))
+        (if (= subheading-p 4)
+            (org-insert-heading 1)
+          (org-insert-subheading 1))
+        (insert (nth 0 translated-lines))
+        (evil-org-open-below 1)
+        (insert (nth 0 source-lines))
+        ;; Iterate through the indices of the lines
+        (loop for i from 1
+              while (< i (length source-lines))
+              do
+              ;; Insert translated text followed by original
+              (org-insert-heading 1)
+              (insert (nth i translated-lines))
+              (evil-org-open-below 1)
+              (insert (nth i source-lines)))))
 
-        (defun my-insert-english-flashcards (arg)
-          "Insert flashcard structure of text in the kill-ring.
-        One prefix arg inserts as same level headings, none inserts as subheadings."
-          (interactive "p")
-          (my-insert-flashcards arg "fr" "en"))
+    (defun my-insert-english-flashcards (arg)
+      "Insert flashcard structure of text in the kill-ring.
+    One prefix arg inserts as same level headings, none inserts as subheadings."
+      (interactive "p")
+      (my-insert-flashcards arg "fr" "en"))
+    ```
 
-    These allow me to copy some French text (right in Emacs using Spacemacs' PDF
-    layer) then automatically create flashcards in my notes files by translating
-    each line of the copied text into English, creating an Org header with the
-    English text, then placing the corresponding French text beneath it.
-    Additionally, prefix arguments are used to easily create headings or
-    subheadings.
+    These allow me to copy some French text (right in Emacs using Spacemacs' PDF layer) then automatically create flashcards in my notes files by translating each line of the copied text into English, creating an Org header with the English text, then placing the corresponding French text beneath it. Additionally, prefix arguments are used to easily create headings or subheadings.
 
-    I had to add the following code snippet to make the `google-translate-translate`
-    function return the translated string:
+    I had to add the following code snippet to make the `google-translate-translate` function return the translated string:
 
-        ((equal output-destination "return")
-         (gtos-translation gtos))
+    ```emacs-lisp
+    ((equal output-destination "return")
+     (gtos-translation gtos))
+    ```
 
     I added this to the `cond` list in `google-translate-translate`.
 
@@ -141,72 +109,50 @@ languages.
 
 2.  Spell-checking
 
-    In OneNote I could use multiple languages in the same document fairly
-    effortlessly. In order to this, however, I would have to ensure that I had the
-    correct language set on my computer (thankfully Windows provides the `ALT-SHIFT`
-    keyboard shortcut for this), and if I forgot to do this I would have to go
-    through the slow process of selecting the text I just typed then selecting the
-    menu item to change the language of that text.
+    In OneNote I could use multiple languages in the same document fairly effortlessly. In order to this, however, I would have to ensure that I had the correct language set on my computer (thankfully Windows provides the `ALT-SHIFT` keyboard shortcut for this), and if I forgot to do this I would have to go through the slow process of selecting the text I just typed then selecting the menu item to change the language of that text.
 
-    This wasn't awful, but Spacemacs' Spell-Checking layer seemed like it would be
-    an improvement. However, it would prove the most difficult to set up: I started
-    by adding `spell-checking` to `dotspacemacs-configuration-layers` in
-    `~/.spacemacs`. This provided English spell-checking (thank you Spacemacs). Next
-    I needed to set up spell-checking for multiple languages. The [spell-check layer documentation](https://develop.spacemacs.org/layers/+checkers/spell-checking/README.html)
-    recommends using Hunspell by adding this snippet to `user-config`:
+    This wasn't awful, but Spacemacs' Spell-Checking layer seemed like it would be an improvement. However, it would prove the most difficult to set up: I started by adding `spell-checking` to `dotspacemacs-configuration-layers` in `~/.spacemacs`. This provided English spell-checking (thank you Spacemacs). Next I needed to set up spell-checking for multiple languages. The [spell-check layer documentation](https://develop.spacemacs.org/layers/+checkers/spell-checking/README.html) recommends using Hunspell by adding this snippet to `user-config`:
 
-        (with-eval-after-load "ispell"
-            (setq ispell-program-name "hunspell")
-            ;; ispell-set-spellchecker-params has to be called
-            ;; before ispell-hunspell-add-multi-dic will work
-            (ispell-set-spellchecker-params)
-            (ispell-hunspell-add-multi-dic "pl_PL,en_GB")
-            (setq ispell-dictionary "pl_PL,en_GB"))
+    ```emacs-lisp
+    (with-eval-after-load "ispell"
+        (setq ispell-program-name "hunspell")
+        ;; ispell-set-spellchecker-params has to be called
+        ;; before ispell-hunspell-add-multi-dic will work
+        (ispell-set-spellchecker-params)
+        (ispell-hunspell-add-multi-dic "pl_PL,en_GB")
+        (setq ispell-dictionary "pl_PL,en_GB"))
+    ```
 
     So I added the snippet and installed Hunspell with
 
-        sudo apt-get install hunspell
+    ```shell
+    sudo apt-get install hunspell
+    ```
 
-    I then started receiving the error: "`Symbol’s function definition is void:
-    ispell-hunspell-add-multi-dic`". So I googled it and learned that older versions
-    of Emacs' `ispell.el` did not support the functionality I was trying to use with
-    this function. However, I didn't think this could be the problem because I was
-    using a very recent version of Emacs (26.3), and I had the function definition
-    in my local `/usr/share/emacs/26.3/lisp/textmodes/ispell.el`.
+    I then started receiving the error: "`Symbol’s function definition is void: ispell-hunspell-add-multi-dic`". So I googled it and learned that older versions of Emacs' `ispell.el` did not support the functionality I was trying to use with this function. However, I didn't think this could be the problem because I was using a very recent version of Emacs (26.3), and I had the function definition in my local `/usr/share/emacs/26.3/lisp/textmodes/ispell.el`.
 
-    After a while of being confused, I did what I should have done in the first
-    place and I went to the `ispell` file that Emacs was actually using by calling
-    `spacemacs/jump-to-definition` while my cursor was on `ispell-program-name`.
-    This revealed that Emacs was using a file in `/usr/share/emacs/site-lisp/`
-    instead of the file I expected, and this file was an old version.
+    After a while of being confused, I did what I should have done in the first place and I went to the `ispell` file that Emacs was actually using by calling `spacemacs/jump-to-definition` while my cursor was on `ispell-program-name`. This revealed that Emacs was using a file in `/usr/share/emacs/site-lisp/` instead of the file I expected, and this file was an old version.
 
-    At this point I tried to delete this old file, hoping that Emacs would then use
-    the right file, but this broke Emacs and it wouldn't run. So, because I had no
-    idea what I broke or how to fix it, I uninstalled Emacs, deleted
-    `/usr/share/emacs`, called `sudo-apt-autoremove`, reinstalled Emacs, and all was
-    well.
+    At this point I tried to delete this old file, hoping that Emacs would then use the right file, but this broke Emacs and it wouldn't run. So, because I had no idea what I broke or how to fix it, I uninstalled Emacs, deleted `/usr/share/emacs`, called `sudo-apt-autoremove`, reinstalled Emacs, and all was well.
 
-    Once that error was fixed I had to figure out how to install and use
-    dictionaries, and after a while of googling and not finding what I was looking
-    for, I ran
+    Once that error was fixed I had to figure out how to install and use dictionaries, and after a while of googling and not finding what I was looking for, I ran
 
-        sudo apt search hunspell
+    ```shell
+    sudo apt search hunspell
+    ```
 
     and found that I could install the dictionaries I wanted with
 
-        sudo apt-get install hunspell-en-ca
+    ```shell
+    sudo apt-get install hunspell-en-ca
+    ```
 
-        sudo apt-get install hunspell-fr
+    ```shell
+    sudo apt-get install hunspell-fr
+    ```
 
-    I then updated my dictionaries to `en_CA,fr_FR`, restarted Emacs because it
-    wasn't recognizing the newly installed dictionaries, and I had spell-checking in
-    multiple languages.
+    I then updated my dictionaries to `en_CA,fr_FR`, restarted Emacs because it wasn't recognizing the newly installed dictionaries, and I had spell-checking in multiple languages.
 
 3.  Hand-writing
 
-    I used OneNote's drawing feature to practice physically writing out the French
-    words, as this helps me remember them. However, I will have to give up the
-    ability to hand-write in the same application as my notes if I am to switch to
-    Emacs. I'm okay with this because I believe typing out the words will have the
-    same effect as writing them, but if I notice a drop in my grades I can always
-    use OneNote to write as I study.
+    I used OneNote's drawing feature to practice physically writing out the French words, as this helps me remember them. However, I will have to give up the ability to hand-write in the same application as my notes if I am to switch to Emacs. I'm okay with this because I believe typing out the words will have the same effect as writing them, but if I notice a drop in my grades I can always use OneNote to write as I study.

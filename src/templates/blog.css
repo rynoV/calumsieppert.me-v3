@@ -1,0 +1,26 @@
+/* Anchor links styling from https://www.gatsbyjs.com/plugins/gatsby-remark-autolink-headers/?=rem#how-to-style-the-anchor-link */
+a.anchor {
+    @apply fill-current;
+}
+
+/* Line highlighting style from
+ * https://www.gatsbyjs.com/plugins/gatsby-remark-prismjs/?=rem#optional-add-line-highlighting-styles
+ * */
+.gatsby-highlight-code-line {
+    background-color: #2e3440;
+    display: block;
+    margin-right: -1em;
+    margin-left: -1em;
+    padding-right: 1em;
+    padding-left: 0.75em;
+    border-left: 0.25em solid #2e3440;
+}
+.gatsby-highlight {
+    overflow: auto;
+}
+.gatsby-highlight pre[class*='language-'] {
+    background-color: transparent;
+    overflow: initial;
+    float: left;
+    min-width: 100%;
+}
