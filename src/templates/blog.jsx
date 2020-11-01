@@ -4,7 +4,10 @@ import { graphql, Link } from 'gatsby'
 import { Layout } from '../components/Layout'
 import { postsPathPrefix } from '../utils/globals.js'
 
+import '../katex/copyTex'
+
 import 'katex/dist/katex.min.css'
+import '../katex/copy-tex.css'
 import './prism-nord.css'
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css'
 import './blog.css'
