@@ -14,7 +14,7 @@ import './blog.css'
 
 export default function Blog({ data, location }) {
     const { markdownRemark } = data
-    const { html, frontmatter } = markdownRemark
+    const { html, frontmatter, tableOfContents } = markdownRemark
     const categoryPath = location.pathname
         .split('/')
         .filter(dirName => dirName !== postsPathPrefix && dirName !== '')
@@ -36,32 +36,17 @@ export default function Blog({ data, location }) {
                         {frontmatter.date}
                     </time>
                 </header>
+                <details className='my-3'>
+                    <summary className='text-lg font-bold underline'>
+                        Table of Contents
+                    </summary>
+                    <div
+                        dangerouslySetInnerHTML={{ __html: tableOfContents }}
+                    ></div>
+                </details>
                 <div dangerouslySetInnerHTML={{ __html: html }}></div>
             </article>
         </Layout>
-        // <Layout title={frontmatter.title} currentPath={location.pathname}>
-        //     <header className='mb-6'>
-        //         <span className='text-xs text-gray-400'>{categoryPath}</span>
-        //         <h1 className='capitalize text-3xl'>{frontmatter.title}</h1>
-        //         <address className='text-gray-300 not-italic'>
-        //             By{' '}
-        //             <Link
-        //                 className='capitalize hover:underline focus:underline'
-        //                 rel='author'
-        //                 to='/'
-        //             >
-        //                 Calum Sieppert
-        //             </Link>
-        //         </address>
-        //         <time
-        //             className='text-gray-400 text-xs'
-        //             dateTime={frontmatter.date}
-        //         >
-        //             {frontmatter.date}
-        //         </time>
-        //     </header>
-        //     <div dangerouslySetInnerHTML={{ __html: html }}></div>
-        // </Layout>
     )
 }
 
@@ -69,6 +54,7 @@ export const query = graphql`
     query mdblogPost($id: String!) {
         markdownRemark(id: { eq: $id }) {
             html
+            tableOfContents
             frontmatter {
                 title
                 date

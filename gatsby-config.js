@@ -72,6 +72,14 @@ module.exports = {
             options: {
                 plugins: [
                     {
+                        resolve: 'gatsby-remark-external-links',
+                        options: {
+                            // Open markdown links in a new tab
+                            target: '_blank',
+                            rel: 'noopener noreferrer',
+                        },
+                    },
+                    {
                         resolve: `gatsby-remark-autolink-headers`,
                         options: {
                             isIconAfterHeader: true,
