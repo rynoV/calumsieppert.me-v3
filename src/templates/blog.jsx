@@ -11,30 +11,38 @@ import '../katex/copy-tex.css'
 import './prism-nord.css'
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css'
 import './blog.css'
+import { formatBlogDate } from '../utils/date'
 
 export default function Blog({ data, location }) {
     const { markdownRemark } = data
-    const { html, frontmatter, tableOfContents } = markdownRemark
+    const { html, frontmatter, tableOfContents, timeToRead } = markdownRemark
+    const date = formatBlogDate(frontmatter.date)
     const categoryPath = location.pathname
         .split('/')
         .filter(dirName => dirName !== postsPathPrefix && dirName !== '')
         .slice(0, -1)
         .join(' / ')
+
     return (
         <Layout title={frontmatter.title} currentPath={location.pathname}>
             <article className='prose'>
                 <header className=''>
-                    <span className=''>{categoryPath}</span>
+                    <span className='opacity-75'>{categoryPath}</span>
                     <h1 className=''>{frontmatter.title}</h1>
-                    <address className=''>
-                        By{' '}
-                        <Link className='' rel='author' to='/'>
-                            Calum Sieppert
-                        </Link>
-                    </address>
-                    <time className='' dateTime={frontmatter.date}>
-                        {frontmatter.date}
-                    </time>
+                    <div className='opacity-75'>
+                        <address>
+                            By{' '}
+                            <Link className='' rel='author' to='/'>
+                                Calum Sieppert
+                            </Link>
+                        </address>
+                        <div>
+                            <time className='' dateTime={date}>
+                                {date}
+                            </time>{' '}
+                            | <span>{timeToRead} min read</span>
+                        </div>
+                    </div>
                 </header>
                 <details className='my-3'>
                     <summary className='text-lg font-bold underline'>
@@ -59,6 +67,7 @@ export const query = graphql`
                 title
                 date
             }
+            timeToRead
         }
     }
 `
