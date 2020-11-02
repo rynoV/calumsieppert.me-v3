@@ -21,10 +21,18 @@ export default function IndexPage({ location, data }) {
                 My name is Calum Sieppert and this is my personal website.
             </p>
             <div className='flex my-3'>
-                <a className={linkClasses} href={siteMetadata.authorGitHub}>
+                <a
+                    className={linkClasses}
+                    href={siteMetadata.authorGitHub}
+                    aria-label='GitHub Icon'
+                >
                     <GithubIcon className={iconClasses} alt='GitHub Icon' />
                 </a>
-                <a className={linkClasses} href={siteMetadata.authorLinkedIn}>
+                <a
+                    className={linkClasses}
+                    href={siteMetadata.authorLinkedIn}
+                    aria-label='LinkedIn Icon'
+                >
                     <LinkedInIcon className={iconClasses} alt='LinkedIn Icon' />
                 </a>
             </div>
