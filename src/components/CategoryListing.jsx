@@ -21,6 +21,7 @@ export function CategoryListing() {
                             title
                             date
                         }
+                        excerpt
                     }
                 }
             }
@@ -39,6 +40,7 @@ export function CategoryListing() {
                 slug={mostRecent.fields.slug}
                 title={mostRecent.frontmatter.title}
                 date={mostRecent.frontmatter.date}
+                excerpt={mostRecent.excerpt}
             />
         </>
     )
@@ -97,6 +99,7 @@ function createBlogStructure(fileNodes) {
             slug: fileNode.fields.slug,
             title: fileNode.frontmatter.title,
             date: fileNode.frontmatter.date,
+            excerpt: fileNode.excerpt,
         }
 
         return {

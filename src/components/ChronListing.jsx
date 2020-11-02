@@ -19,6 +19,7 @@ export function ChronListing() {
                             date
                             title
                         }
+                        excerpt
                     }
                 }
             }
@@ -26,13 +27,14 @@ export function ChronListing() {
     `)
 
     return data.allMarkdownRemark.edges.map(
-        ({ node: { fields, frontmatter } }) => {
+        ({ node: { fields, frontmatter, excerpt } }) => {
             return (
                 <File
                     key={fields.slug}
                     title={frontmatter.title}
                     date={frontmatter.date}
                     slug={fields.slug}
+                    excerpt={excerpt}
                 />
             )
         }
