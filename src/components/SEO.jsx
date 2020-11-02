@@ -32,12 +32,17 @@ export function SEO({ postData, postImage, isBlogPost, currentPath }) {
     const description =
         postMeta.description || postData?.excerpt || seo.description
     const image = postImage ? `${seo.siteUrl}${postImage}` : seo.image
-    const url = currentPath
+    const url = `${seo.siteUrl}${currentPath}`
     const datePublished = isBlogPost ? postMeta.date : false
 
     return (
         <React.Fragment>
-            <Helmet titleTemplate={`%s | ${seo.title}`}>
+            <Helmet
+                titleTemplate={`%s | ${seo.title}`}
+                htmlAttributes={{
+                    lang: 'en',
+                }}
+            >
                 {/* General tags */}
                 <title>{title}</title>
                 <meta name='description' content={description} />

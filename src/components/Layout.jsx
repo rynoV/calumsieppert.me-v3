@@ -20,7 +20,7 @@ export function Layout({
             query layoutQuery {
                 file(relativePath: { eq: "logo.png" }) {
                     childImageSharp {
-                        fluid {
+                        fluid(maxWidth: 200) {
                             ...GatsbyImageSharpFluid
                         }
                     }

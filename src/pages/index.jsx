@@ -22,10 +22,10 @@ export default function IndexPage({ location, data }) {
             </p>
             <div className='flex my-3'>
                 <a className={linkClasses} href={siteMetadata.authorGitHub}>
-                    <GithubIcon className={iconClasses} />
+                    <GithubIcon className={iconClasses} alt='GitHub Icon' />
                 </a>
                 <a className={linkClasses} href={siteMetadata.authorLinkedIn}>
-                    <LinkedInIcon className={iconClasses} />
+                    <LinkedInIcon className={iconClasses} alt='LinkedIn Icon' />
                 </a>
             </div>
             <CabinScene />
