@@ -14,7 +14,7 @@ import './blog.css'
 import { formatBlogDate } from '../utils/date'
 
 export default function Blog({ data, location }) {
-    const { markdownRemark } = data
+    const { markdownRemark, site } = data
     const {
         html,
         frontmatter,
@@ -38,7 +38,7 @@ export default function Blog({ data, location }) {
             postData={markdownRemark}
             postImage={null}
         >
-            <article className='prose'>
+            <article className='prose mb-20'>
                 <header className=''>
                     <span className='opacity-75'>{categoryPath}</span>
                     <h1 className=''>{frontmatter.title}</h1>
@@ -66,13 +66,24 @@ export default function Blog({ data, location }) {
                     ></div>
                 </details>
                 <div dangerouslySetInnerHTML={{ __html: html }}></div>
+                <p className='italic'>
+                    Feel free to{' '}
+                    <a href={`mailto:${site.siteMetadata.authorEmail}`}>
+                        send me an email
+                    </a>{' '}
+                    or{' '}
+                    <a href={site.siteMetadata.authorLinkedIn}>
+                        connect with me on LinkedIn
+                    </a>
+                    .
+                </p>
             </article>
         </Layout>
     )
 }
 
 export const query = graphql`
-    query mdblogPost($id: String!) {
+    query blogPost($id: String!) {
         markdownRemark(id: { eq: $id }) {
             html
             tableOfContents
@@ -82,6 +93,12 @@ export const query = graphql`
             }
             timeToRead
             excerpt
+        }
+        site {
+            siteMetadata {
+                authorEmail
+                authorLinkedIn
+            }
         }
     }
 `

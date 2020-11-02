@@ -1,4 +1,5 @@
 import React from 'react'
+import { graphql } from 'gatsby'
 
 import { Layout } from '../components/Layout'
 import { CabinScene } from '../components/CabinScene'
@@ -6,7 +7,10 @@ import { CabinScene } from '../components/CabinScene'
 import GithubIcon from '../../images/github.inline.svg'
 import LinkedInIcon from '../../images/linkedin.inline.svg'
 
-export default function IndexPage({ location }) {
+export default function IndexPage({ location, data }) {
+    const {
+        site: { siteMetadata },
+    } = data
     const iconClasses = 'w-8 fill-current'
     const linkClasses = 'mx-3 first:ml-0 text-gray-100 visited:text-gray-100'
 
@@ -17,13 +21,10 @@ export default function IndexPage({ location }) {
                 My name is Calum Sieppert and this is my personal website.
             </p>
             <div className='flex my-3'>
-                <a className={linkClasses} href='https://github.com/rynoV/'>
+                <a className={linkClasses} href={siteMetadata.authorGitHub}>
                     <GithubIcon className={iconClasses} />
                 </a>
-                <a
-                    className={linkClasses}
-                    href='https://www.linkedin.com/in/calum-sieppert-20738418b/'
-                >
+                <a className={linkClasses} href={siteMetadata.authorLinkedIn}>
                     <LinkedInIcon className={iconClasses} />
                 </a>
             </div>
@@ -31,3 +32,14 @@ export default function IndexPage({ location }) {
         </Layout>
     )
 }
+
+export const query = graphql`
+    query homeQuery {
+        site {
+            siteMetadata {
+                authorLinkedIn
+                authorGitHub
+            }
+        }
+    }
+`

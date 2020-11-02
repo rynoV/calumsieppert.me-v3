@@ -15,6 +15,8 @@ module.exports = {
             url: 'https://calumsieppert.me/',
             logo: '/logo.jpg',
         },
+        authorLinkedIn: `https://www.linkedin.com/in/calum-sieppert/`,
+        authorGitHub: `https://github.com/rynoV/`,
     },
     plugins: [
         `gatsby-plugin-netlify`,

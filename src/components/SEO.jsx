@@ -26,11 +26,11 @@ export function SEO({ postData, postImage, isBlogPost, currentPath }) {
             }
         }
     `)
-    const postMeta = postData.frontmatter || {}
+    const postMeta = postData?.frontmatter || {}
 
     const title = postMeta.title || seo.title
     const description =
-        postMeta.description || postData.excerpt || seo.description
+        postMeta.description || postData?.excerpt || seo.description
     const image = postImage ? `${seo.siteUrl}${postImage}` : seo.image
     const url = currentPath
     const datePublished = isBlogPost ? postMeta.date : false
