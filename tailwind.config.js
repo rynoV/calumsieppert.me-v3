@@ -1,7 +1,7 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 const { config } = require('./my-config')
 
-const primary = '#A2BF8A'
+const primary = config.primaryColour
 
 const navHeight = '60px'
 const contentHeight = 'calc(var(--vh, 1vh) * 100)'
@@ -48,7 +48,7 @@ module.exports = {
                 darkCyan: '#507681',
             },
             backgroundColor: {
-                primary: '#434C5E',
+                primary: config.bgColour,
             },
             height: {
                 nav: navHeight,

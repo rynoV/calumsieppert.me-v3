@@ -1,8 +1,9 @@
+import { GatsbyConfig } from 'gatsby'
 import path from 'path'
 import { config } from './my-config'
 // const isProd = process.env.NODE_ENV === 'production'
 
-export default {
+const gatsbyConfig: GatsbyConfig = {
     siteMetadata: {
         title: `Calum Sieppert`,
         description: `Personal website of Calum Sieppert.`,
@@ -53,8 +54,8 @@ export default {
                 name: `calumsieppert.me`,
                 short_name: `calumsieppert`,
                 start_url: `/`,
-                background_color: `#663399`,
-                theme_color: `#663399`,
+                background_color: config.bgColour,
+                theme_color: config.primaryColour,
                 display: `minimal-ui`,
                 icon: `images/favicon.png`, // This path is relative to the root of the site.
             },
@@ -139,3 +140,5 @@ export default {
         },
     ],
 }
+
+export default gatsbyConfig

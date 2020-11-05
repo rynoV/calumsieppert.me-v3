@@ -15,8 +15,12 @@ My personal website
     -   [ ] Use most frequent tags in description of blog, e.g. "I write about
             many things, including tag1, tag2, and tag3."
 -   [ ] Add resume
--   [ ] Switch background colour to #2E3440 (from vscode nord theme)
 -   [ ] Try yarn 2
+
+## Assets
+
+-   When exporting the cabin from Adobe XD, need to delete the `width` and
+    `height` attributes from the top level XML tag.
 
 ## Errors
 
