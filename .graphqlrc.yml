@@ -1,0 +1,10 @@
+schema: 'schema.graphql'
+documents:
+    - ./src/**/*.{js,jsx,ts,tsx}
+    - ./gatsby-node.esm.js
+projects:
+    gatsby:
+        extensions:
+            endpoints:
+                default:
+                    url: http://localhost:8000/___graphql

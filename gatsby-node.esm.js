@@ -10,8 +10,8 @@ exports.createPages = async ({ actions, graphql }) => {
 
     const blogPostTemplate = path.resolve(`src/templates/blog.jsx`)
 
-    const result = await graphql(`
-        {
+    const query = /* GraphQL */ `
+        query AllMDRemark {
             allMarkdownRemark(
                 filter: { fields: { isBlogPost: { eq: true } } }
             ) {
@@ -25,7 +25,8 @@ exports.createPages = async ({ actions, graphql }) => {
                 }
             }
         }
-    `)
+    `
+    const result = await graphql(query)
 
     result.data.allMarkdownRemark.edges.forEach(({ node }) => {
         createPage({

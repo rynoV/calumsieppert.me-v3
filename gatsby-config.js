@@ -61,6 +61,18 @@ module.exports = {
         },
         `gatsby-plugin-offline`,
         {
+            resolve: `gatsby-plugin-graphql-codegen`,
+            options: {
+                documentPaths: [
+                    `./src/**/*.{ts,tsx,js,jsx}`,
+                    `./gatsby-node.esm.js`,
+                    `./.cache/fragments/*.js`,
+                    `./node_modules/gatsby-transformer-sharp/**/*.js`,
+                ],
+                fileName: `./@types/generated.ts`,
+            },
+        },
+        {
             resolve: `gatsby-plugin-postcss`,
             options: {
                 postCssPlugins: [
