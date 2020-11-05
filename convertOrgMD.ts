@@ -18,4 +18,4 @@ function convertOrgMDForRemark(content) {
     )
 }
 
-module.exports = convertOrgMDForRemark
+export { convertOrgMDForRemark }

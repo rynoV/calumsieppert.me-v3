@@ -42,7 +42,7 @@ export default function IndexPage({ location, data }) {
 }
 
 export const query = graphql`
-    query homeQuery {
+    query Home {
         site {
             siteMetadata {
                 authorLinkedIn

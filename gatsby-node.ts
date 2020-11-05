@@ -1,14 +1,20 @@
 import path from 'path'
+import { GatsbyNode } from 'gatsby'
 import { postsPathPrefix } from './src/utils/globals'
 import { createFilePath } from 'gatsby-source-filesystem'
-import convertOrgMD from './convertOrgMD'
+import { convertOrgMDForRemark } from './convertOrgMD'
+import { AllMdRemarkQuery } from './@types/generated'
+import { reporter } from 'gatsby-cli/lib/reporter/reporter'
 
 const MDFILE_TYPE = 'MDFile'
 
-exports.createPages = async ({ actions, graphql }) => {
+export const createPages: GatsbyNode['createPages'] = async ({
+    actions,
+    graphql,
+}) => {
     const { createPage } = actions
 
-    const blogPostTemplate = path.resolve(`src/templates/blog.jsx`)
+    const blogPostTemplate = path.resolve(`src/templates/blog.tsx`)
 
     const query = /* GraphQL */ `
         query AllMDRemark {
@@ -26,9 +32,17 @@ exports.createPages = async ({ actions, graphql }) => {
             }
         }
     `
-    const result = await graphql(query)
+    const {
+        data,
+        errors,
+    }: { data?: AllMdRemarkQuery; errors?: any } = await graphql(query)
 
-    result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+    if (errors) {
+        reporter.panicOnBuild('Error with markdown query:', errors)
+    }
+
+    //@ts-ignore
+    data.allMarkdownRemark.edges.forEach(({ node }) => {
         createPage({
             path: node.fields.slug,
             component: blogPostTemplate,
@@ -39,7 +53,12 @@ exports.createPages = async ({ actions, graphql }) => {
     })
 }
 
-exports.onCreateNode = ({ node, getNode, actions, createNodeId }) => {
+export const onCreateNode: GatsbyNode['onCreateNode'] = ({
+    node,
+    getNode,
+    actions,
+    createNodeId,
+}) => {
     const { createNode, createNodeField } = actions
     // Create a new node for each markdown file with the latex blocks converted
     // so remark processes them
@@ -56,7 +75,7 @@ exports.onCreateNode = ({ node, getNode, actions, createNodeId }) => {
                 type: MDFILE_TYPE,
                 mediaType: node.internal.mediaType,
                 description: node.internal.description,
-                content: convertOrgMD(node.internal.content),
+                content: convertOrgMDForRemark(node.internal.content),
             },
         })
     }
@@ -84,7 +103,9 @@ exports.onCreateNode = ({ node, getNode, actions, createNodeId }) => {
     }
 }
 
-exports.onCreateWebpackConfig = ({ actions }) => {
+export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
+    actions,
+}) => {
     actions.setWebpackConfig({
         devtool: 'eval-source-map',
     })

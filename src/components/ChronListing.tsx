@@ -5,7 +5,7 @@ import { File } from './File'
 
 export function ChronListing() {
     const data = useStaticQuery(graphql`
-        {
+        query ChronListing {
             allMarkdownRemark(
                 filter: { fields: { isBlogPost: { eq: true } } }
                 sort: { fields: frontmatter___date, order: DESC }

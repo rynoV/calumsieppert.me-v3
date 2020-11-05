@@ -1,5 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
-const config = require('./my-config')
+const { config } = require('./my-config')
 
 const primary = '#A2BF8A'
 
@@ -65,7 +65,7 @@ module.exports = {
                 body: bodyHeight,
             },
         },
-        typography: theme => {
+        typography: (theme) => {
             const color = theme('colors.gray.100')
             return {
                 default: {

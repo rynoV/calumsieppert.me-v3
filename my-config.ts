@@ -1,3 +1,3 @@
-module.exports = {
+export const config = {
     fonts: ['Montserrat'],
 }

@@ -2227,8 +2227,6 @@ export type QueryAllDirectoryArgs = {
 export type QuerySiteArgs = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
-  port?: Maybe<IntQueryOperatorInput>;
-  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -2416,8 +2414,6 @@ export type QueryAllSitePluginArgs = {
 export type Site = Node & {
   buildTime?: Maybe<Scalars['Date']>;
   siteMetadata?: Maybe<SiteSiteMetadata>;
-  port?: Maybe<Scalars['Int']>;
-  host?: Maybe<Scalars['String']>;
   polyfill?: Maybe<Scalars['Boolean']>;
   pathPrefix?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
@@ -2628,8 +2624,6 @@ export type SiteFieldsEnum =
   | 'siteMetadata___organization___logo'
   | 'siteMetadata___authorLinkedIn'
   | 'siteMetadata___authorGitHub'
-  | 'port'
-  | 'host'
   | 'polyfill'
   | 'pathPrefix'
   | 'id'
@@ -2722,8 +2716,6 @@ export type SiteFieldsEnum =
 export type SiteFilterInput = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
-  port?: Maybe<IntQueryOperatorInput>;
-  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -3617,6 +3609,14 @@ export type BlogPostQuery = { markdownRemark?: Maybe<(
     Pick<MarkdownRemark, 'html' | 'tableOfContents' | 'timeToRead' | 'excerpt'>
     & { frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'title' | 'date'>> }
   )>, site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'authorEmail' | 'authorLinkedIn'>> }> };
+
+export type AllMdRemarkQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AllMdRemarkQuery = { allMarkdownRemark: { edges: Array<{ node: (
+        Pick<MarkdownRemark, 'id'>
+        & { fields?: Maybe<Pick<MarkdownRemarkFields, 'slug'>> }
+      ) }> } };
 
 export type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 

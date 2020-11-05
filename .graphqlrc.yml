@@ -1,7 +1,7 @@
 schema: 'schema.graphql'
 documents:
     - ./src/**/*.{js,jsx,ts,tsx}
-    - ./gatsby-node.esm.js
+    - ./gatsby-node.ts
 projects:
     gatsby:
         extensions:

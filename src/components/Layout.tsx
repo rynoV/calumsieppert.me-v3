@@ -17,7 +17,7 @@ export function Layout({
 }) {
     const data = useStaticQuery(
         graphql`
-            query layoutQuery {
+            query Layout {
                 file(relativePath: { eq: "logo.png" }) {
                     childImageSharp {
                         fluid(maxWidth: 200) {

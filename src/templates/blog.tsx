@@ -1,8 +1,8 @@
 import React from 'react'
-import { graphql, Link } from 'gatsby'
+import { graphql, Link, PageProps } from 'gatsby'
 
 import { Layout } from '../components/Layout'
-import { postsPathPrefix } from '../utils/globals.js'
+import { postsPathPrefix } from '../utils/globals'
 
 import '../katex/copyTex'
 
@@ -12,8 +12,13 @@ import './prism-nord.css'
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css'
 import './blog.css'
 import { formatBlogDate } from '../utils/date'
+import { BlogPostQuery } from '../../@types/generated'
 
-export default function Blog({ data, location }) {
+interface Props extends PageProps {
+    data: BlogPostQuery
+}
+
+export default function Blog({ data, location }: Props) {
     const { markdownRemark, site } = data
     const {
         html,
@@ -25,7 +30,7 @@ export default function Blog({ data, location }) {
     const date = formatBlogDate(frontmatter.date)
     const categoryPath = location.pathname
         .split('/')
-        .filter(dirName => dirName !== postsPathPrefix && dirName !== '')
+        .filter((dirName) => dirName !== postsPathPrefix && dirName !== '')
         .slice(0, -1)
         .join(' / ')
 
@@ -83,7 +88,7 @@ export default function Blog({ data, location }) {
 }
 
 export const query = graphql`
-    query blogPost($id: String!) {
+    query BlogPost($id: String!) {
         markdownRemark(id: { eq: $id }) {
             html
             tableOfContents

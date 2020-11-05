@@ -8,7 +8,7 @@ export function SEO({ postData, postImage, isBlogPost, currentPath }) {
     const {
         site: { siteMetadata: seo },
     } = useStaticQuery(graphql`
-        {
+        query SEO {
             site {
                 siteMetadata {
                     title

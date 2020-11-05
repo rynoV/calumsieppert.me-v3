@@ -5,8 +5,8 @@ My personal website
 ## TODO
 
 -   [ ] Move to TypeScript
-    -   [ ] Move gatsby files to TS, at least gatsby-node, hopefully gatsby-config
-    -   [ ] Rename other files to ts/tsx
+    -   [x] Move gatsby files to TS, at least gatsby-node, hopefully gatsby-config
+    -   [x] Rename other files to ts/tsx
     -   [ ] Add types in code
 -   [ ] Add blog description
 -   [ ] Show 'last updated' status on posts
@@ -44,3 +44,7 @@ and gave up.
 -   Use magic comment as described
     [here](https://graphql-code-generator.com/docs/getting-started/documents-field/#graphql-tag-pluck)
     to ensure a template string is picked up by code generator
+
+## Resources
+
+-   [Gatsby files and Typescript](https://www.extensive.one/converting-gatsby-config-and-node-api-to-typescript/)

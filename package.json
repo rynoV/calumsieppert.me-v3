@@ -51,7 +51,8 @@
         "react": "^17.0.1",
         "react-dom": "^17.0.1",
         "react-helmet": "^6.1.0",
-        "tailwindcss": "^1.9.6"
+        "tailwindcss": "^1.9.6",
+        "ts-node": "^9.0.0"
     },
     "devDependencies": {
         "gatsby-cli": "^2.8.22",

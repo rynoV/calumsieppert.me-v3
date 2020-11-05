@@ -7,7 +7,7 @@ import { File } from './File'
 
 export function CategoryListing() {
     const data = useStaticQuery(graphql`
-        {
+        query CategoryListing {
             allMarkdownRemark(
                 filter: { fields: { isBlogPost: { eq: true } } }
                 sort: { fields: frontmatter___date, order: DESC }
@@ -62,7 +62,7 @@ function getCategoryListingJSX(blogStructure) {
     // directory as an argument
     // getCategoryListingJSX always needs to return either jsx or an array of jsx elements
     const files = blogStructure.files
-        ? blogStructure.files.map(file => {
+        ? blogStructure.files.map((file) => {
               return File({ key: file.title, ...file })
           })
         : []
@@ -91,7 +91,7 @@ function createBlogStructure(fileNodes) {
         // posts slug prefix
         const dirs = fileNode.fields.slug
             .split(path.sep)
-            .filter(dirName => dirName !== postsPathPrefix && dirName !== '')
+            .filter((dirName) => dirName !== postsPathPrefix && dirName !== '')
         // Remove the file name
         dirs.pop()
 
