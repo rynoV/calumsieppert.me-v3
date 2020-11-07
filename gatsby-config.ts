@@ -68,7 +68,12 @@ const gatsbyConfig: GatsbyConfig = {
                     `./src/**/*.{ts,tsx,js,jsx}`,
                     `./gatsby-node.ts`,
                     `./.cache/fragments/*.js`,
-                    `./node_modules/gatsby-transformer-sharp/**/*.js`,
+                    `${path.relative(
+                        '.',
+                        path.dirname(
+                            require.resolve('gatsby-transformer-sharp')
+                        )
+                    )}/fragments.js`,
                 ],
                 fileName: `./@types/generated.ts`,
             },

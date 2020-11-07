@@ -5,6 +5,7 @@ import { createFilePath } from 'gatsby-source-filesystem'
 import { convertOrgMDForRemark } from './convertOrgMD'
 import { AllMdRemarkQuery } from './@types/generated'
 import { reporter } from 'gatsby-cli/lib/reporter/reporter'
+import PnpWebpackPlugin from 'pnp-webpack-plugin'
 
 const MDFILE_TYPE = 'MDFile'
 
@@ -108,5 +109,12 @@ export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
 }) => {
     actions.setWebpackConfig({
         devtool: 'eval-source-map',
+        // Plug'n'play config from: https://github.com/arcanis/pnp-webpack-plugin
+        resolve: {
+            plugins: [PnpWebpackPlugin],
+        },
+        resolveLoader: {
+            plugins: [PnpWebpackPlugin.moduleLoader(module)],
+        },
     })
 }
