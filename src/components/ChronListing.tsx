@@ -1,9 +1,9 @@
 import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 
-import { File } from './File'
+import { PostOverview } from './Post'
 
-export function ChronListing() {
+export const ChronListing: React.FC = function () {
     const data = useStaticQuery(graphql`
         query ChronListing {
             allMarkdownRemark(
@@ -12,14 +12,7 @@ export function ChronListing() {
             ) {
                 edges {
                     node {
-                        fields {
-                            slug
-                        }
-                        frontmatter {
-                            date
-                            title
-                        }
-                        excerpt
+                        ...PostData
                     }
                 }
             }
@@ -29,7 +22,7 @@ export function ChronListing() {
     return data.allMarkdownRemark.edges.map(
         ({ node: { fields, frontmatter, excerpt } }) => {
             return (
-                <File
+                <PostOverview
                     key={fields.slug}
                     title={frontmatter.title}
                     date={frontmatter.date}

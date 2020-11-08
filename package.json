@@ -14,7 +14,7 @@
         "qserve": "gatsby serve",
         "clean": "gatsby clean",
         "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
-        "get-schema": "get-graphql-schema http://localhost:8000/__graphql > schema.graphql"
+        "get-schema": "get-graphql-schema http://localhost:8000/___graphql > schema.graphql"
     },
     "dependencies": {
         "@tailwindcss/typography": "^0.2.0",

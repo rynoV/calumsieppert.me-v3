@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 import path from 'path'
 
 import { postsPathPrefix } from '../utils/globals'
-import { File } from './File'
+import { PostOverview, Props as PostOverviewProps } from './Post'
+import { CategoryListingQuery } from '../../@types/generated'
 
 export function CategoryListing() {
-    const data = useStaticQuery(graphql`
+    const data: CategoryListingQuery = useStaticQuery(graphql`
         query CategoryListing {
             allMarkdownRemark(
                 filter: { fields: { isBlogPost: { eq: true } } }
@@ -14,14 +15,7 @@ export function CategoryListing() {
             ) {
                 edges {
                     node {
-                        fields {
-                            slug
-                        }
-                        frontmatter {
-                            title
-                            date
-                        }
-                        excerpt
+                        ...PostData
                     }
                 }
             }
@@ -36,7 +30,7 @@ export function CategoryListing() {
                 createBlogStructure(data.allMarkdownRemark.edges)
             )}
             <span>Most recent post: </span>
-            <File
+            <PostOverview
                 slug={mostRecent.fields.slug}
                 title={mostRecent.frontmatter.title}
                 date={mostRecent.frontmatter.date}
@@ -46,7 +40,11 @@ export function CategoryListing() {
     )
 }
 
-function Directory({ name, children }) {
+interface DirectoryProps {
+    name: string
+}
+
+const Directory: React.FC<DirectoryProps> = function ({ name, children }) {
     return (
         <details className='pl-6 my-6 border-l capitalize' key={name}>
             <summary className='text-xl'>{name}</summary>
@@ -55,7 +53,7 @@ function Directory({ name, children }) {
     )
 }
 
-function getCategoryListingJSX(blogStructure) {
+function getCategoryListingJSX(blogStructure: FileStructure): ReactElement[] {
     // Return an array of jsx elements For each file in the current directory
     // level append a file link For each directory in the current directory level
     // append a directory element and pass it children by means of getCategoryListingJSX with the new
@@ -63,30 +61,42 @@ function getCategoryListingJSX(blogStructure) {
     // getCategoryListingJSX always needs to return either jsx or an array of jsx elements
     const files = blogStructure.files
         ? blogStructure.files.map((file) => {
-              return File({ key: file.title, ...file })
+              return <PostOverview key={file.title} {...file} />
           })
         : []
     const dirs =
         blogStructure.dirs !== {}
             ? Object.entries(blogStructure.dirs).map(([name, dir]) => {
-                  return Directory({
-                      key: name,
-                      name,
-                      children: getCategoryListingJSX(dir),
-                  })
+                  return (
+                      <Directory name={name} key={name}>
+                          {getCategoryListingJSX(dir)}
+                      </Directory>
+                  )
               })
             : []
     return dirs.concat(files)
 }
 
+interface File {
+    dirs: string[]
+    file: PostOverviewProps
+}
+
+interface FileStructure {
+    files: File['file'][]
+    dirs: { [key: string]: FileStructure }
+}
+
 /**
  * Parses through the fileNodes to create the structure of the blog
- * @param {Type of fileNodes} fileNodes
- * @returns {Type of blogStructure} object representing the blog post heirarchy
+ * @param fileNodes
+ * @returns object representing the blog post heirarchy
  */
-function createBlogStructure(fileNodes) {
+function createBlogStructure(
+    fileNodes: CategoryListingQuery['allMarkdownRemark']['edges']
+): FileStructure {
     // Grab the files and their containing directories
-    const files = fileNodes.map(({ node: fileNode }) => {
+    const files: File[] = fileNodes.map(({ node: fileNode }) => {
         // Break up the slug at the path seperator and remove empty strings and the
         // posts slug prefix
         const dirs = fileNode.fields.slug
@@ -95,7 +105,7 @@ function createBlogStructure(fileNodes) {
         // Remove the file name
         dirs.pop()
 
-        const file = {
+        const file: File['file'] = {
             slug: fileNode.fields.slug,
             title: fileNode.frontmatter.title,
             date: fileNode.frontmatter.date,
@@ -124,11 +134,14 @@ function createBlogStructure(fileNodes) {
 /**
  * Mutates the given file and fileStructure by recursively adding directory
  * nodes based on the directories of the file.
- * @param {Type of file} file - File node to update fileStructure with.
- * @param {Type of fileStructure} fileStructure - File structure to update.
- * @returns {Type of fileStructure} returns the fileStructure.
+ * @param file - File node to update fileStructure with.
+ * @param fileStructure - File structure to update.
+ * @returns returns the fileStructure.
  */
-function createFileStructure(file, fileStructure) {
+function createFileStructure(
+    file: File,
+    fileStructure: FileStructure
+): FileStructure {
     if (!file.dirs.length) {
         // Add file to current directory's file list once because we have reached the
         // final directory

@@ -1,9 +1,7 @@
-schema: 'schema.graphql'
-documents:
-    - ./src/**/*.{js,jsx,ts,tsx}
-    - ./gatsby-node.ts
 projects:
     gatsby:
+        schema: 'schema.graphql'
+        documents: 'src/**/*.{graphql,js,ts,jsx,tsx'
         extensions:
             endpoints:
                 default:
