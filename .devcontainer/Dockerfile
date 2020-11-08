@@ -14,3 +14,7 @@ FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
 
 # [Optional] Uncomment if you want to install more global node modules
 # RUN sudo -u node npm install -g <your-package-list-here>
+
+RUN mv $(which vi) $(dirname $(which vi))/vim
+COPY ./.tmp-gitconfig /root/.user-gitconfig
+RUN git config --global include.path /root/.user-gitconfig

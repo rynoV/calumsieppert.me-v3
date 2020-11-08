@@ -3,7 +3,9 @@
     "build": {
         "dockerfile": "Dockerfile",
         // Update 'VARIANT' to pick a Node version: 10, 12, 14
-        "args": { "VARIANT": "14" }
+        "args": { "VARIANT": "14" },
+        // This path is relative to this file
+        "context": ".."
     },
 
     // Set *default* container specific settings.json values on container create.
@@ -21,6 +23,8 @@
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     "forwardPorts": [8000],
 
+    // This command is relative to the project root
+    "initializeCommand": "cp ~/.gitconfig ./.tmp-gitconfig",
     // Use 'postCreateCommand' to run commands after the container is created.
-    "postCreateCommand": "yarn install"
+    "postCreateCommand": "rm .tmp-gitconfig && yarn install"
 }

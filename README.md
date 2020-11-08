@@ -16,6 +16,8 @@ My personal website
             many things, including tag1, tag2, and tag3."
 -   [ ] Add resume
 -   [ ] Try yarn 2
+    -   Tried it, got stuck referencing the dependencies in `gatsby-config` for
+        `gatsby-plugin-codegen` to pull out GraphQL fragements.
 
 ## Assets
 
