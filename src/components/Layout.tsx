@@ -51,7 +51,7 @@ export function Layout({
                     fluid={data?.file?.childImageSharp?.fluid}
                     alt='Logo'
                 />
-                <div>
+                <div className='h-full flex items-center'>
                     <NavLink currentPath={currentPath} to='/'>
                         Home
                     </NavLink>
@@ -69,9 +69,9 @@ function NavLink({ to, children, currentPath }) {
     return (
         <Link
             to={to}
-            className={`h-full px-6 py-4 no-underline text-gray-100 visited:text-gray-100 border-primary focus:bg-gray-800 hover:bg-gray-800 ${
+            className={`h-full px-6 py-4 no-underline text-gray-100 visited:text-gray-100 border-primary focus:bg-gray-600 hover:bg-gray-600 ${
                 currentPath === to ? 'border-b-2' : ''
-            }`}
+            } duration-150 transition-colors`}
         >
             {children}
         </Link>

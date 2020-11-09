@@ -12,7 +12,8 @@ export default function IndexPage({ location, data }) {
         site: { siteMetadata },
     } = data
     const iconClasses = 'w-8 fill-current'
-    const linkClasses = 'mx-3 first:ml-0 text-gray-100 visited:text-gray-100'
+    const linkClasses =
+        'mx-3 first:ml-0 text-gray-100 visited:text-gray-100 transform hover:scale-110 duration-200'
 
     return (
         <Layout title='Home' currentPath={location.pathname}>
