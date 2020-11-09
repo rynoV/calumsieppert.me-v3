@@ -47,7 +47,7 @@ interface DirectoryProps {
 
 const Directory: React.FC<DirectoryProps> = function ({ name, children }) {
     return (
-        <details className='pl-6 my-6 border-l capitalize' key={name}>
+        <details className='pl-6 my-6 border-l capitalize'>
             <summary className='text-xl'>{name}</summary>
             {children}
         </details>
@@ -61,15 +61,15 @@ function getCategoryListingJSX(blogStructure: FileStructure): ReactElement[] {
     // directory as an argument
     // getCategoryListingJSX always needs to return either jsx or an array of jsx elements
     const files = blogStructure.files
-        ? blogStructure.files.map((file) => {
-              return <PostOverview key={file.title} {...file} />
+        ? blogStructure.files.map((file, i) => {
+              return <PostOverview key={file.title + i} {...file} />
           })
         : []
     const dirs =
         blogStructure.dirs !== {}
-            ? Object.entries(blogStructure.dirs).map(([name, dir]) => {
+            ? Object.entries(blogStructure.dirs).map(([name, dir], i) => {
                   return (
-                      <Directory name={name} key={name}>
+                      <Directory name={name} key={name + i}>
                           {getCategoryListingJSX(dir)}
                       </Directory>
                   )

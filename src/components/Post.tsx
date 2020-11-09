@@ -25,7 +25,8 @@ export const PostOverview: React.FC<Props> = function ({
                 {title}
             </Link>
             <span className='text-gray-400 text-sm'>
-                Published: {formatBlogDate(date)} | Updated: {updated}
+                Published: {formatBlogDate(date)}
+                {updated && ` | Updated: ${updated}`}
             </span>
             <div
                 dangerouslySetInnerHTML={{ __html: excerpt }}

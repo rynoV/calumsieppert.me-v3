@@ -22,8 +22,6 @@ export const ChronListing: React.FC = function () {
 
     const postOverviews = data.allMarkdownRemark.edges.map(
         ({ node: { fields, frontmatter, excerpt, parent } }) => {
-            console.log(parent)
-
             return (
                 <PostOverview
                     key={fields.slug}
