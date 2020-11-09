@@ -3591,7 +3591,7 @@ export type LayoutQuery = { file?: Maybe<{ childImageSharp?: Maybe<{ fluid?: May
 
 export type PostDataFragment = (
   Pick<MarkdownRemark, 'excerpt'>
-  & { fields?: Maybe<Pick<MarkdownRemarkFields, 'slug'>>, frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'title' | 'date'>> }
+  & { fields?: Maybe<Pick<MarkdownRemarkFields, 'slug'>>, frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'title' | 'date'>>, parent?: Maybe<Pick<MdFile, 'mtime'>> }
 );
 
 export type SeoQueryVariables = Exact<{ [key: string]: never; }>;

@@ -71,7 +71,7 @@ export default function Blog({ data, location }: Props) {
                     ></div>
                 </details>
                 <div dangerouslySetInnerHTML={{ __html: html }}></div>
-                <p className='italic'>
+                <p className='italic border border-primary p-5 rounded'>
                     Feel free to{' '}
                     <a href={`mailto:${site.siteMetadata.authorEmail}`}>
                         send me an email

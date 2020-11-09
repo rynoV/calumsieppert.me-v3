@@ -4,10 +4,11 @@ import { Layout } from '../components/Layout'
 import { CategoryListing } from '../components/CategoryListing'
 import { ChronListing } from '../components/ChronListing'
 import { useState } from 'react'
+import { PageProps } from 'gatsby'
 
 const displayTypes = { recent: 'Recent', category: 'Category' }
 
-export default function IndexPage({ location }) {
+const PostsPage: React.FC<PageProps> = function ({ location }) {
     const [displayType, setDisplayType] = useState(displayTypes.recent)
 
     function handleDisplayTypeChange({ target }) {
@@ -40,3 +41,5 @@ export default function IndexPage({ location }) {
         </Layout>
     )
 }
+
+export default PostsPage

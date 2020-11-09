@@ -2,9 +2,10 @@ import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 
 import { PostOverview } from './Post'
+import { ChronListingQuery } from '../../@types/generated'
 
 export const ChronListing: React.FC = function () {
-    const data = useStaticQuery(graphql`
+    const data: ChronListingQuery = useStaticQuery(graphql`
         query ChronListing {
             allMarkdownRemark(
                 filter: { fields: { isBlogPost: { eq: true } } }
@@ -19,8 +20,10 @@ export const ChronListing: React.FC = function () {
         }
     `)
 
-    return data.allMarkdownRemark.edges.map(
-        ({ node: { fields, frontmatter, excerpt } }) => {
+    const postOverviews = data.allMarkdownRemark.edges.map(
+        ({ node: { fields, frontmatter, excerpt, parent } }) => {
+            console.log(parent)
+
             return (
                 <PostOverview
                     key={fields.slug}
@@ -28,8 +31,10 @@ export const ChronListing: React.FC = function () {
                     date={frontmatter.date}
                     slug={fields.slug}
                     excerpt={excerpt}
+                    updated={parent?.mtime}
                 />
             )
         }
     )
+    return <>{postOverviews}</>
 }

@@ -18,6 +18,7 @@ My personal website
 -   [ ] Try yarn 2
     -   Tried it, got stuck referencing the dependencies in `gatsby-config` for
         `gatsby-plugin-codegen` to pull out GraphQL fragements.
+-   [ ] Robots.txt
 
 ## Assets
 

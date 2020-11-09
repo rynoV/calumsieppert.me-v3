@@ -17,7 +17,8 @@
     "extensions": [
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
-        "graphql.vscode-graphql"
+        "graphql.vscode-graphql",
+        "bradlc.vscode-tailwindcss"
     ],
 
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
