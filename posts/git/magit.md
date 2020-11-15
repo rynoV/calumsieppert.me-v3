@@ -180,7 +180,9 @@ Now you should have a nice stand-alone Magit!
 -   The [walk-through I recommended](https://emacsair.me/2017/09/01/magit-walk-through/) had a few things that didn't work for me:
     -   The key combination mentioned to save arguments in transient popups didn't work for me, instead what worked was: `C-x C-s` to save default arguments, and `C-x s` for just the current session.
     -   The key combination mentioned to show common commands in transient popups didn't work for me, instead what worked was `C-x t`.
+-   A few other alternatives to the stand-alone Magit setup I described are [magit.sh](https://github.com/alphapapa/magit.sh) and [smagit](https://github.com/maio/smagit). I haven't tried them but it looks like they follow a similar path to what I showed but automate more of it.
 
 # Magit Tips
 
 -   You can amend to HEAD by pressing `c a`. While amending and editing the message, press `C-c C-d` to toggle between showing only the changes that are being added to HEAD and all changed that will make it into the amended commit.
+-   Marcin Borkowski wrote a few tips [here](http://mbork.pl/2019-05-05_A_few_Magit_tips) which I thought were pretty useful.
