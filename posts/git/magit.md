@@ -186,3 +186,4 @@ Now you should have a nice stand-alone Magit!
 
 -   You can amend to HEAD by pressing `c a`. While amending and editing the message, press `C-c C-d` to toggle between showing only the changes that are being added to HEAD and all changed that will make it into the amended commit.
 -   Marcin Borkowski wrote a few tips [here](http://mbork.pl/2019-05-05_A_few_Magit_tips) which I thought were pretty useful.
+-   To cherry-pick commits from another branch onto the current branch, you can use one of the log commands to log the commits from the other branch (e.g. `l o` then the name of the branch), then highlight the range you want to pick, then type `A A` to cherry-pick those onto the current branch. Alternatively you can type `A a` to only apply the changes in the commits but not copy the commits.
