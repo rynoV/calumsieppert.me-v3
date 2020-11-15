@@ -18,7 +18,8 @@
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
         "graphql.vscode-graphql",
-        "bradlc.vscode-tailwindcss"
+        "bradlc.vscode-tailwindcss",
+        "stkb.rewrap"
     ],
 
     // Use 'forwardPorts' to make a list of ports inside the container available locally.

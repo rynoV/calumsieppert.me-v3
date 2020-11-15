@@ -7,13 +7,14 @@ a.anchor {
  * https://www.gatsbyjs.com/plugins/gatsby-remark-prismjs/?=rem#optional-add-line-highlighting-styles
  * */
 .gatsby-highlight-code-line {
-    background-color: #2e3440;
+    --hl-color: #373d4b;
+    background-color: var(--hl-color);
     display: block;
     margin-right: -1em;
     margin-left: -1em;
     padding-right: 1em;
     padding-left: 0.75em;
-    border-left: 0.25em solid #2e3440;
+    border-left: 0.25em solid var(--hl-color);
 }
 .gatsby-highlight {
     overflow: auto;
