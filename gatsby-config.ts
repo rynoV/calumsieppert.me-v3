@@ -18,6 +18,7 @@ const gatsbyConfig: GatsbyConfig = {
         },
         authorLinkedIn: `https://www.linkedin.com/in/calum-sieppert/`,
         authorGitHub: `https://github.com/rynoV/`,
+        authorTwitter: `https://twitter.com/CalumSieppert`,
     },
     plugins: [
         `gatsby-plugin-netlify`,

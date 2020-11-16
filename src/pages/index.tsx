@@ -6,6 +6,7 @@ import { CabinScene } from '../components/CabinScene'
 
 import GithubIcon from '../../images/github.inline.svg'
 import LinkedInIcon from '../../images/linkedin.inline.svg'
+import TwitterIcon from '../../images/twitter.inline.svg'
 
 export default function IndexPage({ location, data }) {
     const {
@@ -36,6 +37,13 @@ export default function IndexPage({ location, data }) {
                 >
                     <LinkedInIcon className={iconClasses} alt='LinkedIn Icon' />
                 </a>
+                <a
+                    className={linkClasses}
+                    href={siteMetadata.authorTwitter}
+                    aria-label='Twitter Icon'
+                >
+                    <TwitterIcon className={iconClasses} alt='Twitter Icon' />
+                </a>
             </div>
             <CabinScene />
         </Layout>
@@ -48,6 +56,7 @@ export const query = graphql`
             siteMetadata {
                 authorLinkedIn
                 authorGitHub
+                authorTwitter
             }
         }
     }

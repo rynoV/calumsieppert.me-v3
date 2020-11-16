@@ -2554,6 +2554,7 @@ enum SiteFieldsEnum {
   siteMetadata___organization___logo
   siteMetadata___authorLinkedIn
   siteMetadata___authorGitHub
+  siteMetadata___authorTwitter
   port
   host
   polyfill
@@ -2873,12 +2874,6 @@ enum SitePageFieldsEnum {
   pluginCreator___pluginOptions___documentPaths
   pluginCreator___pluginOptions___fileName
   pluginCreator___pluginOptions___fonts
-  pluginCreator___pluginOptions___target
-  pluginCreator___pluginOptions___rel
-  pluginCreator___pluginOptions___isIconAfterHeader
-  pluginCreator___pluginOptions___offsetY
-  pluginCreator___pluginOptions___className
-  pluginCreator___pluginOptions___showLineNumbers
   pluginCreator___pluginOptions___maxWidth
   pluginCreator___pluginOptions___linkImagesToOriginal
   pluginCreator___pluginOptions___showCaptions
@@ -2891,6 +2886,12 @@ enum SitePageFieldsEnum {
   pluginCreator___pluginOptions___loading
   pluginCreator___pluginOptions___disableBgImageOnAlpha
   pluginCreator___pluginOptions___disableBgImage
+  pluginCreator___pluginOptions___target
+  pluginCreator___pluginOptions___rel
+  pluginCreator___pluginOptions___isIconAfterHeader
+  pluginCreator___pluginOptions___offsetY
+  pluginCreator___pluginOptions___className
+  pluginCreator___pluginOptions___showLineNumbers
   pluginCreator___pluginOptions___pathCheck
   pluginCreator___pluginOptions___allExtensions
   pluginCreator___pluginOptions___isTSX
@@ -3076,12 +3077,6 @@ enum SitePluginFieldsEnum {
   pluginOptions___plugins___id
   pluginOptions___plugins___name
   pluginOptions___plugins___version
-  pluginOptions___plugins___pluginOptions___target
-  pluginOptions___plugins___pluginOptions___rel
-  pluginOptions___plugins___pluginOptions___isIconAfterHeader
-  pluginOptions___plugins___pluginOptions___offsetY
-  pluginOptions___plugins___pluginOptions___className
-  pluginOptions___plugins___pluginOptions___showLineNumbers
   pluginOptions___plugins___pluginOptions___maxWidth
   pluginOptions___plugins___pluginOptions___linkImagesToOriginal
   pluginOptions___plugins___pluginOptions___showCaptions
@@ -3094,6 +3089,12 @@ enum SitePluginFieldsEnum {
   pluginOptions___plugins___pluginOptions___loading
   pluginOptions___plugins___pluginOptions___disableBgImageOnAlpha
   pluginOptions___plugins___pluginOptions___disableBgImage
+  pluginOptions___plugins___pluginOptions___target
+  pluginOptions___plugins___pluginOptions___rel
+  pluginOptions___plugins___pluginOptions___isIconAfterHeader
+  pluginOptions___plugins___pluginOptions___offsetY
+  pluginOptions___plugins___pluginOptions___className
+  pluginOptions___plugins___pluginOptions___showLineNumbers
   pluginOptions___plugins___nodeAPIs
   pluginOptions___plugins___browserAPIs
   pluginOptions___plugins___ssrAPIs
@@ -3119,12 +3120,6 @@ enum SitePluginFieldsEnum {
   pluginOptions___documentPaths
   pluginOptions___fileName
   pluginOptions___fonts
-  pluginOptions___target
-  pluginOptions___rel
-  pluginOptions___isIconAfterHeader
-  pluginOptions___offsetY
-  pluginOptions___className
-  pluginOptions___showLineNumbers
   pluginOptions___maxWidth
   pluginOptions___linkImagesToOriginal
   pluginOptions___showCaptions
@@ -3137,6 +3132,12 @@ enum SitePluginFieldsEnum {
   pluginOptions___loading
   pluginOptions___disableBgImageOnAlpha
   pluginOptions___disableBgImage
+  pluginOptions___target
+  pluginOptions___rel
+  pluginOptions___isIconAfterHeader
+  pluginOptions___offsetY
+  pluginOptions___className
+  pluginOptions___showLineNumbers
   pluginOptions___pathCheck
   pluginOptions___allExtensions
   pluginOptions___isTSX
@@ -3279,12 +3280,6 @@ type SitePluginPluginOptions {
   documentPaths: [String]
   fileName: String
   fonts: [String]
-  target: String
-  rel: String
-  isIconAfterHeader: Boolean
-  offsetY: Int
-  className: String
-  showLineNumbers: Boolean
   maxWidth: Int
   linkImagesToOriginal: Boolean
   showCaptions: Boolean
@@ -3297,6 +3292,12 @@ type SitePluginPluginOptions {
   loading: String
   disableBgImageOnAlpha: Boolean
   disableBgImage: Boolean
+  target: String
+  rel: String
+  isIconAfterHeader: Boolean
+  offsetY: Int
+  className: String
+  showLineNumbers: Boolean
   pathCheck: Boolean
   allExtensions: Boolean
   isTSX: Boolean
@@ -3326,12 +3327,6 @@ input SitePluginPluginOptionsFilterInput {
   documentPaths: StringQueryOperatorInput
   fileName: StringQueryOperatorInput
   fonts: StringQueryOperatorInput
-  target: StringQueryOperatorInput
-  rel: StringQueryOperatorInput
-  isIconAfterHeader: BooleanQueryOperatorInput
-  offsetY: IntQueryOperatorInput
-  className: StringQueryOperatorInput
-  showLineNumbers: BooleanQueryOperatorInput
   maxWidth: IntQueryOperatorInput
   linkImagesToOriginal: BooleanQueryOperatorInput
   showCaptions: BooleanQueryOperatorInput
@@ -3344,6 +3339,12 @@ input SitePluginPluginOptionsFilterInput {
   loading: StringQueryOperatorInput
   disableBgImageOnAlpha: BooleanQueryOperatorInput
   disableBgImage: BooleanQueryOperatorInput
+  target: StringQueryOperatorInput
+  rel: StringQueryOperatorInput
+  isIconAfterHeader: BooleanQueryOperatorInput
+  offsetY: IntQueryOperatorInput
+  className: StringQueryOperatorInput
+  showLineNumbers: BooleanQueryOperatorInput
   pathCheck: BooleanQueryOperatorInput
   allExtensions: BooleanQueryOperatorInput
   isTSX: BooleanQueryOperatorInput
@@ -3379,12 +3380,6 @@ input SitePluginPluginOptionsPluginsFilterListInput {
 }
 
 type SitePluginPluginOptionsPluginsPluginOptions {
-  target: String
-  rel: String
-  isIconAfterHeader: Boolean
-  offsetY: Int
-  className: String
-  showLineNumbers: Boolean
   maxWidth: Int
   linkImagesToOriginal: Boolean
   showCaptions: Boolean
@@ -3397,15 +3392,15 @@ type SitePluginPluginOptionsPluginsPluginOptions {
   loading: String
   disableBgImageOnAlpha: Boolean
   disableBgImage: Boolean
+  target: String
+  rel: String
+  isIconAfterHeader: Boolean
+  offsetY: Int
+  className: String
+  showLineNumbers: Boolean
 }
 
 input SitePluginPluginOptionsPluginsPluginOptionsFilterInput {
-  target: StringQueryOperatorInput
-  rel: StringQueryOperatorInput
-  isIconAfterHeader: BooleanQueryOperatorInput
-  offsetY: IntQueryOperatorInput
-  className: StringQueryOperatorInput
-  showLineNumbers: BooleanQueryOperatorInput
   maxWidth: IntQueryOperatorInput
   linkImagesToOriginal: BooleanQueryOperatorInput
   showCaptions: BooleanQueryOperatorInput
@@ -3418,6 +3413,12 @@ input SitePluginPluginOptionsPluginsPluginOptionsFilterInput {
   loading: StringQueryOperatorInput
   disableBgImageOnAlpha: BooleanQueryOperatorInput
   disableBgImage: BooleanQueryOperatorInput
+  target: StringQueryOperatorInput
+  rel: StringQueryOperatorInput
+  isIconAfterHeader: BooleanQueryOperatorInput
+  offsetY: IntQueryOperatorInput
+  className: StringQueryOperatorInput
+  showLineNumbers: BooleanQueryOperatorInput
 }
 
 input SitePluginSortInput {
@@ -3435,6 +3436,7 @@ type SiteSiteMetadata {
   organization: SiteSiteMetadataOrganization
   authorLinkedIn: String
   authorGitHub: String
+  authorTwitter: String
 }
 
 input SiteSiteMetadataFilterInput {
@@ -3447,6 +3449,7 @@ input SiteSiteMetadataFilterInput {
   organization: SiteSiteMetadataOrganizationFilterInput
   authorLinkedIn: StringQueryOperatorInput
   authorGitHub: StringQueryOperatorInput
+  authorTwitter: StringQueryOperatorInput
 }
 
 type SiteSiteMetadataOrganization {

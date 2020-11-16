@@ -1,10 +1,25 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
-import PropTypes from 'prop-types'
 import SchemaOrg from './SchemaOrg'
+import { MarkdownRemarkFrontmatter } from '../../@types/generated'
 
-export function SEO({ postData, postImage, isBlogPost, currentPath }) {
+interface Props {
+    postData: {
+        frontmatter: MarkdownRemarkFrontmatter
+        excerpt: string
+    }
+    postImage: string
+    isBlogPost: boolean
+    currentPath: string
+}
+
+export const SEO: React.FC<Props> = function ({
+    postData = {},
+    postImage = null,
+    isBlogPost = false,
+    currentPath,
+}) {
     const {
         site: { siteMetadata: seo },
     } = useStaticQuery(graphql`
@@ -29,11 +44,10 @@ export function SEO({ postData, postImage, isBlogPost, currentPath }) {
     const postMeta = postData?.frontmatter || {}
 
     const title = postMeta.title || seo.title
-    const description =
-        postMeta.description || postData?.excerpt || seo.description
+    const description = postData?.excerpt || seo.description
     const image = postImage ? `${seo.siteUrl}${postImage}` : seo.image
     const url = `${seo.siteUrl}${currentPath}`
-    const datePublished = isBlogPost ? postMeta.date : false
+    const datePublished = isBlogPost ? postMeta.date : ''
 
     return (
         <React.Fragment>
@@ -79,20 +93,4 @@ export function SEO({ postData, postImage, isBlogPost, currentPath }) {
             />
         </React.Fragment>
     )
-}
-
-SEO.propTypes = {
-    isBlogPost: PropTypes.bool,
-    postData: PropTypes.shape({
-        frontmatter: PropTypes.any,
-        excerpt: PropTypes.any,
-    }),
-    postImage: PropTypes.string,
-    currentPath: PropTypes.string,
-}
-
-SEO.defaultProps = {
-    isBlogPost: false,
-    postData: {},
-    postImage: null,
 }

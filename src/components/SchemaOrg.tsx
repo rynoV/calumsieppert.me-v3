@@ -4,8 +4,22 @@
 
 import React from 'react'
 import { Helmet } from 'react-helmet'
+import { SiteSiteMetadataOrganization } from '../../@types/generated'
 
-export default React.memo(
+interface Props {
+    author: string
+    siteUrl: string
+    datePublished: string
+    defaultTitle: string
+    description: string
+    image: string
+    isBlogPost: boolean
+    title: string
+    url: string
+    organization: SiteSiteMetadataOrganization
+}
+
+export default React.memo<Props>(
     ({
         author,
         siteUrl,
@@ -60,7 +74,7 @@ export default React.memo(
                       description,
                       author: {
                           '@type': 'Person',
-                          name: author.name,
+                          name: author,
                       },
                       publisher: {
                           '@type': 'Organization',
