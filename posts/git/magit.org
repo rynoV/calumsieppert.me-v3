@@ -233,7 +233,11 @@ I also made a few more customizations in my ~init.el~ to make things nicer:
   "Uses the Windows git.exe if the git repo is on Windows"
       (interactive)
       (if (is-windows-path (magit-git-dir))
-          (setq magit-git-executable "git.exe")))
+          ;; This path was found by looking at magit-git-executable in
+          ;; my Windows Emacs version. Using just "git.exe" can hurt
+          ;; performance, see here:
+          ;; https://magit.vc/manual/magit/Git-Executable.html#Git-Executable
+          (setq magit-git-executable "/mnt/c/Program Files/Git/mingw64/libexec/git-core/git.exe")))
   (add-hook 'magit-mode-hook 'my-select-magit-git)
   ;; highlight-end
 #+end_src
