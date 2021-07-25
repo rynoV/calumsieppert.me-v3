@@ -35,7 +35,7 @@ We can then process the text and we end up with the following
 dependency tree:
 
 #+begin_src python
-from spacy.display import render
+from spacy.displacy import render
 
 doc = nlp('I quickly ran to the new store')
 render(doc)

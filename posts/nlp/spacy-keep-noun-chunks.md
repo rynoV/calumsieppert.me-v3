@@ -22,7 +22,7 @@ nlp.add_pipe('merge_noun_chunks')
 We can then process the text and we end up with the following dependency tree:
 
 ```python
-from spacy.display import render
+from spacy.displacy import render
 
 doc = nlp('I quickly ran to the new store')
 render(doc)
