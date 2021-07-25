@@ -29,7 +29,6 @@ export const ChronListing: React.FC = function () {
                     date={frontmatter.date}
                     slug={fields.slug}
                     excerpt={excerpt}
-                    updated={parent?.mtime}
                 />
             )
         }

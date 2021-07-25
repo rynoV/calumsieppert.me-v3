@@ -9,7 +9,6 @@ export interface Props {
     title: PostDataFragment['frontmatter']['title']
     date: PostDataFragment['frontmatter']['date']
     excerpt: PostDataFragment['excerpt']
-    updated: PostDataFragment['parent']['mtime']
 }
 
 export const PostOverview: React.FC<Props> = function ({
@@ -17,7 +16,6 @@ export const PostOverview: React.FC<Props> = function ({
     slug,
     date,
     excerpt,
-    updated,
 }) {
     return (
         <div className='ml-6 my-2' key={slug}>
@@ -26,7 +24,6 @@ export const PostOverview: React.FC<Props> = function ({
             </Link>
             <span className='text-gray-400 text-sm'>
                 Published: {formatBlogDate(date)}
-                {updated && ` | Updated: ${updated}`}
             </span>
             <div
                 dangerouslySetInnerHTML={{ __html: excerpt }}
@@ -46,10 +43,5 @@ export const query = graphql`
             date
         }
         excerpt(format: HTML)
-        parent {
-            ... on MDFile {
-                mtime(fromNow: true)
-            }
-        }
     }
 `

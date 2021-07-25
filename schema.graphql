@@ -874,7 +874,6 @@ enum FileFieldsEnum {
   childMarkdownRemark___id
   childMarkdownRemark___frontmatter___title
   childMarkdownRemark___frontmatter___date
-  childMarkdownRemark___frontmatter___updated
   childMarkdownRemark___excerpt @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   childMarkdownRemark___rawMarkdownBody @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   childMarkdownRemark___fileAbsolutePath @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
@@ -1652,7 +1651,6 @@ enum MarkdownRemarkFieldsEnum {
   id
   frontmatter___title
   frontmatter___date
-  frontmatter___updated
   excerpt @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   rawMarkdownBody @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   fileAbsolutePath @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
@@ -1784,13 +1782,11 @@ input MarkdownRemarkFilterInput {
 type MarkdownRemarkFrontmatter {
   title: String
   date: String
-  updated: String
 }
 
 input MarkdownRemarkFrontmatterFilterInput {
   title: StringQueryOperatorInput
   date: StringQueryOperatorInput
-  updated: StringQueryOperatorInput
 }
 
 type MarkdownRemarkGroupConnection {
@@ -2156,7 +2152,6 @@ enum MDFileFieldsEnum {
   childMarkdownRemark___id
   childMarkdownRemark___frontmatter___title
   childMarkdownRemark___frontmatter___date
-  childMarkdownRemark___frontmatter___updated
   childMarkdownRemark___excerpt @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   childMarkdownRemark___rawMarkdownBody @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")
   childMarkdownRemark___fileAbsolutePath @deprecated(reason: "Sorting on fields that need arguments to resolve is deprecated.")

@@ -35,7 +35,6 @@ export function CategoryListing() {
                 title={mostRecent.frontmatter.title}
                 date={mostRecent.frontmatter.date}
                 excerpt={mostRecent.excerpt}
-                updated={mostRecent.parent?.mtime}
             />
         </>
     )
@@ -111,7 +110,6 @@ function createBlogStructure(
             title: fileNode.frontmatter.title,
             date: fileNode.frontmatter.date,
             excerpt: fileNode.excerpt,
-            updated: fileNode.parent?.mtime,
         }
 
         return {
