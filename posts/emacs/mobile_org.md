@@ -1,0 +1,169 @@
+---
+title: "Automatically syncing Org Mode documents to an iOS device"
+date: "<2021-09-02 Thu>"
+---
+
+With the next semester coming up, I'm going through my usual process of fixing what isn't broken and changing my organization system.
+
+
+# Motivation
+
+For the previous year I was using Outlook for my calendar and email, and Microsoft To Do for my to-do lists. This system worked well as these are both full featured applications which I can use on my laptop and phone, and they integrate well with my school's system which uses Microsoft heavily.
+
+I don't have any issues with the calendar and email as the majority of my usage of those applications is read-only. However I'm always making changes to the to-do lists, and the Microsoft To Do app can be a bit slow and inflexible when it comes to this.
+
+
+# New System
+
+Over the summer I decided to try Org Mode for task management because my work was all remote and I didn't need to access my tasks on my phone. I've found Org Mode to be much more efficient and pleasant to use than Microsoft To Do, so I want to try to switch to it for school as well.
+
+I've wanted to try this before, but I was previously unaware of any way to edit my Org files on my phone, which was a deal breaker for me when it comes to school because I'm often away from my computer. However, while setting up Org for the summer, I learned about [MobileOrg](https://mobileorg.github.io/), an iOS app for interacting with Org files.
+
+This app lacks a few key features compared to my previous solution:
+
+1.  No built-in automatic synchronization from my laptop to my phone
+2.  No reminders on my phone for tasks
+
+I don't know of any way to get the second feature, however it isn't a deal breaker because I rarely need notifications for tasks, and when I do I can just make one quickly in Microsoft To Do on my phone.
+
+The first feature also isn't a deal breaker, however it's a nice quality of life improvement and I figured it wouldn't be too difficult to set up. The remainder of this post will go through how I set it up.
+
+
+# Automatic Synchronization
+
+This section will describe how I set up my Linux (Pop! OS 21.04) laptop to periodically synchronize changes to my Org files to my phone. This setup should work without much modification on most Linux distributions. It will likely require modification on MacOS and Windows, but the same concepts should apply.
+
+
+## Initial Setup
+
+First you will need MobileOrg setup in your Emacs config. See the [documentation here](https://mobileorg.github.io/documentation/) for how to do this.
+
+I have this section in my config for configuring Org and MobileOrg:
+
+```emacs-lisp
+(setq org-directory "~/org")
+(make-directory org-directory t)
+(setq org-default-notes-file (concat org-directory "/notes.org"))
+;; Set to the name of the file where notes captured on mobile will
+;; be stored
+(setq org-mobile-inbox-for-pull org-default-notes-file)
+(setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
+(make-directory org-mobile-directory t)
+```
+
+With this setup, notes that I make on my phone will be sent to `notes.org`, and from there I can refile them wherever they need to go (unfortunately the app does not seem to allow for adding new headings to other Org files). Note also that I keep my Org files in `org-directory`, as opposed to scattering them across my computer; this method is assumed later when setting up the chron job.
+
+MobileOrg will sync all files listed in the `org-agenda-files` variable. I use `org-agenda-file-to-front` (`C-c [`) in an Org file to add the current file to this list. `org-remove-file` (`C-c ]`) can be used to remove a file from the list.
+
+MobileOrg requires some third party file storage to perform the synchronization, I chose Dropbox for this. The last two lines in the above config tell MobileOrg to store the files it creates in the Dropbox folder in my home directory, and ensure the directory exists.
+
+In addition to the necessary config above, I created these functions to make it easier to synchronize changes manually:
+
+```emacs-lisp
+(defun calum/org-mobile-pull ()
+  "Uses dropbox and rclone to pull changes from org mobile"
+  (interactive)
+  (message "Pulling changes from dropbox")
+  (call-process-shell-command "rclone sync --fast-list dropbox: ~/Dropbox")
+  (message "Done pulling")
+  (org-mobile-pull))
+
+(defun calum/org-mobile-push ()
+  "Uses dropbox and rclone to push changes to org mobile"
+  (interactive)
+  (org-mobile-push)
+  (message "Pushing changes to dropbox")
+  (call-process-shell-command "rclone sync --fast-list ~/Dropbox dropbox:")
+  (message "Done"))
+
+(defun calum/org-mobile-sync ()
+  "Uses dropbox and rclone to pull then push changes to org mobile"
+  (interactive)
+  (calum/org-mobile-pull)
+  (calum/org-mobile-push))
+```
+
+The complete synchronization process requires both calling `org-mobile-push/pull`, and updating Dropbox with the changes, so these functions simplify that process. I use [Rclone](https://rclone.org/) for accessing files from various cloud storage providers on my computer, so it was fairly easy to set this up. This requires Rclone to be setup with a Dropbox provider named `dropbox` (see the [documentation here](https://rclone.org/dropbox/) for how to do this).
+
+At this point you should be able to manually synchronize your changes, next up is automating this.
+
+
+## Setting up synchronization chron job
+
+I don't want to have to remember to push my latest changes before I leave my computer, so I set up a chron job to push changes every minute. Note that this will not attempt to pull changes that I made on my phone to my laptop, because I don't mind pulling manually when I'm already at my computer.
+
+The first task is to make a script that can push my changes. I also want this script to only try to push if changes were actually made, because I want this to run frequently and pushing can be expensive. I created the following script `push-org.sh` in `~/scripts`:
+
+```bash
+#!/bin/bash
+
+# To setup, run `crontab -e` and append `*/1 * * * * ~/scripts/push-org.sh`
+# (runs the script every minute)
+
+# Uncomment to enable logging
+# exec &>> ~/scripts/push-org.log
+
+echo `date`
+
+# Only push if changes have been made
+if ~/scripts/check-org-changes.sh
+then
+    echo "Pushing changes"
+    # Update org mobile files, starting an emacs server if necessary
+    if ! emacsclient --socket-name orgsync --eval "(org-mobile-push)"
+    then
+        echo "Starting emacs daemon for syncing changes"
+        emacs --daemon=orgsync
+        emacsclient --socket-name orgsync --eval "(org-mobile-push)"
+    fi
+    # Push org mobile changes to dropbox
+    rclone sync --fast-list ~/Dropbox dropbox:
+else
+    echo "No changes, not pushing"
+fi
+```
+
+This script attempts to push only if changes have been made. Because pushing involves `org-mobile-push`, an Emacs Lisp function, the script calls the function using `emacsclient` on a daemon called `orgsync`, starting the daemon if necessary.
+
+`check-org-changes.sh` is a script that returns 0 if my Org files have changed, and 1 otherwise:
+
+```bash
+#!/bin/bash
+
+# Script from here
+# https://blog.cadena-it.com/linux-tips-how-to/how-to-detect-changes-in-a-directory-with-bash/
+# to check for changes in the folder
+
+DIR_TO_CHECK="$HOME/org"
+OLD_SUM_FILE="/tmp/prev-sum.txt"
+if [ -e $OLD_SUM_FILE ]
+then
+    OLD_SUM=`cat $OLD_SUM_FILE`
+else
+    OLD_SUM=""
+fi
+NEW_SUM=`find $DIR_TO_CHECK -name '*.org*' -print0 | xargs -0 du -b --time | sort -k4,4 | sha1sum | awk '{print $1}'`
+if [ "$OLD_SUM" != "$NEW_SUM" ]
+then
+    echo $NEW_SUM > $OLD_SUM_FILE
+    exit 0
+fi
+
+exit 1
+```
+
+A few notes:
+
+-   The script works by saving a checksum of the Org files in `/tmp/prev-sum.txt`, and comparing it to a newly generated checksum
+-   I modified the `find` command from the referenced blog post to search for only files ending in `.org` (and `.org_archive`)
+
+Finally, with these two scripts created in `~/scripts`, we can set up the chron job using `crontab`. To do this, run `crontab -e` and append `*/1 * * * * ~/scripts/push-org.sh`, which runs the script every minute.
+
+After this, your changes should be pushed every minute for you to pull in on your phone.
+
+I haven't spent much time using this setup, so I'll try to remember to update this post if I need to change anything.
+
+I referenced the following resources to set this up:
+
+-   <https://www.cyberciti.biz/faq/how-do-i-add-jobs-to-cron-under-linux-or-unix-oses/>
+-   <https://blog.cadena-it.com/linux-tips-how-to/how-to-detect-changes-in-a-directory-with-bash/>
