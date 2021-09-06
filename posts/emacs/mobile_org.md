@@ -66,15 +66,18 @@ In addition to the necessary config above, I created these functions to make it 
   (message "Pulling changes from dropbox")
   (call-process-shell-command "rclone sync --fast-list dropbox: ~/Dropbox")
   (message "Done pulling")
-  (org-mobile-pull))
+  (org-mobile-pull)
+  (org-save-all-org-buffers))
 
 (defun calum/org-mobile-push ()
   "Uses dropbox and rclone to push changes to org mobile"
   (interactive)
+  (org-super-agenda-mode 0)
   (org-mobile-push)
   (message "Pushing changes to dropbox")
   (call-process-shell-command "rclone sync --fast-list ~/Dropbox dropbox:")
-  (message "Done"))
+  (message "Done")
+  (org-super-agenda-mode 1))
 
 (defun calum/org-mobile-sync ()
   "Uses dropbox and rclone to pull then push changes to org mobile"
@@ -85,6 +88,11 @@ In addition to the necessary config above, I created these functions to make it 
 
 The complete synchronization process requires both calling `org-mobile-push/pull`, and updating Dropbox with the changes, so these functions simplify that process. I use [Rclone](https://rclone.org/) for accessing files from various cloud storage providers on my computer, so it was fairly easy to set this up. This requires Rclone to be setup with a Dropbox provider named `dropbox` (see the [documentation here](https://rclone.org/dropbox/) for how to do this).
 
+Update <span class="timestamp-wrapper"><span class="timestamp">&lt;2021-09-06 Mon&gt;</span></span>:
+
+-   Changed pull function to save org files after pull so that function doesn't require user input to confirm saving files
+-   Changed push function to disable org super agenda mode while pushing so that the agendas are nicer on MobileOrg
+
 At this point you should be able to manually synchronize your changes, next up is automating this.
 
 
@@ -92,16 +100,15 @@ At this point you should be able to manually synchronize your changes, next up i
 
 I don't want to have to remember to push my latest changes before I leave my computer, so I set up a chron job to push changes every minute. Note that this will not attempt to pull changes that I made on my phone to my laptop, because I don't mind pulling manually when I'm already at my computer.
 
-The first task is to make a script that can push my changes. I also want this script to only try to push if changes were actually made, because I want this to run frequently and pushing can be expensive. I created the following script `push-org.sh` in `~/scripts`:
+The first task is to make a script that can push my changes. I also want this script to only try to push if changes were actually made, because I want this to run frequently and pushing can be expensive. I created the following script `sync-org.sh` in `~/scripts`:
 
 ```bash
 #!/bin/bash
 
-# To setup, run `crontab -e` and append `*/1 * * * * ~/scripts/push-org.sh`
-# (runs the script every minute)
+# - To setup, run `crontab -e` and append `*/1 * * * * ~/scripts/push-org.sh` (runs the script every minute)
 
 # Uncomment to enable logging
-# exec &>> ~/scripts/push-org.log
+# exec &>> ~/scripts/sync-org.log
 
 echo `date`
 
@@ -110,20 +117,24 @@ if ~/scripts/check-org-changes.sh
 then
     echo "Pushing changes"
     # Update org mobile files, starting an emacs server if necessary
-    if ! emacsclient --socket-name orgsync --eval "(org-mobile-push)"
+    if ! emacsclient --socket-name orgsync --eval "(calum/org-mobile-sync)"
     then
         echo "Starting emacs daemon for syncing changes"
         emacs --daemon=orgsync
-        emacsclient --socket-name orgsync --eval "(org-mobile-push)"
+        emacsclient --socket-name orgsync --eval "(calum/org-mobile-sync)"
     fi
-    # Push org mobile changes to dropbox
-    rclone sync --fast-list ~/Dropbox dropbox:
+    echo "Done pushing changes"
 else
     echo "No changes, not pushing"
 fi
 ```
 
-This script attempts to push only if changes have been made. Because pushing involves `org-mobile-push`, an Emacs Lisp function, the script calls the function using `emacsclient` on a daemon called `orgsync`, starting the daemon if necessary.
+This script attempts to push only if changes have been made. Because pushing involves `org-mobile-push/pull`, Emacs Lisp functions, the script calls the functions using `emacsclient` on a daemon called `orgsync`, starting the daemon if necessary.
+
+Update <span class="timestamp-wrapper"><span class="timestamp">&lt;2021-09-06 Mon&gt;</span></span>:
+
+-   Changed script to use function defined in config above instead of repeating code
+-   Changed script to sync changes instead of just pushing to avoid conflicts
 
 `check-org-changes.sh` is a script that returns 0 if my Org files have changed, and 1 otherwise:
 
