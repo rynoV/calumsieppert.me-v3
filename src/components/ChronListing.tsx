@@ -33,5 +33,5 @@ export const ChronListing: React.FC = function () {
             )
         }
     )
-    return <>{postOverviews}</>
+    return <div className={`my-10 space-y-10`}>{postOverviews}</div>
 }

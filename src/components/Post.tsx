@@ -18,7 +18,7 @@ export const PostOverview: React.FC<Props> = function ({
     excerpt,
 }) {
     return (
-        <div className='ml-6 my-2' key={slug}>
+        <div className='my-2' key={slug}>
             <Link to={slug} className='block capitalize text-xl' key={slug}>
                 {title}
             </Link>

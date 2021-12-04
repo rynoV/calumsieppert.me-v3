@@ -29,6 +29,8 @@ export function CategoryListing() {
             {getCategoryListingJSX(
                 createBlogStructure(data.allMarkdownRemark.edges)
             )}
+            <br/>
+            <br/>
             <span>Most recent post: </span>
             <PostOverview
                 slug={mostRecent.fields.slug}
