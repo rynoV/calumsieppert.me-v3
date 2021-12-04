@@ -16,7 +16,7 @@ l[1:] # :]
 l[:1] # [:
 ```
 
-Eveywhere else in Python the round bracket and colon end up being in the wrong order :(. For example `def f():`, or `[1,2,3][1:(2+3)]`.
+Everywhere else in Python the round bracket and colon end up being in the wrong order :(. For example `def f():`, or `[1,2,3][1:(2+3)]`.
 
 
 # Haskell
