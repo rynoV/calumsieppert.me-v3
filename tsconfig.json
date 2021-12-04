@@ -6,8 +6,6 @@
         "esModuleInterop": true,
         "jsx": "react",
         "resolveJsonModule": true,
-        "checkJs": true,
-        "allowJs": true
     },
     "exclude": ["node_modules", "public", ".cache"]
 }
