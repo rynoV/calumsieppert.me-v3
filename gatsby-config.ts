@@ -1,6 +1,7 @@
 import { GatsbyConfig } from 'gatsby'
 import path from 'path'
 import { config } from './my-config'
+const authorGitHubUsername = `rynoV`
 // const isProd = process.env.NODE_ENV === 'production'
 
 const gatsbyConfig: GatsbyConfig = {
@@ -17,7 +18,8 @@ const gatsbyConfig: GatsbyConfig = {
             logo: '/logo.jpg',
         },
         authorLinkedIn: `https://www.linkedin.com/in/calum-sieppert/`,
-        authorGitHub: `https://github.com/rynoV/`,
+        authorGitHubUsername,
+        authorGitHub: `https://github.com/${authorGitHubUsername}/`,
         authorTwitter: `https://twitter.com/CalumSieppert`,
     },
     plugins: [

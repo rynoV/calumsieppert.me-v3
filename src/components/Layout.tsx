@@ -55,6 +55,9 @@ export function Layout({
                     <NavLink currentPath={currentPath} to='/'>
                         Home
                     </NavLink>
+                    <NavLink currentPath={currentPath} to='/projects'>
+                        Projects
+                    </NavLink>
                     <NavLink currentPath={currentPath} to='/posts'>
                         Posts
                     </NavLink>

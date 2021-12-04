@@ -2548,6 +2548,7 @@ enum SiteFieldsEnum {
   siteMetadata___organization___url
   siteMetadata___organization___logo
   siteMetadata___authorLinkedIn
+  siteMetadata___authorGitHubUsername
   siteMetadata___authorGitHub
   siteMetadata___authorTwitter
   port
@@ -3430,6 +3431,7 @@ type SiteSiteMetadata {
   image: String
   organization: SiteSiteMetadataOrganization
   authorLinkedIn: String
+  authorGitHubUsername: String
   authorGitHub: String
   authorTwitter: String
 }
@@ -3443,6 +3445,7 @@ input SiteSiteMetadataFilterInput {
   image: StringQueryOperatorInput
   organization: SiteSiteMetadataOrganizationFilterInput
   authorLinkedIn: StringQueryOperatorInput
+  authorGitHubUsername: StringQueryOperatorInput
   authorGitHub: StringQueryOperatorInput
   authorTwitter: StringQueryOperatorInput
 }
