@@ -27,24 +27,26 @@ My personal website
 
 ## Errors
 
-Got
+- Got
 
-```
-Cannot read property 'buildError' of undefined
-```
+  ```
+  Cannot read property 'buildError' of undefined
+  ```
+  
+  from `gatsby-plugin-graphql-codegen` while `documentPaths` included the root
+  directory. Specifically the offending path was `./**/*.{ts,tsx,js,jsx}`.
+  
+  Was also getting this error with GraphQL Code Generator and it seemed to be for
+  the same reason. After updating the document paths for that tool I started
+  running into a new error
+  
+  ```
+  Identifier `getIterator` already defined
+  ```
+  
+  and gave up.
 
-from `gatsby-plugin-graphql-codegen` while `documentPaths` included the root
-directory. Specifically the offending path was `./**/*.{ts,tsx,js,jsx}`.
-
-Was also getting this error with GraphQL Code Generator and it seemed to be for
-the same reason. After updating the document paths for that tool I started
-running into a new error
-
-```
-Identifier `getIterator` already defined
-```
-
-and gave up.
+- Had to pin `remark-mdx`, see [here](https://github.com/gatsbyjs/gatsby/issues/33713)
 
 ## GraphQL
 
