@@ -6,6 +6,9 @@ import { SEO } from './SEO'
 import '../utils/globals.css'
 import Image from 'gatsby-image'
 
+const linkClasses =
+    'h-full px-6 py-4 no-underline text-gray-100 visited:text-gray-100 border-primary focus:bg-gray-600 hover:bg-gray-600 duration-150 transition-colors'
+
 export function Layout({
     children,
     currentPath,
@@ -37,6 +40,7 @@ export function Layout({
         <NavLink currentPath={currentPath} to='/projects' key='/projects'>
             Projects
         </NavLink>,
+        <a href='calum_sieppert_resume.pdf' className={linkClasses}>Resume</a>,
         <NavLink currentPath={currentPath} to='/posts' key='/posts'>
             Posts
         </NavLink>,
@@ -80,11 +84,14 @@ export function Layout({
                     </div>
                 </div>
                 {menuExpanded && (
-                    <div className={`absolute bg-primary z-10 w-full bg-opacity-95`}>
+                    <div
+                        className={`absolute bg-primary z-10 w-full bg-opacity-95`}
+                    >
                         <ul className=''>
                             {navLinks.map(navLink => (
                                 <li
-                                    className={`block text-sm px-2 py-4 text-white font-semibold`} key={navLink.key}
+                                    className={`block text-sm px-2 py-4 text-white font-semibold`}
+                                    key={navLink.key}
                                 >
                                     {navLink}
                                 </li>
@@ -118,9 +125,9 @@ function NavLink({ to, children, currentPath }) {
     return (
         <Link
             to={to}
-            className={`h-full px-6 py-4 no-underline text-gray-100 visited:text-gray-100 border-primary focus:bg-gray-600 hover:bg-gray-600 ${
+            className={`${linkClasses} ${
                 currentPath === to ? 'border-b-2' : ''
-            } duration-150 transition-colors`}
+            }`}
         >
             {children}
         </Link>
