@@ -64,6 +64,9 @@ module.exports = {
             minHeight: {
                 body: bodyHeight,
             },
+            opacity: {
+                '95': '0.95'
+            }
         },
         typography: (theme) => {
             const color = theme('colors.gray.100')

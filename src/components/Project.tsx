@@ -45,7 +45,7 @@ export function Project({ project }: { project: Project }) {
                 </div>
                 <div className={`space-x-2 text-gray-500`}>
                     {project.topics.map(t => (
-                        <span className={`border-solid`}>{t}</span>
+                        <span className={`border-solid`} key={t.toString()}>{t}</span>
                     ))}
                 </div>
             </div>
