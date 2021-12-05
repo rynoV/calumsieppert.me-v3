@@ -15,12 +15,13 @@
 
     // Add the IDs of extensions you want installed when the container is created.
     "extensions": [
-        "dbaeumer.vscode-eslint",
-        "esbenp.prettier-vscode",
-        "graphql.vscode-graphql",
-        "bradlc.vscode-tailwindcss",
-        "stkb.rewrap"
-    ],
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode",
+		"graphql.vscode-graphql",
+		"bradlc.vscode-tailwindcss",
+		"stkb.rewrap",
+		"csstools.postcss"
+	],
 
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     "forwardPorts": [8000],
