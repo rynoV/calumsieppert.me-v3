@@ -22,12 +22,12 @@ export function Project({ project }: { project: Project }) {
         >
             <div
                 className={
-                    'space-y-2 p-5 border-solid border-2 border-white rounded shadow transform hover:scale-105 hover:shadow-lg duration-200'
+                    'space-y-2 p-5 border-solid border-2 border-white rounded shadow hover:scale-105 hover:shadow-lg duration-200'
                 }
             >
                 <div className={`text-xl`}>{project.name}</div>
                 <div
-                    className={`text-gray-500`}
+                    className={`text-gray-400`}
                     dangerouslySetInnerHTML={{
                         __html: project.descriptionHTML,
                     }}
@@ -43,7 +43,7 @@ export function Project({ project }: { project: Project }) {
                         </div>
                     )}
                 </div>
-                <div className={`space-x-2 text-gray-500`}>
+                <div className={`space-x-2 text-gray-400`}>
                     {project.topics.map(t => (
                         <span className={`border-solid`} key={t.toString()}>{t}</span>
                     ))}

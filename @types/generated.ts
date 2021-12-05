@@ -3198,6 +3198,8 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___cacheDigest'
   | 'pluginCreator___pluginOptions___documentPaths'
   | 'pluginCreator___pluginOptions___fileName'
+  | 'pluginCreator___pluginOptions___postCssPlugins'
+  | 'pluginCreator___pluginOptions___postCssPlugins___postcssPlugin'
   | 'pluginCreator___pluginOptions___fonts'
   | 'pluginCreator___pluginOptions___maxWidth'
   | 'pluginCreator___pluginOptions___linkImagesToOriginal'
@@ -3456,6 +3458,8 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___cacheDigest'
   | 'pluginOptions___documentPaths'
   | 'pluginOptions___fileName'
+  | 'pluginOptions___postCssPlugins'
+  | 'pluginOptions___postCssPlugins___postcssPlugin'
   | 'pluginOptions___fonts'
   | 'pluginOptions___maxWidth'
   | 'pluginOptions___linkImagesToOriginal'
@@ -3616,6 +3620,7 @@ export type SitePluginPluginOptions = {
   cacheDigest?: Maybe<Scalars['String']>;
   documentPaths?: Maybe<Array<Maybe<Scalars['String']>>>;
   fileName?: Maybe<Scalars['String']>;
+  postCssPlugins?: Maybe<Array<Maybe<SitePluginPluginOptionsPostCssPlugins>>>;
   fonts?: Maybe<Array<Maybe<Scalars['String']>>>;
   maxWidth?: Maybe<Scalars['Int']>;
   linkImagesToOriginal?: Maybe<Scalars['Boolean']>;
@@ -3664,6 +3669,7 @@ export type SitePluginPluginOptionsFilterInput = {
   cacheDigest?: Maybe<StringQueryOperatorInput>;
   documentPaths?: Maybe<StringQueryOperatorInput>;
   fileName?: Maybe<StringQueryOperatorInput>;
+  postCssPlugins?: Maybe<SitePluginPluginOptionsPostCssPluginsFilterListInput>;
   fonts?: Maybe<StringQueryOperatorInput>;
   maxWidth?: Maybe<IntQueryOperatorInput>;
   linkImagesToOriginal?: Maybe<BooleanQueryOperatorInput>;
@@ -3757,6 +3763,18 @@ export type SitePluginPluginOptionsPluginsPluginOptionsFilterInput = {
   offsetY?: Maybe<IntQueryOperatorInput>;
   className?: Maybe<StringQueryOperatorInput>;
   showLineNumbers?: Maybe<BooleanQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsPostCssPlugins = {
+  postcssPlugin?: Maybe<Scalars['String']>;
+};
+
+export type SitePluginPluginOptionsPostCssPluginsFilterInput = {
+  postcssPlugin?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsPostCssPluginsFilterListInput = {
+  elemMatch?: Maybe<SitePluginPluginOptionsPostCssPluginsFilterInput>;
 };
 
 export type SitePluginSortInput = {

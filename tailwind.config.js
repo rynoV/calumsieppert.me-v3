@@ -8,15 +8,13 @@ const contentHeight = 'calc(var(--vh, 1vh) * 100)'
 const bodyHeight = `calc(${contentHeight} - ${navHeight})`
 
 module.exports = {
-    purge: {
-        mode: 'layers',
-        content: [
-            './src/**/*.js',
-            './src/**/*.jsx',
-            './src/**/*.ts',
-            './src/**/*.tsx',
-        ],
-    },
+    mode: 'jit',
+    purge: [
+        './src/**/*.js',
+        './src/**/*.jsx',
+        './src/**/*.ts',
+        './src/**/*.tsx',
+    ],
     theme: {
         fontFamily: {
             sans: [...config.fonts, ...defaultTheme.fontFamily.sans],
@@ -64,38 +62,34 @@ module.exports = {
             minHeight: {
                 body: bodyHeight,
             },
-            opacity: {
-                '95': '0.95'
-            }
-        },
-        typography: (theme) => {
-            const color = theme('colors.gray.100')
-            return {
-                default: {
-                    css: {
-                        color,
-                        'h1,h2,h3,h4,h5,h6': {
+            typography: theme => {
+                const color = theme('colors.gray.100')
+                return {
+                    DEFAULT: {
+                        css: {
                             color,
+                            'h1,h2,h3,h4,h5,h6': {
+                                color,
+                            },
+                            'ol > li::before': {
+                                color,
+                            },
+                            'a,strong,thead,blockquote': {
+                                color,
+                            },
+                            'a code': {
+                                color,
+                            },
+                            pre: false,
+                            code: false,
+                            'pre code': false,
+                            'code::before': false,
+                            'code::after': false,
                         },
-                        'ol > li::before': {
-                            color,
-                        },
-                        'a,strong,thead,blockquote': {
-                            color,
-                        },
-                        pre: false,
-                        code: false,
-                        'pre code': false,
-                        'code::before': false,
-                        'code::after': false,
                     },
-                },
-            }
+                }
+            },
         },
-    },
-    variants: {
-        textColor: ['visited', 'hover'],
-        margin: ['responsive', 'first'],
     },
     plugins: [require('@tailwindcss/typography')],
 }

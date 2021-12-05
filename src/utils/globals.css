@@ -1,4 +1,3 @@
-/* purgecss start ignore */
 @tailwind base;
 
 html {
@@ -14,6 +13,5 @@ a:visited {
 }
 
 @tailwind components;
-/* purgecss end ignore */
 
 @tailwind utilities;
