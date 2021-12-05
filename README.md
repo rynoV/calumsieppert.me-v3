@@ -57,3 +57,5 @@ My personal website
 ## Resources
 
 -   [Gatsby files and Typescript](https://www.extensive.one/converting-gatsby-config-and-node-api-to-typescript/)
+-   [Heroicons](https://heroicons.com/)
+-   [Ikonate](https://ikonate.com/)

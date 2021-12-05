@@ -7,6 +7,7 @@ import { CabinScene } from '../components/CabinScene'
 import GithubIcon from '../../images/github.inline.svg'
 import LinkedInIcon from '../../images/linkedin.inline.svg'
 import TwitterIcon from '../../images/twitter.inline.svg'
+import DocumentIcon from '../../images/document.inline.svg'
 
 export default function IndexPage({ location, data }) {
     const {
@@ -43,6 +44,14 @@ export default function IndexPage({ location, data }) {
                     aria-label='Twitter Icon'
                 >
                     <TwitterIcon className={iconClasses} alt='Twitter Icon' />
+                </a>
+                <a
+                    className={linkClasses}
+                    href='/calum_sieppert_resume.pdf'
+                    aria-label='Resume Icon'
+                    title='My resume'
+                >
+                    <DocumentIcon className={iconClasses} alt='Resume Icon' />
                 </a>
             </div>
             <CabinScene />
