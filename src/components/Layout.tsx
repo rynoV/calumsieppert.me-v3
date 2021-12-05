@@ -40,7 +40,7 @@ export function Layout({
         <NavLink currentPath={currentPath} to='/projects' key='/projects'>
             Projects
         </NavLink>,
-        <a href='calum_sieppert_resume.pdf' className={linkClasses}>Resume</a>,
+        <a href='/calum_sieppert_resume.pdf' className={linkClasses}>Resume</a>,
         <NavLink currentPath={currentPath} to='/posts' key='/posts'>
             Posts
         </NavLink>,
