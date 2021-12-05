@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { Link, graphql, useStaticQuery } from 'gatsby'
 
 import { SEO } from './SEO'
-import '../utils/globals.css'
 import Image from 'gatsby-image'
 
 const linkClasses =
