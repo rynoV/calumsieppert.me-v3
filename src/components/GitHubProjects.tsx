@@ -56,7 +56,7 @@ function useProjects(username: string): Project[] {
             const headers = new Headers()
             headers.append(
                 'Authorization',
-                'Bearer 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'
+                `Bearer ${process.env.GATSBY_GH_API_KEY}`
             )
             headers.append('Content-Type', 'application/json')
 

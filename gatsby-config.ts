@@ -4,6 +4,10 @@ import { config } from './my-config'
 const authorGitHubUsername = `rynoV`
 // const isProd = process.env.NODE_ENV === 'production'
 
+require('dotenv').config({
+    path: `.env`,
+})
+
 const gatsbyConfig: GatsbyConfig = {
     siteMetadata: {
         title: `Calum Sieppert`,
