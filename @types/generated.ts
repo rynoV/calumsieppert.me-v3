@@ -3955,11 +3955,6 @@ export type ChronListingQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ChronListingQuery = { allMarkdownRemark: { edges: Array<{ node: { excerpt?: string | null | undefined, fields?: { slug?: string | null | undefined } | null | undefined, frontmatter?: { title?: string | null | undefined, date?: string | null | undefined } | null | undefined } }> } };
 
-export type LayoutQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type LayoutQuery = { file?: { childImageSharp?: { gatsbyImageData: any } | null | undefined } | null | undefined };
-
 export type PostDataFragment = { excerpt?: string | null | undefined, fields?: { slug?: string | null | undefined } | null | undefined, frontmatter?: { title?: string | null | undefined, date?: string | null | undefined } | null | undefined };
 
 export type SeoQueryVariables = Exact<{ [key: string]: never; }>;

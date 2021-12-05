@@ -1,9 +1,9 @@
 /** Based on https://github.com/jlengstorf/gatsby-theme-jason-blog/blob/master/src/components/SEO/SEO.js */
 import React, { useState } from 'react'
-import { Link, graphql, useStaticQuery } from 'gatsby'
+import { Link } from 'gatsby'
 
 import { SEO } from './SEO'
-import { GatsbyImage } from 'gatsby-plugin-image'
+import { StaticImage } from 'gatsby-plugin-image'
 
 const linkClasses =
     'h-full px-6 py-4 no-underline text-gray-100 visited:text-gray-100 border-primary focus:bg-gray-600 hover:bg-gray-600 duration-150 transition-colors'
@@ -17,17 +17,6 @@ export function Layout({
     postImage = null,
     isBlogPost = false,
 }) {
-    const data = useStaticQuery(
-        graphql`
-            query Layout {
-                file(relativePath: { eq: "logo.png" }) {
-                    childImageSharp {
-                        gatsbyImageData(width: 200, layout: CONSTRAINED)
-                    }
-                }
-            }
-        `
-    )
     const [menuExpanded, setMenuExpanded] = useState(false)
 
     const navLinks = [
@@ -63,10 +52,13 @@ export function Layout({
                 <div
                     className={`bg-primary flex items-center h-nav justify-between opacity-75 sticky top-0 z-10 ${xpad}`}
                 >
-                    <GatsbyImage
-                        image={data?.file?.childImageSharp?.gatsbyImageData}
-                        className='w-40'
+                    <StaticImage
+                        src='../../images/logo.png'
                         alt='Logo'
+                        layout='constrained'
+                        className='w-40'
+                        placeholder='tracedSVG'
+                        width={200}
                     />
                     {/* Mid and larger screen show nav links normally */}
                     <div className='hidden h-full md:flex items-center'>
