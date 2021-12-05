@@ -10,7 +10,7 @@ function convertOrgMDForRemark(content) {
             // ('m' flag necessary) followed by one or more spaces. The title will
             // be the h1 but it is written in the yaml frontmatter so the
             // subheadings are one level too high, and this fixes that.
-            .replace(/(^#{1,5})\s+/gm, '$1#')
+            .replace(/(^#{1,5})\s+/gm, '$1# ')
             // Looks for the date frontmatter containing the Org mode formatted
             // date (e.g. <2020-10-30 Fri>) and replaces it with just the first
             // part (2020-10-30) wrapped in double quotes

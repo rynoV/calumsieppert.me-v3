@@ -108,5 +108,10 @@ export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = ({
 }) => {
     actions.setWebpackConfig({
         devtool: 'eval-source-map',
+        resolve: {
+            alias: {
+                path: require.resolve('path-browserify'),
+            },
+        },
     })
 }

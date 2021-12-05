@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Link, graphql, useStaticQuery } from 'gatsby'
 
 import { SEO } from './SEO'
-import Image from 'gatsby-image'
+import { GatsbyImage } from 'gatsby-plugin-image'
 
 const linkClasses =
     'h-full px-6 py-4 no-underline text-gray-100 visited:text-gray-100 border-primary focus:bg-gray-600 hover:bg-gray-600 duration-150 transition-colors'
@@ -22,9 +22,7 @@ export function Layout({
             query Layout {
                 file(relativePath: { eq: "logo.png" }) {
                     childImageSharp {
-                        fluid(maxWidth: 200) {
-                            ...GatsbyImageSharpFluid
-                        }
+                        gatsbyImageData(width: 200, layout: CONSTRAINED)
                     }
                 }
             }
@@ -39,7 +37,9 @@ export function Layout({
         <NavLink currentPath={currentPath} to='/projects' key='/projects'>
             Projects
         </NavLink>,
-        <a href='/calum_sieppert_resume.pdf' className={linkClasses}>Resume</a>,
+        <a href='/calum_sieppert_resume.pdf' className={linkClasses}>
+            Resume
+        </a>,
         <NavLink currentPath={currentPath} to='/posts' key='/posts'>
             Posts
         </NavLink>,
@@ -63,9 +63,9 @@ export function Layout({
                 <div
                     className={`bg-primary flex items-center h-nav justify-between opacity-75 sticky top-0 z-10 ${xpad}`}
                 >
-                    <Image
+                    <GatsbyImage
+                        image={data?.file?.childImageSharp?.gatsbyImageData}
                         className='w-40'
-                        fluid={data?.file?.childImageSharp?.fluid}
                         alt='Logo'
                     />
                     {/* Mid and larger screen show nav links normally */}
