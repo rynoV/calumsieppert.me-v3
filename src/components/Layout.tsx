@@ -26,7 +26,7 @@ export function Layout({
         <NavLink currentPath={currentPath} to='/projects' key='/projects'>
             Projects
         </NavLink>,
-        <a href='/calum_sieppert_resume.pdf' className={linkClasses}>
+            <a href='/calum_sieppert_resume.pdf' className={linkClasses} key='resume'>
             Resume
         </a>,
         <NavLink currentPath={currentPath} to='/posts' key='/posts'>
@@ -82,8 +82,8 @@ export function Layout({
                             {navLinks.map(navLink => (
                                 <li
                                     className={`block text-sm px-2 py-4 text-white font-semibold`}
-                                    key={navLink.key}
-                                >
+                                key={navLink.key}
+                                    >
                                     {navLink}
                                 </li>
                             ))}

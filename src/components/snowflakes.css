@@ -9,12 +9,35 @@
     animation-fill-mode: both;
 }
 
+.wind {
+    animation-name: back-and-forth;
+    animation-duration: 7s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-direction: alternate;
+    animation-fill-mode: both;
+}
+
 @keyframes fall {
     from {
         transform: translateY(-6vh);
+        opacity: 0;
+    }
+
+    2% {
+        opacity: 1;
+    }
+
+    98% {
+        opacity: 1;
     }
 
     to {
-        transform: translateY(110vh);
+        transform: translateY(101vh);
+        opacity: 0;
     }
+}
+
+@keyframes back-and-forth {
+    to { transform: translateX(1%); }
 }

@@ -24,29 +24,42 @@ export function Snowflakes() {
     const min_w = 10
     const max_w = 20
     const widths = range(min_w, max_w)
-    const x_vals = range(
-        0,
-        window.innerWidth,
-        Math.floor(window.innerWidth / (max_w - min_w / 5))
+    const x_vals = range(0, window.innerWidth)
+    const min_dim = Math.min(window.innerWidth, window.innerHeight)
+    const max_dim = Math.max(window.innerWidth, window.innerHeight)
+    const num_x = x_vals.length * (min_dim / (max_dim * 10))
+    const xs = Array.from({ length: num_x }, () => getRandom(x_vals))
+    const offsets = range(
+        -window.innerHeight * (min_dim / (max_dim * 2)),
+        window.innerHeight
     )
 
     return (
         <div className='w-screen h-content inset-0 absolute -z-20 overflow-hidden'>
-            {x_vals.map((x, i) => {
+            {xs.map((x, i) => {
                 const width = getRandom(widths)
+                const offset = getRandom(offsets)
                 return (
-                    <SnowflakeSVG
+                    <div
+                        className='wind'
                         style={{
-                            left: x,
-                            width: `${width}px`,
-                            animationDuration: `${15 / (width / 45)}s`,
-                            animationDelay: `${Math.floor(
-                                Math.random() * 30
-                            )}s`,
+                            animationDelay: `${Math.floor(3 * Math.random())}s`,
+                            animationDuration: `${
+                                Math.floor(4 * Math.random()) + 9
+                            }s`,
                         }}
-                        className='snowflake falling'
-                        key={i}
-                    />
+                    >
+                        <SnowflakeSVG
+                            style={{
+                                left: x,
+                                marginTop: `${offset}px`,
+                                width: `${width}px`,
+                                animationDuration: `${30 / (width / 45)}s`,
+                            }}
+                            className='snowflake falling'
+                            key={i}
+                        />
+                    </div>
                 )
             })}
         </div>
