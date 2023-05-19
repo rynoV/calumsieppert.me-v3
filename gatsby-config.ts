@@ -63,7 +63,7 @@ const gatsbyConfig: GatsbyConfig = {
                 short_name: `calumsieppert`,
                 start_url: `/`,
                 background_color: config.bgColour,
-                theme_color: config.primaryColour,
+                theme_color: config.bgColour,
                 display: `minimal-ui`,
                 icon: `images/favicon.png`, // This path is relative to the root of the site.
             },
